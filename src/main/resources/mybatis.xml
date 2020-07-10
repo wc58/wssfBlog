@@ -13,7 +13,7 @@
         这样一来就不用写类全名，直接类名首字母小写即可
     -->
     <typeAliases>
-        <package name="com.chao.wssf.pojo"/>
+        <package name="com.chao.wssf.entity"/>
     </typeAliases>
 
 </configuration>
