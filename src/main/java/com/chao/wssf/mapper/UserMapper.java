@@ -1,7 +1,7 @@
 package com.chao.wssf.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.chao.wssf.pojo.User;
+import com.chao.wssf.entity.User;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper

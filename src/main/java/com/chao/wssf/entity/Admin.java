@@ -1,4 +1,4 @@
-package com.chao.wssf.pojo;
+package com.chao.wssf.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -7,19 +7,20 @@ import lombok.Data;
 import lombok.ToString;
 
 import java.util.Date;
+import java.io.Serializable;
 
-@Data
+@TableName("sys_admin")
 @ToString
-@TableName("sys_user")
-public class User {
+@Data
+public class Admin implements Serializable {
+    private static final long serialVersionUID = -85217260013643557L;
 
     @TableId(type = IdType.AUTO)
     private Integer id;
+    private String username;
+    private String password;
     private String name;
-    private String icon;
-    private String thirdId;
-    private String email;
-    private String banned;
+    private String del;
     private Date createTime;
     private Date updateTime;
 
