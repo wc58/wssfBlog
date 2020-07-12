@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width" />
     <meta name="author" content="林强,www.fallinlovemy.cn,930054439@qq.com" />
     <meta name="robots" content="all" />
-    <title>燕十三&#183;文章列表</title>
+    <title>燕十三&#183;NPOI导入导出Excel</title>
     <link rel="ICON" href="/logo.png">
     <link rel="SHORTCUT ICON" href="/logo.png">
     <!--[if lt IE 11]><script>window.location.href="https://www.yanshisan.cn/DisableAccess.html";</script><![endif]-->
@@ -27,11 +27,25 @@
         })();
     </script>
 
-    <meta name="keywords" content="燕十三,一个人的江湖" />
-    <meta name="description" content="一个人的江湖">
-
+    <meta name="keywords" content="NPOI导入导出Excel" />
+    <meta name="description" content="NPOI是指构建在POI 3.x版本之上的一个程序，NPOI可以在没有安装Office的情况下对Word或Excel文档进行读写操作。
+NPOI是一个开源的C#读写Excel、WORD等微软OLE2组件文档的项目。">
+    <meta property="og:type" content="article" />
+    <meta property="og:image" content="https://www.fallinlovemy.cn/image/cover/201842913738408.jpg" />
+    <meta property="og:title" content="NPOI导入导出Excel" />
+    <meta property="og:description" content="NPOI是指构建在POI 3.x版本之上的一个程序，NPOI可以在没有安装Office的情况下对Word或Excel文档进行读写操作。
+NPOI是一个开源的C#读写Excel、WORD等微软OLE2组件文档的项目。" />
+    <meta property="og:author" content="燕十三" />
+    <meta property="og:release_date" content="2018/4/24 15:05:14" />
     <link href="/css/blog?v=6aU7D_vZn5XKW4Lk492-p_uOGg5sw4vrxjY107lXg9Y1" rel="stylesheet"/>
 
+    <link href="/css/read?v=h0_DFEYh1fmUuyJgrTj_4-uVafBiPRiIVqB4d5vDtTc1" rel="stylesheet"/>
+
+
+    <script src="/js/xss.js"></script>
+    <script src="/js/plugins/highlight/highlight.pack.js"></script>
+    <link href="/js/plugins/highlight/styles/monokai-sublime.css" rel="stylesheet" />
+    <script>hljs.initHighlightingOnLoad();</script>
 
 </head>
 <body>
@@ -66,92 +80,94 @@
 
 
     <div class="container-fixed">
-        <input type="hidden" value="0" id="blogtypeid" />
-        <div class="col-content">
+        <div class="col-content" style="width:100%">
             <div class="inner">
-                <article class="article-list bloglist" id="LAY_bloglist" data-count="15" data-pagesize="10" data-pagecount="2" data-type="0"></article>
-            </div>
-        </div>
-        <div class="col-other">
-            <div class="inner">
-                <div class="other-item" id="categoryandsearch">
-                    <div class="search">
-                        <label class="search-wrap">
-                            <input type="text" id="searchtxt" placeholder="输入关键字搜索" />
-                            <span class="search-icon">
-                <i class="fa fa-search"></i>
-            </span>
-                        </label>
-                        <ul class="search-result"></ul>
-                    </div>
-                    <ul class="category mt20" id="category">
-                        <li data-index="0" class="slider"></li>
-                        <li data-index="1"><a href="/Blog/Article">全部文章</a></li>
+                <article class="article-list">
+                    <input type="hidden" value="4" id="blogtypeid" />
+                    <section class="article-item">
+                        <aside class="title" style="line-height:1.5;">
+                            <h4 class="mt05 f-fwn">
+                                NPOI导入导出Excel
+                                <button class="layui-btn layui-btn-primary layui-btn-xs" id="btn-volume" title="静音"><i class="fa fa-volume-up fa-fw"></i></button>
+                            </h4>
+                            <p class="fc-grey fs-14">
+                                <small>
+                                    作者：<a href="javascript:void(0)" target="_blank" class="fc-link">燕十三</a>
+                                </small>
+                                <small class="ml10">围观群众：<i class="readcount">416</i></small>
+                                <small class="ml10">更新于 <label>2018/4/24 15:05:14</label> </small>
+                            </p>
+                        </aside>
+                        <div class="time mt10" style="padding-bottom:0;">
+                            <span class="day">24</span>
+                            <span class="month fs-18">4<small class="fs-14">月</small></span>
+                            <span class="year fs-18">2018</span>
+                        </div>
+                        <div class="content artiledetail" style="border-bottom: 1px solid #e1e2e0; padding-bottom: 20px;">
 
-                        <li data-index="2"><a href="/Blog/Article/1/">个人日记</a></li>
-                        <li data-index="3"><a href="/Blog/Article/2/">HTML5&amp;CSS3</a></li>
-                        <li data-index="4"><a href="/Blog/Article/3/">JavaScript</a></li>
-                        <li data-index="5"><a href="/Blog/Article/4/">ASP.NET MVC</a></li>
-                        <li data-index="6"><a href="/Blog/Article/5/">其它</a></li>
-                    </ul>
-                </div>
-                <!--右边悬浮 平板或手机设备显示-->
-                <div class="category-toggle"><i class="layui-icon">&#xe603;</i></div>
-                <div class="article-category">
-                    <div class="article-category-title">分类导航</div>
-                    <a href="/Blog/Article/1/">个人日记</a>
-                    <a href="/Blog/Article/2/">HTML5&amp;CSS3</a>
-                    <a href="/Blog/Article/3/">JavaScript</a>
-                    <a href="/Blog/Article/4/">ASP.NET MVC</a>
-                    <a href="/Blog/Article/5/">其它</a>
-                    <div class="f-cb"></div>
-                </div>
-                <!--遮罩-->
-                <div class="blog-mask animated layui-hide"></div>
-                <div class="other-item">
-                    <h5 class="other-item-title">热门文章</h5>
-                    <div class="inner">
-                        <ul class="hot-list-article">
-                            <li> <a href="/Blog/Read/12">模板分享</a></li>
-                            <li> <a href="/Blog/Read/21">新增QQ音乐与网易云音乐搜索</a></li>
-                            <li> <a href="/Blog/Read/20">我的第一个C/S项目</a></li>
-                            <li> <a href="/Blog/Read/9">2018最新版QQ音乐api调用</a></li>
-                            <li> <a href="/Blog/Read/18">MUI动态加载组件</a></li>
-                            <li> <a href="/Blog/Read/13">逆水寒</a></li>
-                            <li> <a href="/Blog/Read/19">MUI上拉加载和下拉刷新出现双滚动条BUG解决办法</a></li>
-                            <li> <a href="/Blog/Read/4">序章</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="other-item">
-                    <h5 class="other-item-title">置顶推荐</h5>
-                    <div class="inner">
-                        <ul class="hot-list-article">
-                            <li> <a href="/Blog/Read/12">模板分享</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="other-item">
-                    <h5 class="other-item-title">最近访客</h5>
-                    <div class="inner">
-                        <dl class="vistor">
-                            <dd><a href="javasript:;"><img src="https://thirdqq.qlogo.cn/g?b=oidb&amp;k=c7h2D2p8ddZ0YGtVcCoudQ&amp;s=100&amp;t=1589087042"><cite>雨下一整晚</cite></a></dd>
-                            <dd><a href="javasript:;"><img src="https://thirdqq.qlogo.cn/g?b=oidb&amp;k=k0ju84485icdKkibKzAibFgxw&amp;s=100&amp;t=1497926500"><cite>Echo</cite></a></dd>
-                            <dd><a href="javasript:;"><img src="https://thirdqq.qlogo.cn/g?b=oidb&amp;k=Stzev8cIOV0T9voXP0V98g&amp;s=100&amp;t=1592353329"><cite>敲代码的帅boy</cite></a></dd>
-                            <dd><a href="javasript:;"><img src="https://thirdqq.qlogo.cn/g?b=oidb&amp;k=SQA2w3pejXhCbf0YRJ9icEw&amp;s=100&amp;t=1585984285"><cite>往事随风</cite></a></dd>
-                            <dd><a href="javasript:;"><img src="https://thirdqq.qlogo.cn/g?b=oidb&amp;k=dKRsrr08HLDuXMkYm3qc5g&amp;s=100&amp;t=1563374683"><cite>o</cite></a></dd>
-                            <dd><a href="javasript:;"><img src="https://thirdqq.qlogo.cn/g?b=oidb&amp;k=icFT9tah5EPz3ddEYKZwmRw&amp;s=100&amp;t=1571214851"><cite>艾瑞</cite></a></dd>
-                            <dd><a href="javasript:;"><img src="https://thirdqq.qlogo.cn/g?b=oidb&amp;k=JtoUUsbqInDMd47SwTVerw&amp;s=100&amp;t=1555470601"><cite>咑醬油の</cite></a></dd>
-                            <dd><a href="javasript:;"><img src="https://thirdqq.qlogo.cn/g?b=oidb&amp;k=bdT0teP6ia3qGNmoLwYEpRA&amp;s=100&amp;t=1591578068"><cite>1118</cite></a></dd>
-                            <dd><a href="javasript:;"><img src="https://thirdqq.qlogo.cn/g?b=oidb&amp;k=mKM27axzxBh8exibsUTLCoQ&amp;s=100&amp;t=1579400607"><cite>921125</cite></a></dd>
-                            <dd><a href="javasript:;"><img src="https://thirdqq.qlogo.cn/g?b=oidb&amp;k=mvyJBPWXENHo46gePfpfEA&amp;s=100&amp;t=1555558322"><cite>流年不悔</cite></a></dd>
-                            <dd><a href="javasript:;"><img src="https://thirdqq.qlogo.cn/g?b=oidb&amp;k=89BMkWhXbIKBn7QPEUbEsw&amp;s=100&amp;t=1587916783"><cite>DirtyShady</cite></a></dd>
-                            <dd><a href="javasript:;"><img src="https://thirdqq.qlogo.cn/g?b=oidb&amp;k=opjicMiclWXoVGyXdlWiaKvRg&amp;s=100&amp;t=1483337508"><cite>风移影动</cite></a></dd>
-                        </dl>
-                    </div>
-                </div>
+                            <p>最近在项目上有需求要自定义导出列，想起以前用过的NPOI做过的导入导出就拿来做了些修改然后记录一下，声明全局静态方法：</p><p>1.导入excel到DataTable</p><pre><code>        /// &lt;summary&gt;<br>        /// 将excel导入到datatable<br>        /// &lt;/summary&gt;<br>        /// &lt;param name="filePath"&gt;excel路径&lt;/param&gt;<br>        /// &lt;param name="isColumnName"&gt;第一行是否是列名&lt;/param&gt;<br>        /// &lt;returns&gt;返回datatable&lt;/returns&gt;<br>        public static DataTable ExcelToDataTable(string filePath, bool isColumnName)<br>        {<br>            DataTable dataTable = null;<br>            FileStream fs = null;<br>            DataColumn column = null;<br>            DataRow dataRow = null;<br>            IWorkbook workbook = null;<br>            ISheet sheet = null;<br>            IRow row = null;<br>            ICell cell = null;<br>            int startRow = 1;//从下标为1的行开始填充<br>            try<br>            {<br>                using (fs = File.OpenRead(filePath))<br>                {<br>                    // 2007版本<br>                    if (filePath.IndexOf(".xlsx") &gt; 0)<br>                        workbook = new XSSFWorkbook(fs);<br>                    // 2003版本<br>                    else if (filePath.IndexOf(".xls") &gt; 0)<br>                        workbook = new HSSFWorkbook(fs);<br>                    if (workbook != null)<br>                    {<br>                        sheet = workbook.GetSheetAt(0);//读取第一个sheet，也能循环读取每个sheet<br>                        dataTable = new DataTable();<br>                        if (sheet != null)<br>                        {<br>                            int rowCount = sheet.LastRowNum + 1;//+1 包括列名的行，总行数<br>                            if (rowCount &gt; 0)<br>                            {<br>                                IRow firstRow = sheet.GetRow(0);//第一行<br>                                int cellCount = firstRow.LastCellNum;//列数<br>                                //构建datatable的列<br>                                if (isColumnName)<br>                                {<br>                                    for (int i = firstRow.FirstCellNum; i &lt; cellCount; ++i)<br>                                    {<br>                                        cell = firstRow.GetCell(i);<br>                                        if (cell != null)<br>                                        {<br>                                            if (cell.StringCellValue != null)<br>                                            {<br>                                                column = new DataColumn(cell.StringCellValue);<br>                                                dataTable.Columns.Add(column);<br>                                            }<br>                                        }<br>                                    }<br>                                }<br>                                else<br>                                {<br>                                    for (int i = firstRow.FirstCellNum; i &lt; cellCount; ++i)<br>                                    {<br>                                        column = new DataColumn("column" + (i + 1));<br>                                        dataTable.Columns.Add(column);<br>                                    }<br>                                }<br>                                //填充行（要读取列名则i&lt;rowCount 否则i &lt;= rowCount）<br>                                for (int i = startRow; i &lt; rowCount; ++i) <br>                                {<br>                                    row = sheet.GetRow(i);<br>                                    if (row == null) continue;<br><br>                                    dataRow = dataTable.NewRow();<br>                                    for (int j = row.FirstCellNum; j &lt; cellCount; ++j)<br>                                    {<br>                                        cell = row.GetCell(j);<br>                                        if (cell == null)<br>                                        {<br>                                            dataRow[j] = "";<br>                                        }<br>                                        else<br>                                        {<br>                                            switch (cell.CellType)<br>                                            {<br>                                                case CellType.Blank:<br>                                                    dataRow[j] = "";<br>                                                    break;<br>                                                case CellType.Numeric:<br>                                                    short format = cell.CellStyle.DataFormat;<br>                                                    if (format == 14 || format == 31 || format == 57 || format == 58)<br>                                                        dataRow[j] = cell.DateCellValue;<br>                                                    else<br>                                                        dataRow[j] = cell.NumericCellValue;<br>                                                    break;<br>                                                case CellType.String:<br>                                                    dataRow[j] = cell.StringCellValue;<br>                                                    break;<br>                                            }<br>                                        }<br>                                    }<br>                                    dataTable.Rows.Add(dataRow);<br>                                }<br>                            }<br>                        }<br>                    }<br>                }<br>                return dataTable;<br>            }<br>            catch (Exception ex)<br>            {
+                LogRecord.LogCatch(ex, "导入excel到DataTable");//写日志<br>                if (fs != null)<br>                {<br>                    fs.Close();<br>                }<br>                return null;<br>            }<br>        }
+</code></pre><p>2.导出DataTable到Excel（自定义列）</p><pre><code>        /// &lt;summary&gt;  <br>        /// 批量导出需要导出的列表
+        /// &lt;param name="reqModel"&gt;查询条件&lt;/param&gt;
+        /// &lt;param name="excelColunms"&gt;自定义的列名&lt;/param&gt;
+        /// &lt;/summary&gt;  <br>        /// &lt;returns&gt;&lt;/returns&gt;  <br>        public FileResult UserExport(ReqQueryUsers reqModel, string excelColunms)<br>        {<br>            try<br>            {
+                //获取数据
+                var userlist = _bUser.SelectUsersExcel(reqModel);<br>                //创建Excel文件的对象  <br>                NPOI.HSSF.UserModel.HSSFWorkbook book = new NPOI.HSSF.UserModel.HSSFWorkbook();<br>                //添加一个sheet  <br>                NPOI.SS.UserModel.ISheet sheet1 = book.CreateSheet("Sheet1");<br>                NPOI.SS.UserModel.IRow row1 = sheet1.CreateRow(0);<br>                //可以设置各种样式字体颜色背景等，这里就不设置<br>                if (excelColunms != "")<br>                {<br>                    string[] colunmslist = excelColunms.Split(',');<br>                    //设置列名<br>                    for (var i = 0; i &lt; colunmslist.Count(); i++)<br>                    {<br>                        row1.CreateCell(i).SetCellValue(colunmslist[i].Trim());<br>                    }<br>                }
+                //遍历列表
+                for (int i = 0; i &lt; userlist.Count; i++)<br>                {<br>                    NPOI.SS.UserModel.IRow rowtemp = sheet1.CreateRow(i + 1);<br>                    for (var item = 0; item &lt; row1.Cells.Count(); item++)<br>                    {
+                            //填充数据，根据实际情况处理       <br>                            //rowtemp.CreateCell(item).SetCellValue(userlist[i].UserName.ToString());    <br>                    }<br>                }<br>                // 写入到客户端   <br>                System.IO.MemoryStream ms = new System.IO.MemoryStream();<br>                book.Write(ms);<br>                ms.Seek(0, SeekOrigin.Begin);<br>                DateTime dt = DateTime.Now;<br>                string dateTime = dt.ToString("yyMMddHHmmssfff");<br>                string fileName = "查询结果" + dateTime + ".xls";<br><br>                return File(ms, "application/vnd.ms-excel", fileName);<br>            }<br>            catch (Exception ex)<br>            {<br>                LogRecord.LogCatch(ex,"自定义导出excel");<br>                throw ex;<br>            }<br>        }</code></pre>
+                            <div class="copyright mt20">
+                                <p class="f-toe fc-black">
+                                    非特殊说明，本文版权归 燕十三 所有，转载请注明出处.
+                                </p>
+                                <p class="f-toe">
+                                    本文标题：
+                                    <a href="javascript:void(0)" class="r-title">燕十三</a>
+                                </p>
+                                <p class="f-toe">
+                                    本文网址：
+                                    <a href="https://www.yanshisan.cn/Blog/Read/8">https://www.yanshisan.cn/Blog/Read/8</a>
+                                </p>
+                            </div>
+                            <div id="aplayer" style="margin:5px 0"></div>
+                            <h6>延伸阅读</h6>
+                            <ol class="b-relation"></ol>
+                        </div>
+                        <div class="bdsharebuttonbox share" data-tag="share_1">
+                            <ul>
+                                <li class="f-praise"><span><a class="s-praise"></a></span></li>
+                                <li class="f-weinxi"><a class="s-weinxi" data-cmd="weixin"></a></li>
+                                <li class="f-sina"><a class="s-sina" data-cmd="tsina"></a></li>
+                                <li class="f-qq" href="https://www.yanshisan.cn/Blog/Read/8" title="NPOI导入导出Excel" desc="NPOI是指构建在POI 3.x版本之上的一个程序，NPOI可以在没有安装Office的情况下对Word或Excel文档进行读写操作。
+NPOI是一个开源的C#读写Excel、WORD等微软OLE2组件文档的项目。" cover="https://www.yanshisan.cn//image/cover/201842913738408.jpg"><i class="fa fa-qq"></i></li>
+                                <li class="f-qzone"><a class="s-qzone" data-cmd="qzone"></a></li>
+                            </ul>
+                        </div>
+                        <div class="f-cb"></div>
+                        <div class="mt20 f-fwn fs-24 fc-grey comment" style="border-top: 1px solid #e1e2e0; padding-top: 20px;">
+                        </div>
+                        <fieldset class="layui-elem-field layui-field-title">
+                            <legend>发表评论</legend>
+                            <div class="layui-field-box">
+                                <div class="leavemessage" style="text-align:initial">
+                                    <form class="layui-form blog-editor" action="">
+                                        <input type="hidden" name="articleid" id="articleid" value="8">
+                                        <div class="layui-form-item">
+                                            <textarea name="editorContent" lay-verify="content" id="remarkEditor" placeholder="请输入内容" class="layui-textarea layui-hide"></textarea>
+                                        </div>
+                                        <div class="layui-form-item">
+                                            <button class="layui-btn" lay-submit="formLeaveMessage" lay-filter="formLeaveMessage">提交留言</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </fieldset>
+                        <ul class="blog-comment" id="blog-comment" page-count="1"></ul>
+                    </section>
+                </article>
             </div>
         </div>
+
     </div>
 
 
@@ -181,9 +197,87 @@
 
 <script src="/bundles/blog?v=9nVRiS3vtrfwYv26Br5kedImco8uKcU1A7X5Ltvmyfc1"></script>
 
-<script src="/bundles/article?v=8Fm7gGLTyLjEEC69gUBqjTGpF7TGMnAo_HNtz2TPalo1"></script>
+<script src="/bundles/read?v=gP3tqgTWPgNg5vxu9L8KKyir3WfbwzEg3LRdbixQWwk1"></script>
 
 
+
+
+<script>
+    layui.use(['jquery'], function () {
+        var $ = layui.jquery;
+        var audio = new Array();
+        var musicobj = [{"ID":12,"BlogID":8,"SongName":"锦鲤抄","SingerName":"银临","Url":"28138493","Cover":"http://p1.music.126.net/Lytc68amE03j7AbmoLQPUA==/19063332602423891.jpg","MusicType":2}];
+        var playerurl;
+        const ap = new APlayer({
+            container: document.getElementById('aplayer'),
+            autoplay: false,
+            volume: 0.5
+        });
+        if (musicobj.length > 0) {
+            playerurl = sessionStorage.getItem("songmid-" + musicobj[0].Url);
+            if (playerurl == null) {
+                if (musicobj[0].MusicType == 1) {//qq
+                    var url = 'https://c.y.qq.com/base/fcgi-bin/fcg_music_express_mobile3.fcg?format=json&platform=yqq&cid=205361747&songmid=' + musicobj[0].Url + '&filename=C400' + musicobj[0].Url + '.m4a&guid=1684916857';
+                    $.ajax({
+                        url: url,
+                        type: "get",
+                        dataType: 'jsonp',
+                        success: function (data) {
+                            console.log(data.data.items[0].vkey);
+                            playerurl = 'http://ws.stream.qqmusic.qq.com/' + data.data.items[0].filename + '?fromtag=66&guid=1684916857&vkey=' + data.data.items[0].vkey;
+                            audio.push({
+                                name: musicobj[0].SongName,
+                                artist: musicobj[0].SingerName,
+                                url: playerurl,
+                                cover: musicobj[0].Cover
+                            });
+                            ap.list.clear();
+                            ap.list.add(audio);
+                            ap.play();
+                            sessionStorage.setItem("songmid-" + musicobj[0].Url, playerurl);
+                        },
+                        error: function (e) {
+                            console.log(e);
+                        }
+                    });
+                } else if (musicobj[0].MusicType == 2) {//wy
+                    playerurl = "http://music.163.com/song/media/outer/url?id=" + musicobj[0].Url + ".mp3";
+                    audio.push({
+                        name: musicobj[0].SongName,
+                        artist: musicobj[0].SingerName,
+                        url: playerurl,
+                        cover: musicobj[0].Cover
+                    });
+                    ap.list.clear();
+                    ap.list.add(audio);
+                    ap.play();
+                    sessionStorage.setItem("songmid-" + musicobj[0].Url, playerurl);
+                }
+            } else {
+                audio.push({
+                    name: musicobj[0].SongName,
+                    artist: musicobj[0].SingerName,
+                    url: playerurl,
+                    cover: musicobj[0].Cover
+                });
+                ap.list.clear();
+                ap.list.add(audio);
+                ap.play();
+            }
+        }
+        $("#btn-volume").click(function () {
+            if ($(this).attr("title") == "开启") {
+                ap.play();
+                $(this).attr("title", "静音");
+                $(this).children().attr("class", "fa fa-volume-up fa-fw");
+            } else {
+                ap.pause();
+                $(this).attr("title", "开启");
+                $(this).children().attr("class", "fa fa-volume-off fa-fw");
+            }
+        })
+    });
+</script>
 
 <script>
     window.onload = function () {
