@@ -4,6 +4,7 @@ import com.chao.wssf.entity.Article;
 import com.chao.wssf.entity.Other;
 import com.chao.wssf.service.ArticleCache;
 import com.chao.wssf.service.IArticleService;
+import com.chao.wssf.service.ILabelService;
 import com.chao.wssf.service.IOtherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,8 +22,11 @@ public class ArticleServiceImpl implements IArticleService {
     @Autowired
     private ArticleCache articleCache;
 
+    @Autowired
+    private ILabelService labelService;
+
     /**
-     * 按点击量查询
+     * 点击量排序查询
      *
      * @return
      */
@@ -34,7 +38,7 @@ public class ArticleServiceImpl implements IArticleService {
     }
 
     /**
-     * 查出哪些表是置顶状态
+     * 置顶文章
      *
      * @return
      */
@@ -45,30 +49,42 @@ public class ArticleServiceImpl implements IArticleService {
     }
 
     /**
-     * 分页查询出文章信息
+     * 分页查询出文章信息（置顶，普通，分类）
      *
      * @param currentPage
      * @param size
      * @return
      */
     @Override
-    public Map<String, Object> listArticle(Integer currentPage, Integer size) {
+    public Map<String, Object> listArticle(Integer currentPage, Integer size, Boolean isSort) {
         HashMap<String, Object> map = new HashMap<>();
 
         map.put("tops", 0);
-        //如果是第一页，查出置顶文章
-        if (currentPage.equals(1)) {
+        //若是第一页且是普通查询（非条件），查出置顶文章
+        if (currentPage.equals(1) && !isSort) {
             int topArticleTotal = articleCache.getTopArticleTotal();
-            //如果出现异常则可能一直在转圈圈！！！
+            //若出现异常则可能一直在转圈圈！！！
             if (topArticleTotal > size)
                 throw new RuntimeException("置顶文章不能大于首页最大显示数量");
             map.put("tops", topArticleTotal);
         }
 
-        //查出文章
-        map.put("data", articleCache.getTopAndArticle(currentPage, size));
-        map.put("total", articleCache.getAllArticleTotal());
+        //分页文章
+        map.put("data", articleCache.getTopAndArticle(currentPage, size, isSort));
+        //当前状态总页
+        map.put("total", articleCache.getCurrentTotal());
         return map;
     }
+
+    /**
+     * 按标签进行分类
+     *
+     * @param id
+     */
+    @Override
+    public void sortArticle(Integer id) {
+        articleCache.sortArticle(labelService.getArticleIdsByLabelId(id));
+    }
+
 
 }

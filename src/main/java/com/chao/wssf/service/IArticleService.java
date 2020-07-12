@@ -9,9 +9,10 @@ public interface IArticleService {
 
     List<Article> hotArticle();
 
-
     List<Article> topArticle();
 
-    Map<String, Object> listArticle(Integer currentPage, Integer size);
+    Map<String, Object> listArticle(Integer currentPage, Integer size,Boolean isSort);
+
+    void sortArticle(Integer id);
 
 }
