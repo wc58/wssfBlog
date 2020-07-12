@@ -158,7 +158,6 @@ public class ArticleTemplate {
         template.append(year);//真正的日期：年
         template.append(yearEnd);
         template.append(timeEnd);
-
         //副标题部分
         template.append(contentStart);
         template.append(aStart);
@@ -225,7 +224,7 @@ public class ArticleTemplate {
     /**
      * 把天或月前面的零给截取掉
      */
-    private String wipeZero(String str) {
+    public static String wipeZero(String str) {
         char[] strs = str.toCharArray();
         if (strs[0] == '0') {
             str = strs[1] + "";
