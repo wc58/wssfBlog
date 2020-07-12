@@ -157,6 +157,20 @@ public class ArticleCache implements InitializingBean {
     }
 
     /**
+     * 指定id查询文章信息
+     *
+     * @param id
+     * @return
+     */
+    public Article getArticleById(Integer id) {
+        for (Article a : topAndArticles) {
+            if (a.getId().equals(id))
+                return a;
+        }
+        return null;
+    }
+
+    /**
      * 获取置顶文章
      *
      * @return
