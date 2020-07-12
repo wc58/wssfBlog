@@ -16,17 +16,22 @@
     <meta name="renderer" content="webkit">
     <meta name="viewport" content="width=device-width"/>
     <title>首页模板</title>
-    <link href="../layui/css/layui.css" rel="stylesheet" type="text/css">
-    <link href="../font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link href="../css/index_style.css" rel="stylesheet" type="text/css">
-    <link href="../css/animate.min.css" rel="stylesheet" type="text/css">
+    <link href="${pageContext.request.contextPath}/layui/css/layui.css" rel="stylesheet" type="text/css">
+    <link href="${pageContext.request.contextPath}/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="${pageContext.request.contextPath}/css/index_style.css" rel="stylesheet" type="text/css">
+    <link href="${pageContext.request.contextPath}/css/animate.min.css" rel="stylesheet" type="text/css">
 </head>
 <style>
-/*.phone{display: none;}*/
-@media (max-width: 768px){.phone{display: none;}}
-.imgCa{
-    pointer-events: none;
-}
+    /*.phone{display: none;}*/
+    @media (max-width: 768px) {
+        .phone {
+            display: none;
+        }
+    }
+
+    .imgCa {
+        pointer-events: none;
+    }
 </style>
 <body>
 <div id="menu" class="hover_animation menu_open" data-mark="false">
@@ -37,7 +42,7 @@
 <div id="navgation" class="navgation navgation_close">
     <ul class="point">
         <li><a href="#">首页</a></li>
-        <li><a href="list">博客</a></li>
+        <li><a href="${pageContext.request.contextPath}/blog/list">博客</a></li>
         <li><a href="message.html">留言</a></li>
         <li><a href="message.html">日记</a></li>
     </ul>
@@ -49,8 +54,9 @@
             <div class="nav wow zoomIn" data-wow-duration="2s">
                 <h1>往事随风</h1>
                 <p>人生如棋，漫漫长路，爱恨情愁几时休...</p>
-                <a class="layui-btn " style="margin-top: 20px;background-color:transparent;" href="list">GO TO BLOGS&nbsp;&nbsp;<i
-                        class="layui-icon layui-icon-release"></i></a>
+                <a class="layui-btn " style="margin-top: 20px;background-color:transparent;" href="${pageContext.request.contextPath}/blog/list">GO TO
+                    BLOGS&nbsp;&nbsp;<i
+                            class="layui-icon layui-icon-release"></i></a>
             </div>
             <a class="next wow  layui-anim-rotate" data-wow-duration="2s" id="next"></a>
         </div>
@@ -78,13 +84,12 @@
                             <div class="single-news">
                                 <div class="news-head">
                                         <%--图片--%>
-
-                                        <img class="imgCa" src="${article.picture}" />
-                                    <a href="2" class="link"><i class="fa fa-link"></i></a>
+                                    <img class="imgCa" src="${article.picture}"/>
+                                    <a href="/blog/read/${article.id}" class="link"><i class="fa fa-link"></i></a>
                                 </div>
                                 <div class="news-content">
                                     <h4>
-                                        <a href="#">
+                                        <a href="/blog/read/${article.id}">
                                                 <%--标题--%>
                                                 ${article.title}
                                         </a>
@@ -97,7 +102,7 @@
                                             <%--副标题--%>
                                             ${article.assistant}
                                     </p>
-                                    <a href="${article.id}" class="btn">
+                                    <a href="/blog/read/${article.id}" class="btn">
                                         文章内容
                                     </a>
                                 </div>
@@ -105,38 +110,38 @@
                         </div>
                     </c:forEach>
 
-                        <%--三篇热门文章--%>
-                        <c:forEach items="${articles}" var="article" begin="3" end="5">
-                            <div class="phone layui-col-xs12 layui-col-sm4 layui-col-md4  wow layui-anim-scale"
-                                 style="padding: 0 10px">
-                                <div class="single-news">
-                                    <div class="news-head">
-                                            <%--图片--%>
-                                            <img src="${article.picture}"/>
-                                        <a href="2" class="link"><i class="fa fa-link"></i></a>
-                                    </div>
-                                    <div class="news-content">
-                                        <h4>
-                                            <a href="#">
-                                                    <%--标题--%>
-                                                    ${article.title}
-                                            </a>
-                                        </h4>
-                                        <div class="date">
-                                                <%--日期--%>
-                                            <f:formatDate value="${article.updateTime}" pattern="yyyy年MM月dd日"/>
-                                        </div>
-                                        <p>
-                                                <%--副标题--%>
-                                                ${article.assistant}
-                                        </p>
-                                        <a href="${article.id}" class="btn">
-                                            文章内容
+                    <%--三篇热门文章--%>
+                    <c:forEach items="${articles}" var="article" begin="3" end="5">
+                        <div class="phone layui-col-xs12 layui-col-sm4 layui-col-md4  wow layui-anim-scale"
+                             style="padding: 0 10px">
+                            <div class="single-news">
+                                <div class="news-head">
+                                        <%--图片--%>
+                                    <img src="${article.picture}"/>
+                                    <a href="${pageContext.request.contextPath}/blog/read/${article.id}" class="link"><i class="fa fa-link"></i></a>
+                                </div>
+                                <div class="news-content">
+                                    <h4>
+                                        <a href="${pageContext.request.contextPath}/blog/read/${article.id}">
+                                                <%--标题--%>
+                                                ${article.title}
                                         </a>
+                                    </h4>
+                                    <div class="date">
+                                            <%--日期--%>
+                                        <f:formatDate value="${article.updateTime}" pattern="yyyy年MM月dd日"/>
                                     </div>
+                                    <p>
+                                            <%--副标题--%>
+                                            ${article.assistant}
+                                    </p>
+                                    <a href="${pageContext.request.contextPath}/blog/read/${article.id}" class="btn">
+                                        文章内容
+                                    </a>
                                 </div>
                             </div>
-                        </c:forEach>
+                        </div>
+                    </c:forEach>
                 </div>
             </div>
         </div>
@@ -151,7 +156,7 @@
                         <div class="links">
                             <ul>
                                 <li class="wow fadeInLeft"><a href="#">关于</a></li>
-                                <li class="wow fadeInRight"><a href="#">+友情链接</a></li>
+                                <li class="wow fadeInRight"><a href="#">友情链接</a></li>
                             </ul>
                         </div>
                     </div>
@@ -227,8 +232,8 @@
         </div>
     </div>
 </footer>
-<script src="../layui/layui.js"></script>
-<script src="../js/wow.min.js"></script>
-<script src="../js/index.js"></script>
+<script src="${pageContext.request.contextPath}/layui/layui.js"></script>
+<script src="${pageContext.request.contextPath}/js/wow.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/index.js"></script>
 </body>
 </html>

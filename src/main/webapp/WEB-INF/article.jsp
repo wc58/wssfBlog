@@ -18,12 +18,12 @@
     <meta name="author" content="www.yanshisan.cn"/>
     <meta name="robots" content="all"/>
     <title>文章</title>
-    <link rel="stylesheet" href="../font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="../layui/css/layui.css"/>
-    <link rel="stylesheet" href="../css/master.css"/>
-    <link rel="stylesheet" href="../css/gloable.css"/>
-    <link rel="stylesheet" href="../css/nprogress.css"/>
-    <link rel="stylesheet" href="../css/blog.css"/>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/layui/css/layui.css"/>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/master.css"/>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/gloable.css"/>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/gloable.css"/>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/blog.css"/>
 </head>
 <body>
 <div class="header">
@@ -140,11 +140,11 @@
         </div>
     </div>
 </footer>
-<script src="../layui/layui.js"></script>
-<script src="../js/yss/gloable.js"></script>
-<script src="../js/plugins/nprogress.js"></script>
+<script src="${pageContext.request.contextPath}/layui/layui.js"></script>
+<script src="${pageContext.request.contextPath}/js/yss/gloable.js"></script>
+<script src="${pageContext.request.contextPath}/js/plugins/nprogress.js"></script>
 <script>NProgress.start();</script>
-<script src="../js/yss/article.js"></script>
+<script src="${pageContext.request.contextPath}/js/yss/article.js"></script>
 <script>
     layui.use('element', function () {
         var element = layui.element;
@@ -160,12 +160,15 @@
             done: function (page, next) {
                 $.ajax({
                     type: 'post',
-                    url: '/article?page=' + page,
+                    url: '${pageContext.request.contextPath}/blog/article?page=' + page,
                     success: function (data) {
                         next(data.articles, page < data.pageTotal);
                     },
-                    error: function (data) {
-                        layer.msg('服务器出现了错误，请联系管理员，谢谢。<br/>QQ：2258354832<br/>email：2258354832@qq.com', {icon: 2,time:4000},function(index){
+                    error: function () {
+                        layer.msg('服务器出现了错误，请联系管理员，谢谢。<br/>QQ：2258354832<br/>email：2258354832@qq.com', {
+                            icon: 2,
+                            time: 4000
+                        }, function (index) {
                             location.href = "${pageContext.request.contextPath}/index.html"
                             layer.close(index);
                         });

@@ -1,25 +1,26 @@
 package com.chao.wssf.web.controller;
 
 import com.chao.wssf.entity.Article;
+import com.chao.wssf.entity.Comment;
 import com.chao.wssf.entity.Label;
 import com.chao.wssf.entity.Other;
-import com.chao.wssf.service.ArticleCache;
-import com.chao.wssf.service.IArticleService;
-import com.chao.wssf.service.ILabelService;
-import com.chao.wssf.service.IOtherService;
+import com.chao.wssf.service.*;
 import com.chao.wssf.util.ArticleTemplate;
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
 @Controller
+@RequestMapping("blog")
 public class ArticleController {
 
     @Autowired
@@ -34,28 +35,36 @@ public class ArticleController {
     @Autowired
     private ArticleCache articleCache;
 
+    @Autowired
+    private ICommentService commentService;
+
     @RequestMapping("update")
     public void update() {
         articleCache.updateData();
     }
 
     /**
-     * 首页
+     * 查询出文章的详细信息
      *
+     * @param id
      * @param model
      * @return
      */
-    @RequestMapping({"/", "index"})
-    public String indexPage(Model model) {
-        //首页热门文章
-        List<Article> articles = articleService.hotArticle();
+    @RequestMapping("read/{id}")
+    public String readPage(@PathVariable Integer id, Model model) {
+        Article article = articleCache.getArticleById(id);
+        Other other = otherService.getOtherByArticleId(id);
+        List<Comment> comments = commentService.getCommentsByArticleId(id);
 
-        model.addAttribute("articles", articles);
-        return "index";
+        model.addAttribute("article", article);
+        model.addAttribute("other", other);
+        model.addAttribute("comments", comments);
+
+        return "read";
     }
 
     /**
-     * 文章列表
+     * 文章列表的其他信息
      *
      * @param model
      * @return
@@ -82,7 +91,7 @@ public class ArticleController {
      */
     @RequestMapping("article")
     @ResponseBody
-    public Map<String, Object> articles(Integer page) {
+    public Map<String, Object> articleJson(Integer page) {
         //每次查询5条（文章的主要信息）
         Map<String, Object> articleMap = articleService.listArticle(page, 5);
         HashMap<String, Object> map = new HashMap<>();
@@ -114,7 +123,8 @@ public class ArticleController {
             articleTemplate.setFlow(other.getFlow());
             articleTemplate.setLabels(labels);
             articleTemplate.setLately(article.getUpdateTime());
-            articleTemplate.setLink("http://www.lzqcode.com/Blog/Java/6.html");
+            //设置链接地址
+            articleTemplate.setLink("/blog/read/" + article.getId());
             articleTemplate.setPicture(article.getPicture());
             articleTemplate.setTitle(article.getTitle());
             //topArticleIds表示置顶文章的数量
