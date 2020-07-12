@@ -5,6 +5,11 @@
 		  http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
          version="3.0">
 
+    <error-page>
+        <error-code>404</error-code>
+        <location>/404.html</location>
+    </error-page>
+
     <!--加载spring容器-->
     <context-param>
         <param-name>contextConfigLocation</param-name>
