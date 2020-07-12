@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Service
 public class LabelServiceImpl implements ILabelService {
@@ -30,7 +29,7 @@ public class LabelServiceImpl implements ILabelService {
      * @return
      */
     @Override
-    public List<Label> allLabel() {
+    public List<Label> getAllLabel() {
         QueryWrapper<Label> labelQueryWrapper = new QueryWrapper<>();
         labelQueryWrapper.eq("del", 0).orderByAsc("sort");
         return labelMapper.selectList(labelQueryWrapper);
@@ -43,7 +42,7 @@ public class LabelServiceImpl implements ILabelService {
      * @return
      */
     @Override
-    public List<String> getLabelsByArticleId(Integer id) {
+    public List<String> getLabelNamesByArticleId(Integer id) {
         //首先查询出文章id所对的标签id有哪些
         QueryWrapper<ArticleLabel> articleLabelQueryWrapper = new QueryWrapper<>();
         articleLabelQueryWrapper.select("label_id").eq("article_id", id);
@@ -57,5 +56,18 @@ public class LabelServiceImpl implements ILabelService {
             return labelNames;
         }
         return new ArrayList<>();
+    }
+
+    /**
+     * 根据分类id查询出对应的文章
+     *
+     * @param id
+     * @return
+     */
+    @Override
+    public List<Integer> getArticleIdsByLabelId(Integer id) {
+        QueryWrapper<ArticleLabel> articleLabelQueryWrapper = new QueryWrapper<>();
+        articleLabelQueryWrapper.select("article_id").eq("label_id", id);
+        return articleLabelMapper.selectList(articleLabelQueryWrapper).stream().map(ArticleLabel::getArticleId).collect(Collectors.toList());
     }
 }

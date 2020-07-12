@@ -6,8 +6,10 @@ import java.util.List;
 
 public interface ILabelService {
 
-    List<Label> allLabel();
+    List<Label> getAllLabel();
 
-    List<String> getLabelsByArticleId(Integer id);
+    List<String> getLabelNamesByArticleId(Integer id);
+
+    List<Integer> getArticleIdsByLabelId(Integer id);
 
 }
