@@ -57,39 +57,50 @@
                     <input type="hidden" value="@Model.BlogTypeID" id="blogtypeid"/>
                     <section class="article-item">
                         <aside class="title" style="line-height:1.5;">
-                            <h4>使用码云和VS托管本地代码</h4>
+                            <h4>${article.title}</h4>
                             <p class="fc-grey fs-14">
                                 <small>
-                                    作者：<a href="javascript:void(0)" target="_blank" class="fc-link">燕十三</a>
+                                    作者：<a href="javascript:void(0)" target="_blank"
+                                          class="fc-link">${article.author}</a>
                                 </small>
-                                <small class="ml10">围观群众：<i class="readcount">37</i></small>
-                                <small class="ml10">更新于 <label>2018-05-22:17:30:24</label> </small>
+                                <small class="ml10">点击量：<i class="readcount">${other.flow}</i></small>
+                                <small class="ml10">更新于 <label><f:formatDate value="${article.updateTime}"
+                                                                             pattern="yyyy-MM-dd hh:mm:ss"/></label>
+                                </small>
                             </p>
                         </aside>
                         <div class="time mt10" style="padding-bottom:0;">
-                            <span class="day">22</span>
-                            <span class="month fs-18">5<small class="fs-14">月</small></span>
-                            <span class="year fs-18">2018</span>
+                            <span class="day">${day}</span>
+                            <span class="month fs-18">${month}<small
+                                    class="fs-14">月</small></span>
+                            <span class="year fs-18"><f:formatDate value="${article.updateTime}" pattern="yyyy"/></span>
                         </div>
                         <div class="content artiledetail"
                              style="border-bottom: 1px solid #e1e2e0; padding-bottom: 20px;">
-                            内容自定义
+                            ${article.content}
                             <div class="copyright mt20">
                                 <p class="f-toe fc-black">
-                                    非特殊说明，本文版权归 燕十三 所有，转载请注明出处.
+                                    非特殊说明，本文版权归 <a href="javascript:void(0)" target="_blank"
+                                                   class="fc-link">${article.author}</a> 所有，转载请注明出处.
                                 </p>
                                 <p class="f-toe">
                                     本文标题：
-                                    <a href="javascript:void(0)" class="r-title">使用码云和VS托管本地代码</a>
+                                    <a href="javascript:void(0)" class="r-title">${article.title}</a>
                                 </p>
                                 <p class="f-toe">
                                     本文网址：
-                                    <a href="#">https://www.yanshisan.cn/Blog/Read/7</a>
+                                    <a href="#">http://127.0.0.1:8080/blog/read/${article.id}</a>
                                 </p>
                             </div>
                             <div id="aplayer" style="margin:5px 0"></div>
                             <h6>延伸阅读</h6>
-                            <ol class="b-relation"></ol>
+                            <ol class="b-relation">
+                                <c:forEach items="${randomArticles}" var="randomArticle">
+                                    <li class="f-toe">
+                                        <a href="/blog/read/${randomArticle.id}">${randomArticle.title}</a>
+                                    </li>
+                                </c:forEach>
+                            </ol>
                         </div>
                         <div class="bdsharebuttonbox share" data-tag="share_1">
                             <ul>
@@ -109,7 +120,7 @@
                             <div class="layui-field-box">
                                 <div class="leavemessage" style="text-align:initial">
                                     <form class="layui-form blog-editor" action="">
-                                        <input type="hidden" name="articleid" id="articleid" value="@Model.ID">
+                                        <input type="hidden" name="articleid" id="articleid" value="12">
                                         <div class="layui-form-item">
                                             <textarea name="editorContent" lay-verify="content" id="remarkEditor"
                                                       placeholder="请输入内容" class="layui-textarea layui-hide"></textarea>
