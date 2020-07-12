@@ -1,3 +1,13 @@
+<%--
+  Created by IntelliJ IDEA.
+  User: ChaoSir
+  Date: 2020/7/10
+  Time: 10:13
+  To change this template use File | Settings | File Templates.
+--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="f" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="zh-Hans-CN">
 <head>
@@ -11,6 +21,13 @@
     <link href="../css/index_style.css" rel="stylesheet" type="text/css">
     <link href="../css/animate.min.css" rel="stylesheet" type="text/css">
 </head>
+<style>
+/*.phone{display: none;}*/
+@media (max-width: 768px){.phone{display: none;}}
+.imgCa{
+    pointer-events: none;
+}
+</style>
 <body>
 <div id="menu" class="hover_animation menu_open" data-mark="false">
     <span></span>
@@ -20,7 +37,7 @@
 <div id="navgation" class="navgation navgation_close">
     <ul class="point">
         <li><a href="#">首页</a></li>
-        <li><a href="article.html">博客</a></li>
+        <li><a href="list">博客</a></li>
         <li><a href="message.html">留言</a></li>
         <li><a href="message.html">日记</a></li>
     </ul>
@@ -32,7 +49,7 @@
             <div class="nav wow zoomIn" data-wow-duration="2s">
                 <h1>往事随风</h1>
                 <p>人生如棋，漫漫长路，爱恨情愁几时休...</p>
-                <a class="layui-btn " style="margin-top: 20px;background-color:transparent;" href="#">GO TO BLOGS&nbsp;&nbsp;<i
+                <a class="layui-btn " style="margin-top: 20px;background-color:transparent;" href="list">GO TO BLOGS&nbsp;&nbsp;<i
                         class="layui-icon layui-icon-release"></i></a>
             </div>
             <a class="next wow  layui-anim-rotate" data-wow-duration="2s" id="next"></a>
@@ -44,89 +61,82 @@
         <div class="page2">
             <div class="warp-box">
                 <div class="new-article">
-                    <div class="inner wow fadeInDown" data-wow-delay=".2s">
+                    <div class="inner wow fadeInDown" data-wow-delay=".3s">
                         <h1>热门文章</h1>
                         <p>
-                           世界上没有绝望的处境
+                            世界上没有绝望的处境
                             <br>只有对处境绝望的人
                         </p>
                     </div>
                 </div>
                 <div class="layui-row">
-                    <div class="layui-col-xs12 layui-col-sm4 layui-col-md4  wow layui-anim-up" style="padding: 0 10px">
-                        <div class="single-news">
-                            <div class="news-head">
-                                <img src="../image/1.jpg">
-                                <a href="#" class="link"><i class="fa fa-link"></i></a>
-                            </div>
-                            <div class="news-content">
-                                <h4>
-                                    <a href="#">
-                                        标题
-                                    </a>
-                                </h4>
-                                <div class="date">
-                                    2017年2月16日
+
+                    <%--三篇热门文章--%>
+                    <c:forEach items="${articles}" var="article" begin="0" end="2">
+                        <div class="layui-col-xs12 layui-col-sm4 layui-col-md4  wow layui-anim-scale"
+                             style="padding: 0 10px">
+                            <div class="single-news">
+                                <div class="news-head">
+                                        <%--图片--%>
+
+                                        <img class="imgCa" src="${article.picture}" />
+                                    <a href="2" class="link"><i class="fa fa-link"></i></a>
                                 </div>
-                                <p>
-                                    很想给你写封信,告诉你这里的天气. 昨夜的那场电影,还有我的心情.
-                                </p>
-                                <a href="#" class="btn">
-                                    阅读更多
-                                </a>
+                                <div class="news-content">
+                                    <h4>
+                                        <a href="#">
+                                                <%--标题--%>
+                                                ${article.title}
+                                        </a>
+                                    </h4>
+                                    <div class="date">
+                                            <%--日期--%>
+                                        <f:formatDate value="${article.updateTime}" pattern="yyyy年MM月dd日"/>
+                                    </div>
+                                    <p>
+                                            <%--副标题--%>
+                                            ${article.assistant}
+                                    </p>
+                                    <a href="${article.id}" class="btn">
+                                        文章内容
+                                    </a>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="layui-col-xs12 layui-col-sm4 layui-col-md4  wow layui-anim-up" data-wow-delay=".2s"
-                         style="padding: 0 10px">
-                        <div class="single-news">
-                            <div class="news-head">
-                                <img src="../image/1.jpg">
-                                <a href="#" class="link"><i class="fa fa-link"></i></a>
-                            </div>
-                            <div class="news-content">
-                                <h4>
-                                    <a href="#">
-                                        标题
-                                    </a>
-                                </h4>
-                                <div class="date">
-                                    2017年2月16日
+                    </c:forEach>
+
+                        <%--三篇热门文章--%>
+                        <c:forEach items="${articles}" var="article" begin="3" end="5">
+                            <div class="phone layui-col-xs12 layui-col-sm4 layui-col-md4  wow layui-anim-scale"
+                                 style="padding: 0 10px">
+                                <div class="single-news">
+                                    <div class="news-head">
+                                            <%--图片--%>
+                                            <img src="${article.picture}"/>
+                                        <a href="2" class="link"><i class="fa fa-link"></i></a>
+                                    </div>
+                                    <div class="news-content">
+                                        <h4>
+                                            <a href="#">
+                                                    <%--标题--%>
+                                                    ${article.title}
+                                            </a>
+                                        </h4>
+                                        <div class="date">
+                                                <%--日期--%>
+                                            <f:formatDate value="${article.updateTime}" pattern="yyyy年MM月dd日"/>
+                                        </div>
+                                        <p>
+                                                <%--副标题--%>
+                                                ${article.assistant}
+                                        </p>
+                                        <a href="${article.id}" class="btn">
+                                            文章内容
+                                        </a>
+                                    </div>
                                 </div>
-                                <p>
-                                    很想给你写封信,告诉你这里的天气. 昨夜的那场电影,还有我的心情.
-                                </p>
-                                <a href="#" class="btn">
-                                    阅读更多
-                                </a>
                             </div>
-                        </div>
-                    </div>
-                    <div class="layui-col-xs12 layui-col-sm4 layui-col-md4  wow layui-anim-up" data-wow-delay=".4s"
-                         style="padding: 0 10px">
-                        <div class="single-news">
-                            <div class="news-head">
-                                <img src="../image/1.jpg">
-                                <a href="#" class="link"><i class="fa fa-link"></i></a>
-                            </div>
-                            <div class="news-content">
-                                <h4>
-                                    <a href="#">
-                                        标题
-                                    </a>
-                                </h4>
-                                <div class="date">
-                                    2017年2月16日
-                                </div>
-                                <p>
-                                    很想给你写封信,告诉你这里的天气. 昨夜的那场电影,还有我的心情.
-                                </p>
-                                <a href="#" class="btn">
-                                    阅读更多
-                                </a>
-                            </div>
-                        </div>
-                    </div>
+                        </c:forEach>
                 </div>
             </div>
         </div>
@@ -176,7 +186,7 @@
                             <h2>往事随风</h2>
                         </div>
                         <p>往事已过去，追忆也成空。</p>
-                        <p>  因缘来缘聚，何必太在意？</p>
+                        <p> 因缘来缘聚，何必太在意？</p>
                         <!-- <div class="button">
                              <a href="#" class="btn layui-btn layui-btn-normal">About Me</a>
                          </div>-->
@@ -199,7 +209,7 @@
                         <h2>联系我</h2>
                         <ul class="list">
                             <li><i class="fa fa-map"></i>地址: 河南省林州市</li>
-                            <li><i class="fa fa-qq"></i>QQ: 2258354832</li>
+                            <li><i class="fa fa-qq"></i>Q Q: 2258354832</li>
                             <li><i class="fa fa-envelope"></i>邮箱: 2258354832@qq.com</li>
                         </ul>
                     </div>

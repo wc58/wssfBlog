@@ -2,7 +2,7 @@
     var $ = layui.jquery,
         util = layui.util;
     $(window).load(function () {
-        $("#loading").fadeOut(500);
+        $("#loading").fadeOut(700);
         new WOW().init();
     })
     util.fixbar();;

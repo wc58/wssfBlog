@@ -17,6 +17,8 @@ article.Init = function ($) {
     $('.article-category').click(function () {
         categoryOut();
     });
+
+
     //遮罩点击事件
     $('.blog-mask').click(function () {
         categoryOut();
@@ -50,6 +52,14 @@ article.Init = function ($) {
         $('.blog-mask').removeClass('maskIn').addClass('maskOut').removeClass('layui-show');
         $('.article-category').removeClass('categoryIn').addClass('categoryOut');
     }
+
+
+
+
+
+
+
+
     function blogtype() {
         $('#category li').hover(function () {
             $(this).addClass('current');
