@@ -70,7 +70,7 @@ public class ArticleServiceImpl implements IArticleService {
         }
 
         //分页文章
-        map.put("data", articleCache.getTopAndArticle(currentPage, size, isSort));
+        map.put("data", articleCache.getAllOrSortArticle(currentPage, size, isSort));
         //当前状态总页
         map.put("total", articleCache.getCurrentTotal());
         return map;
