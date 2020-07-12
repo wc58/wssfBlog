@@ -34,8 +34,8 @@
             <a href="/" class="header-logo" id="logo">Mr.Yss</a>
             <nav class="nav" id="nav">
                 <ul>
-                    <li><a href="index">首页</a></li>
-                    <li><a href="list">博客</a></li>
+                    <li><a href="/index">首页</a></li>
+                    <li><a href="/blog/list">博客</a></li>
                     <li><a href="message">留言</a></li>
                     <li><a href="link.html">友链</a></li>
                 </ul>
@@ -74,10 +74,10 @@
                     </div>
                     <ul class="category mt20" id="category">
                         <li data-index="0" class="slider"></li>
-                        <li data-index="1"><a href="#">全部文章</a></li>
+                        <li data-index="1"><a href="/blog/list">全部文章</a></li>
                         <%--标签--%>
                         <c:forEach items="${labels}" var="label" varStatus="i">
-                            <li data-index="${i.count+1}"><a href="${label.id}">${label.name}&nbsp;&nbsp;&nbsp;&nbsp;<i
+                            <li data-index="${i.count+1}"><a href="/blog/list?sortId=${label.id}">${label.name}&nbsp;&nbsp;&nbsp;&nbsp;<i
                                     style="color:ForestGreen">(${label.size})</i></a></li>
                         </c:forEach>
                     </ul>
@@ -88,8 +88,9 @@
                 <div class="article-category">
                     <%--标签--%>
                     <div class="article-category-title">标签导航</div>
+                    <a href="/blog/list">全部文章</a>
                     <c:forEach items="${labels}" var="label">
-                        <a href="${label.id}">${label.name}&nbsp;&nbsp;&nbsp;&nbsp;<i>(${label.size})</i></a>
+                        <a href="/blog/list?sortId=${label.id}">${label.name}&nbsp;&nbsp;&nbsp;&nbsp;<i>(${label.size})</i></a>
                     </c:forEach>
                 </div>
 
@@ -101,7 +102,7 @@
                         <ul class="hot-list-article">
                             <%--热门文章--%>
                             <c:forEach items="${hotArticles}" var="hotArticle" begin="0" end="7">
-                                <li><a href="${hotArticle.id}">${hotArticle.title}</a></li>
+                                <li><a href="/blog/read/${hotArticle.id}">${hotArticle.title}</a></li>
                             </c:forEach>
                         </ul>
                     </div>
@@ -112,7 +113,7 @@
                         <ul class="hot-list-article">
                             <%--置顶文章--%>
                             <c:forEach items="${topArticles}" var="topArticle">
-                                <li><a href="${topArticle.id}">${topArticle.title}</a></li>
+                                <li><a href="/blog/read/${topArticle.id}">${topArticle.title}</a></li>
                             </c:forEach>
                         </ul>
                     </div>
@@ -160,7 +161,7 @@
             done: function (page, next) {
                 $.ajax({
                     type: 'post',
-                    url: '${pageContext.request.contextPath}/blog/article?page=' + page,
+                    url: 'article?page=' + page,
                     success: function (data) {
                         next(data.articles, page < data.pageTotal);
                     },
