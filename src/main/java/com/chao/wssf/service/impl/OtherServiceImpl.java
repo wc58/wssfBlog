@@ -1,7 +1,6 @@
 package com.chao.wssf.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.chao.wssf.entity.Other;
 import com.chao.wssf.mapper.OtherMapper;
 import com.chao.wssf.service.IOtherService;
@@ -40,6 +39,20 @@ public class OtherServiceImpl implements IOtherService {
         QueryWrapper<Other> otherQueryWrapper = new QueryWrapper<>();
         otherQueryWrapper.eq("article_id", id);
         return otherMapper.selectOne(otherQueryWrapper);
+    }
+
+    /**
+     * 访问量加一
+     *
+     * @param id
+     */
+    @Override
+    public void flowAdd(Integer id) {
+        QueryWrapper<Other> otherQueryWrapper = new QueryWrapper<>();
+        otherQueryWrapper.select("id", "flow").eq("article_id", id);
+        Other other = otherMapper.selectOne(otherQueryWrapper);
+        other.setFlow(other.getFlow() + 1);
+        otherMapper.updateById(other);
     }
 
 

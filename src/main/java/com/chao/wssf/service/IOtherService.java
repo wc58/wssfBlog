@@ -11,4 +11,6 @@ public interface IOtherService {
 
     Other getOtherByArticleId(Integer id);
 
+    void flowAdd(Integer id);
+
 }
