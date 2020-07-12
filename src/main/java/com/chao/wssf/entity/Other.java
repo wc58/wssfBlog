@@ -20,7 +20,7 @@ public class Other implements Serializable {
     private Integer articleId;
     private Integer flow;
     private Integer commentSize;
-    private Integer like;
+    private Integer love;
 
     /*
     冗余字段，目前没什么用，主要减少后期新增功能对代码和表的影响
