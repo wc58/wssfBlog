@@ -160,13 +160,15 @@ public class ArticleTemplate {
         template.append(timeEnd);
         //副标题部分
         template.append(contentStart);
-        template.append(aStart);
-        template.append(link);//文章内容链接
-        template.append(aCentre);
-        template.append(imgStart);
-        template.append(picture);//图片
-        template.append(imgEnd);
-        template.append(aEnd);
+        if (picture != null && !picture.equals("")) {
+            template.append(aStart);
+            template.append(link);//文章内容链接
+            template.append(aCentre);
+            template.append(imgStart);
+            template.append(picture);//图片
+            template.append(imgEnd);
+            template.append(aEnd);
+        }
         template.append(assistant);//副标题
         template.append(contentEnd);
 

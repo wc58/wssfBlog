@@ -28,7 +28,6 @@
             display: none;
         }
     }
-
     .imgCa {
         pointer-events: none;
     }

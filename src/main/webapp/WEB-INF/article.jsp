@@ -24,6 +24,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/gloable.css"/>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/gloable.css"/>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/blog.css"/>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css"/>
 </head>
 <body>
 <div class="header">
@@ -40,20 +41,30 @@
                     <li><a href="link.html">友链</a></li>
                 </ul>
             </nav>
-            <a href="/User/QQLogin" class="blog-user">
+            <a href="/User/QQLogin" class="blog-user layui-anim-scale">
                 <i class="fa fa-qq"></i>
             </a>
-            <a class="phone-menu">
-                <i></i>
-                <i></i>
+
+            <a class="phone-menu ">
+                <i ></i>
+                <i class="layui-anim-rotate"></i>
                 <i></i>
             </a>
+
         </div>
     </div>
 </header>
 <div class="doc-container" id="doc-container">
     <div class="container-fixed">
         <div class="col-content">
+
+            <span class="searchphone d5 article-list">
+                 <br class="searchphone"/>
+                <form >
+                    <input id="searchtxtphone"  onkeydown="return disableTextSubmit(event)" value="${condition != null&& !condition.equals("")?condition:''}" type="text" placeholder="搜索从这里开始...">
+                    <button id="searchbtnphone" class="layui-anim-rotate" type="button"></button>
+                </form>
+            </span>
             <div class="inner">
                 <article class="article-list bloglist" id="LAY_bloglist">
                     <%--文章位置--%>
@@ -156,7 +167,19 @@
             var condition = $("#searchtxt").val();
             location.href = "/blog/list?condition=" + condition
         })
+
+        $("#searchbtnphone").click(function () {
+            // alert("aaa");
+            var conditionphone = $("#searchtxtphone").val();
+            location.href = "/blog/list?condition=" + conditionphone
+        })
     });
+
+    function disableTextSubmit(e) {
+        if (e.keyCode == 13) {
+            return false;
+        }
+    }
 
     /*加载文章*/
     layui.use('flow', function () {
