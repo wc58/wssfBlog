@@ -65,9 +65,11 @@
                 <div class="other-item" id="categoryandsearch">
                     <div class="search">
                         <label class="search-wrap">
-                            <input type="text" id="searchtxt" placeholder="输入关键字搜索"/>
+                            <input type="text" id="searchtxt"
+                                   value="${condition != null&& !condition.equals("")?condition:''}"
+                                   placeholder="输入关键字搜索"/>
                             <span class="search-icon">
-					                <i class="fa fa-search"></i>
+					                <i id="searchbtn" class="fa fa-search"></i>
 					            </span>
                         </label>
                         <ul class="search-result"></ul>
@@ -149,9 +151,14 @@
 <script>
     layui.use('element', function () {
         var element = layui.element;
-
+        var $ = layui.$
+        $("#searchbtn").click(function () {
+            var condition = $("#searchtxt").val();
+            location.href = "/blog/list?condition=" + condition
+        })
     });
 
+    /*加载文章*/
     layui.use('flow', function () {
         var $ = layui.jquery;
         var flow = layui.flow;
@@ -179,6 +186,7 @@
             }
         });
     });
+
 
     window.onload = function () {
         NProgress.done();

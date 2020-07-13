@@ -11,8 +11,9 @@ public interface IArticleService {
 
     List<Article> topArticle();
 
-    Map<String, Object> listArticle(Integer currentPage, Integer size,Boolean isSort);
+    Map<String, Object> listArticle(Integer currentPage, Integer size, Boolean isSort, Boolean isCondition);
 
     void sortArticle(Integer id);
 
+    void conditionArticle(String condition);
 }

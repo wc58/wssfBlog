@@ -6,7 +6,6 @@ import com.chao.wssf.entity.Label;
 import com.chao.wssf.entity.Other;
 import com.chao.wssf.service.*;
 import com.chao.wssf.util.ArticleTemplate;
-import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,7 +13,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpServletRequest;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -43,6 +43,9 @@ public class ArticleController {
         articleCache.updateData();
     }
 
+    private Boolean isSort = false;
+    private Boolean isCondition = false;
+
     /**
      * 查询出文章的详细信息
      *
@@ -52,11 +55,28 @@ public class ArticleController {
      */
     @RequestMapping("read/{id}")
     public String readPage(@PathVariable Integer id, Model model) {
+
+        //点击量增加一
+        otherService.flowAdd(id);
+
         Article article = articleCache.getArticleById(id);
+        List<Article> randomArticles = articleCache.getRandomArticles(id);
         Other other = otherService.getOtherByArticleId(id);
         List<Comment> comments = commentService.getCommentsByArticleId(id);
 
+        //处理日期
+        Date lately = article.getUpdateTime();
+        SimpleDateFormat dayFormat = new SimpleDateFormat("dd");
+        String day = dayFormat.format(lately);
+        day = ArticleTemplate.wipeZero(day);//截取零
+        SimpleDateFormat monthFormat = new SimpleDateFormat("MM");
+        String month = monthFormat.format(lately);
+        month = ArticleTemplate.wipeZero(month);//截取零
+
+        model.addAttribute("day", day);
+        model.addAttribute("month", month);
         model.addAttribute("article", article);
+        model.addAttribute("randomArticles", randomArticles);
         model.addAttribute("other", other);
         model.addAttribute("comments", comments);
 
@@ -70,7 +90,23 @@ public class ArticleController {
      * @return
      */
     @RequestMapping("list")
-    public String listPage(Model model) {
+    public String listPage(Integer sortId, String condition, Model model) {
+        //防止数据误读
+        articleCache.clearSortArticle();
+        isSort = false;
+        articleCache.clearConditionArticle();
+        isCondition = false;
+
+        if (condition != null && !condition.equals("")) { //条件查询
+            articleService.conditionArticle(condition);
+            isCondition = true;
+        } else {
+            if (sortId != null) {//分类查询
+                articleService.sortArticle(sortId);
+                isSort = true;
+            }
+        }
+
         //侧边栏热门文章
         List<Article> hotArticles = articleService.hotArticle();
         model.addAttribute("hotArticles", hotArticles);
@@ -78,13 +114,15 @@ public class ArticleController {
         List<Article> topArticles = articleService.topArticle();
         model.addAttribute("topArticles", topArticles);
         //标签导航
-        List<Label> labels = labelService.allLabel();
+        List<Label> labels = labelService.getAllLabel();
         model.addAttribute("labels", labels);
+        //条件回显
+        model.addAttribute("condition", condition);
         return "article";
     }
 
     /**
-     * 返回文章信息
+     * 加载文章信息
      *
      * @param page
      * @return
@@ -93,7 +131,7 @@ public class ArticleController {
     @ResponseBody
     public Map<String, Object> articleJson(Integer page) {
         //每次查询5条（文章的主要信息）
-        Map<String, Object> articleMap = articleService.listArticle(page, 5);
+        Map<String, Object> articleMap = articleService.listArticle(page, 5, isSort, isCondition);
         HashMap<String, Object> map = new HashMap<>();
         //渲染页面
         map.put("articles", renderTemplate((List<Article>) articleMap.get("data"), (int) articleMap.get("tops")));
@@ -115,7 +153,7 @@ public class ArticleController {
             Article article = articles.get(i);
             Integer articleId = article.getId();
             Other other = otherService.getOtherByArticleId(articleId);
-            List<String> labels = labelService.getLabelsByArticleId(articleId);
+            List<String> labels = labelService.getLabelNamesByArticleId(articleId);
 
             ArticleTemplate articleTemplate = new ArticleTemplate();
             articleTemplate.setAssistant(article.getAssistant());

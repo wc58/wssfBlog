@@ -56,12 +56,12 @@ public class ArticleServiceImpl implements IArticleService {
      * @return
      */
     @Override
-    public Map<String, Object> listArticle(Integer currentPage, Integer size, Boolean isSort) {
+    public Map<String, Object> listArticle(Integer currentPage, Integer size, Boolean isSort, Boolean isCondition) {
         HashMap<String, Object> map = new HashMap<>();
 
         map.put("tops", 0);
         //若是第一页且是普通查询（非条件），查出置顶文章
-        if (currentPage.equals(1) && !isSort) {
+        if (currentPage.equals(1) && !isSort && !isCondition) {
             int topArticleTotal = articleCache.getTopArticleTotal();
             //若出现异常则可能一直在转圈圈！！！
             if (topArticleTotal > size)
@@ -70,7 +70,7 @@ public class ArticleServiceImpl implements IArticleService {
         }
 
         //分页文章
-        map.put("data", articleCache.getAllOrSortArticle(currentPage, size, isSort));
+        map.put("data", articleCache.getAllOrSortArticle(currentPage, size, isSort, isCondition));
         //当前状态总页
         map.put("total", articleCache.getCurrentTotal());
         return map;
@@ -84,6 +84,16 @@ public class ArticleServiceImpl implements IArticleService {
     @Override
     public void sortArticle(Integer id) {
         articleCache.sortArticle(labelService.getArticleIdsByLabelId(id));
+    }
+
+    /**
+     * 条件查询
+     *
+     * @param condition
+     */
+    @Override
+    public void conditionArticle(String condition) {
+        articleCache.conditionArticle(condition);
     }
 
 

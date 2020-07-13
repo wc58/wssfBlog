@@ -29,7 +29,7 @@
 <header class="gird-header">
     <div class="header-fixed">
         <div class="header-inner">
-            <a href="javascript:void(0)" class="header-logo" id="logo">Mr.Yss</a>
+            <a href="/blog/list" class="header-logo" id="logo">Mr.Yss</a>
             <nav class="nav" id="nav">
                 <ul>
                     <li><a href="${pageContext.request.contextPath}/index">首页</a></li>

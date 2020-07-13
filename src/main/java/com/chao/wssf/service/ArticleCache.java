@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Random;
 import java.util.stream.Collectors;
 
@@ -41,6 +42,8 @@ public class ArticleCache implements InitializingBean {
     private List<Integer> topIds = new ArrayList<>();
     //分类文章
     private List<Article> sortArticles = new ArrayList<>();
+    //条件文章
+    private List<Article> conditionArticles = new ArrayList<>();
     //当前状态的总条数
     private int currentTotal;
 
@@ -181,7 +184,7 @@ public class ArticleCache implements InitializingBean {
      */
     public List<Article> getRandomArticles(Integer id) {
         ArrayList<Article> randomArticles = new ArrayList<>();
-        List<Article> topAndArticle = getAllOrSortArticle(1, getAllArticleTotal(), false);
+        List<Article> topAndArticle = getAllOrSortArticle(1, getAllArticleTotal(), false, false);
         Random random = new Random();
         for (int i = 0; i < 3; i++) {
             int ran = random.nextInt(topAndArticle.size());
@@ -213,16 +216,18 @@ public class ArticleCache implements InitializingBean {
      * @param size
      * @return
      */
-    public List<Article> getAllOrSortArticle(Integer currentPage, Integer size, Boolean isSort) {
+    public List<Article> getAllOrSortArticle(Integer currentPage, Integer size, Boolean isSort, Boolean isCondition) {
         List<Article> pageArticles = topAndArticles;
-        //若分类查询
-        if (isSort) {
-            pageArticles = sortArticles;
-            //分类文章的条数
-            currentTotal = getSortArticleTotal();
+        if (isCondition) {//优先条件查询
+            pageArticles = conditionArticles;
+            currentTotal = getConditionArticleTotal();
         } else {
-            //所有文章的条数
-            currentTotal = getAllArticleTotal();
+            if (isSort) {//分类查询
+                pageArticles = sortArticles;
+                currentTotal = getSortArticleTotal();
+            } else {//普通查询
+                currentTotal = getAllArticleTotal();
+            }
         }
         int index = (currentPage - 1) * size;
         ArrayList<Article> list = new ArrayList<>();
@@ -245,11 +250,29 @@ public class ArticleCache implements InitializingBean {
         sortArticles = getArticleByIds(ids);
     }
 
+
     /**
      * 清空分类集合
      */
     public void clearSortArticle() {
         sortArticles.clear();
+    }
+
+
+    public void conditionArticle(String condition) {
+        for (Article article : topAndArticles) {
+            //去空格，转小写
+            condition = condition.trim().toLowerCase(Locale.CHINESE);
+            String title = article.getTitle().trim().toLowerCase(Locale.CHINESE);
+            if (title.contains(condition)) {
+                conditionArticles.add(article);
+                continue;
+            }
+        }
+    }
+
+    public void clearConditionArticle() {
+        conditionArticles.clear();
     }
 
     /**
@@ -259,6 +282,15 @@ public class ArticleCache implements InitializingBean {
      */
     public int getCurrentTotal() {
         return currentTotal;
+    }
+
+    /**
+     * 条件中文章数
+     *
+     * @return
+     */
+    public int getConditionArticleTotal() {
+        return conditionArticles.size();
     }
 
     /**
@@ -287,4 +319,6 @@ public class ArticleCache implements InitializingBean {
     public int getTopArticleTotal() {
         return topArticles.size();
     }
+
+
 }
