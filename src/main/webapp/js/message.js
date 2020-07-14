@@ -7,7 +7,7 @@ layui.use(['element', 'jquery', 'form', 'layedit', 'flow'], function () {
     //评论和留言的编辑器
     var editIndex = layedit.build('remarkEditor', {
         height: 150,
-        tool: ['face'],
+        tool: [],
     });
     //评论和留言的编辑器的验证
     form.verify({
@@ -28,6 +28,7 @@ layui.use(['element', 'jquery', 'form', 'layedit', 'flow'], function () {
          if ($(this).text() == '回复') {
              $container.find('textarea').attr('placeholder', '回复【' + targetName + '】');
              $container.removeClass('layui-hide');
+
              $container.find('input[name="targetUserId"]').val(targetId);
              $(this).parents('.message-list li').find('.btn-reply').text('回复');
              $(this).text('收起');

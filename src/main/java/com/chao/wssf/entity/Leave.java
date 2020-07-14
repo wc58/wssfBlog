@@ -24,7 +24,6 @@ public class Leave implements Serializable {
     private Integer userId;
     private String content;
     private String site;
-    private String browser;
     private String del;
     private Date createTime;
 

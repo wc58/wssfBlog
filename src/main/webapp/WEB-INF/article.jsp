@@ -42,9 +42,18 @@
                     <li><a href="link.html">友链</a></li>
                 </ul>
             </nav>
-            <a href="/User/QQLogin" class="blog-user layui-anim-scale">
-                <i class="fa fa-qq"></i>
-            </a>
+            <%-- <a href="/User/QQLogin" class="blog-user layui-anim-scale">
+                 <i class="fa fa-qq"></i>
+             </a>--%>
+            <c:if test="${sessionScope.user !=null}">
+                <img class="blog-user layui-anim-scale" src="${sessionScope.user.icon}" style="height: 50px">
+            </c:if>
+            <c:if test="${sessionScope.user ==null}">
+                <a id="login" href="#" class="blog-user layui-anim-scale">
+                    登录
+                </a>
+            </c:if>
+
 
             <a class="phone-menu ">
                 <i></i>
@@ -157,12 +166,86 @@
         </div>
     </div>
 </footer>
+
+<form class="layui-form" id="test" style="display:none">
+    <br/>
+    <br/>
+    <div class="layui-form-item">
+        <label class="layui-form-label">用户名</label>
+        <div class="layui-input-inline">
+            <input id="username" type="text" name="title" required lay-verify="required" placeholder="用户名"
+                   autocomplete="off"
+                   class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">密码框</label>
+        <div class="layui-input-inline">
+            <input id="password" type="password" name="password" required lay-verify="required" placeholder="请输入密码"
+                   autocomplete="off"
+                   class="layui-input">
+        </div>
+    </div>
+</form>
+
+
 <script src="${pageContext.request.contextPath}/layui/layui.js"></script>
 <script src="${pageContext.request.contextPath}/js/yss/gloable.js"></script>
 <script src="${pageContext.request.contextPath}/js/plugins/nprogress.js"></script>
 <script>NProgress.start();</script>
 <script src="${pageContext.request.contextPath}/js/yss/article.js"></script>
 <script>
+
+    layui.use('layer', function () {
+
+        var layer = layui.layer;
+        var $ = layui.$
+
+        $("#login").click(function () {
+            layer.open({
+                type: 1,
+                area: ['400px', '300px'],
+                title: '登录'
+                , content: $("#test"),
+                shade: 0,
+                btn: ['提交', '重置']
+                , btn1: function (index, layero) {
+                    let username = $("#username").val();
+                    let password = $("#password").val();
+                    $.ajax({
+                        type: 'post',
+                        url: "/user/testLogin",
+                        data: {
+                            "thirdId": username,
+                            "email": password
+                        },
+                        success: function (data) {
+                            if (data.code === 1000) {
+                                layer.msg("登录成功");
+                                location.reload();
+                                return true;
+                            } else {
+                                layer.msg("登录失败");
+                            }
+                            return false;
+                        },
+                        dataType: "json"
+                    })
+                },
+                btn2: function (index, layero) {
+                    $("#username").val("");
+                    $("#password").val("");
+                    return false;
+                },
+                cancel: function (layero, index) {
+                    layer.closeAll();
+                }
+
+            });
+        })
+
+    });
+
     layui.use('element', function () {
         var element = layui.element;
         var $ = layui.$
@@ -176,6 +259,7 @@
             var conditionphone = $("#searchtxtphone").val();
             location.href = "/blog/list?condition=" + conditionphone
         })
+
     });
 
     function disableTextSubmit(e) {

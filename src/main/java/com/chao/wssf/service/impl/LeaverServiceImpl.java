@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -49,6 +50,18 @@ public class LeaverServiceImpl implements ILeaveService {
     }
 
     /**
+     * 添加回复
+     *
+     * @param leave
+     */
+    @Override
+    public void addReply(Leave leave) {
+        leave.setCreateTime(new Date());
+        leave.setDel("0");
+        leaveMapper.insert(leave);
+    }
+
+    /**
      * 获取对应的回复
      *
      * @param pid
@@ -60,8 +73,17 @@ public class LeaverServiceImpl implements ILeaveService {
         QueryWrapper<Leave> leaveQueryWrapper = new QueryWrapper<>();
         leaveQueryWrapper.eq("pid", pid).eq("del", 0).orderByAsc("create_time");
         List<Leave> leaves = leaveMapper.selectList(leaveQueryWrapper);
-        if (leaves.size() <= 0)
+        if (leaves.size() <= 0) {
+            //主要用于页面来分割评论
+            //核心：“ERROR20020508”
+            //在leave.jsp中会使用到
+            FullLeave fullLeave = new FullLeave();
+            User user = new User();
+            user.setName("ERROR20020508");
+            fullLeave.setUser(user);
+            fullLeaves.add(fullLeave);
             return;
+        }
         for (Leave leaf : leaves) {
             FullLeave fullLeave = new FullLeave();
             leaf.setParentName(name);

@@ -41,9 +41,17 @@
                     <li><a href="link.html">友链</a></li>
                 </ul>
             </nav>
-            <a href="#" class="blog-user">
-                <i class="fa fa-qq"></i>
-            </a>
+            <%-- <a href="#" class="blog-user">
+                 <i class="fa fa-qq"></i>
+             </a>--%>
+            <c:if test="${sessionScope.user !=null}">
+                <img class="blog-user layui-anim-scale" src="${sessionScope.user.icon}" style="height: 50px">
+            </c:if>
+            <c:if test="${sessionScope.user ==null}">
+                <a id="login" href="#" class="blog-user layui-anim-scale">
+                    登录
+                </a>
+            </c:if>
             <a class="phone-menu">
                 <i></i>
                 <i></i>
@@ -58,18 +66,18 @@
             <section class="msg-remark">
                 <h1>吐槽板</h1>
                 <p>
-                    把你想吐糟<span style="color: #00F7DE">超哥</span>的话留在下面
+                    把你想吐糟<span style="color: green">超哥</span>的话留在下面
                 </p>
             </section>
             <div class="textarea-wrap message" id="textarea-wrap">
                 <div>
-                <textarea name="" required lay-verify="required" placeholder="请输入要吐槽的话"
+                <textarea id="tuArea" required lay-verify="required" placeholder="请输入要吐槽的话"
                           class="layui-textarea"></textarea>
                 </div>
                 <br/>
                 <div>
                     <input type="button" style="border: none ">
-                    <input type="button"  style="float: right" class="layui-btn" value="提交">
+                    <input id="tuButton" type="button" style="float: right" class="layui-btn" value="提交">
                 </div>
             </div>
         </div>
@@ -92,47 +100,66 @@
                             </div>
                             <p class="info info-footer">
                                     <%--日期--%>
-                                <span class="comment-time"><f:formatDate value="${leave.leave.createTime}"
+                                <span class="comment-time"  style="color: gray"><f:formatDate value="${leave.leave.createTime}"
                                                                          pattern="yyyy-MM-dd hh:mm:ss"/></span>
-                                <input type="hidden" id="pid" value="${childLeave.user.id}">
-                                <a href="javascript:;" class="btn-reply" data-targetid="1"
+                                <a href="javascript:;" class="btn-reply" data-targetid="${leave.leave.id}"
                                    data-targetname="${leave.user.name}">回复</a>
                             </p>
                         </div>
 
-                        <c:forEach items="${leave.fullLeaves}" var="childLeave">
-                            <hr/>
-                            <div class="comment-child">
-                                <a name="reply-1"></a>
-                                    <%--头像--%>
-                                <img src="${childLeave.user.icon}">
-                                <div class="info">
-                                        <%--回复人--%>
-                                    <span class="username">${childLeave.user.name}</span>
-                                    <span style="padding-right:0;margin-left:-5px;">回复</span>
-                                        <%--被回复人--%>
-                                    <span class="username">${childLeave.leave.parentName}</span>
-                                        <%--回复内容--%>
-                                    <span>${childLeave.leave.content}</span>
-                                </div>
-                                <p class="info">
-                                    <span class="comment-time"><f:formatDate value="${childLeave.leave.createTime}"
+                        <c:forEach items="${leave.fullLeaves}" var="childLeave" varStatus="num">
+                            <%--当子评论至少有个一个时才显示（第一个一般为“ERROR20020508”，所以从第2开始算）--%>
+                            <c:if test="${num.index == '0' and leave.fullLeaves.size() > 1}">
+                                <hr class="layui-bg-green">
+                            </c:if>
+                            <%--当每遇到一个“ERROR20020508”，说明该子评论已经到最后一个了--%>
+                            <c:if test="${childLeave.user.name eq 'ERROR20020508' and num.index ne (leave.fullLeaves.size()-1)}">
+                                <hr class="layui-bg-green">
+                            </c:if>
+                            <%--当不是“ERROR20020508”时，将取出数据--%>
+                            <c:if test="${childLeave.user.name ne 'ERROR20020508'}">
+                                <%--当不是第一，且上一个也不是“ERROR20020508”时，才加--%>
+                                <c:if test="${num.index != '0' and leave.fullLeaves.get(num.index-1).user.name ne 'ERROR20020508'}">
+                                    <hr/>
+                                </c:if>
+                                <div class="comment-child">
+                                    <a name="reply-1"></a>
+                                        <%--头像--%>
+                                    <img src="${childLeave.user.icon}">
+                                    <div class="info">
+                                            <%--回复人--%>
+                                        <span class="username" style="color: #2E2D3C">${childLeave.user.name}</span>
+                                        <span style="padding-right:0;margin-left:-5px;">回复</span>
+                                            <%--被回复人--%>
+                                        <span class="username">${childLeave.leave.parentName}</span>
+                                            <%--回复内容--%>
+                                        <span>${childLeave.leave.content}</span>
+                                    </div>
+
+                                    <p class="info">
+                                    <span class="comment-time" style="color: gray"><f:formatDate value="${childLeave.leave.createTime}"
                                                                              pattern="yyyy-MM-dd hh:mm:ss"/></span>
-                                        <%--被回复人的id--%>
-                                    <input type="hidden" id="pid" value="${childLeave.user.id}">
-                                    <a href="javascript:;" class="btn-reply" data-targetid="2"
-                                       data-targetname="${childLeave.user.name}">回复</a>
-                                </p>
-                            </div>
+                                            <%--只有是当前子评论最后一个时才加回复，要不然回复列表会乱序，如果你不喜欢，可以把if判断去掉即可--%>
+<%--                                        <c:if test="${leave.fullLeaves.get(num.index+1).user.name eq 'ERROR20020508'}">--%>
+                                            <%--被回复人的id--%>
+                                            <a href="javascript:;" class="btn-reply"
+                                               data-targetid="${childLeave.leave.id}"
+                                               data-targetname="${childLeave.user.name}">回复</a>
+<%--                                        </c:if>--%>
+                                    </p>
+
+
+                                </div>
+                            </c:if>
                         </c:forEach>
 
 
                         <div class="replycontainer layui-hide">
-                            <form class="layui-form" action="">
-                                <input type="hidden" name="remarkId" value="1">
-                                <input type="hidden" name="targetUserId" value="0">
+                            <div class="layui-form">
+                                    <%--                                <input type="hidden" name="remarkId" value="1">--%>
+                                <input id="pid" type="hidden" name="targetUserId" value="0">
                                 <div class="layui-form-item">
-                                <textarea name="replyContent" lay-verify="replyContent" placeholder="请输入回复内容"
+                                <textarea id="aaa" name="replyContent" lay-verify="replyContent" placeholder="请输入回复内容"
                                           class="layui-textarea" style="min-height:80px;"></textarea>
                                 </div>
                                 <div class="layui-form-item">
@@ -141,7 +168,7 @@
                                         提交
                                     </button>
                                 </div>
-                            </form>
+                            </div>
                         </div>
                     </li>
                 </c:forEach>
@@ -170,19 +197,108 @@
 <script src="${pageContext.request.contextPath}/js/yss/gloable.js"></script>
 <script src="${pageContext.request.contextPath}/js/plugins/nprogress.js"></script>
 <script>NProgress.start();</script>
-<script src="${pageContext.request.contextPath}/js/pagemessage.js"></script>
 <script>NProgress.start();</script>
 <script>
     window.onload = function () {
         NProgress.done();
     };
 
+
     layui.use('element', function () {
         var $ = layui.$;
-        $("#topButton").click(function () {
-            var txt = $("remarkEditor").val();
-            alert(txt);
+        $("#tuButton").click(function () {
+            var txt = $("#tuArea").val();
+            var userId = '${sessionScope.user.id}';
+            if (userId === '') {
+                layer.msg("请先登录")
+                return;
+            }
+            if (txt === '') {
+                layer.msg("内容不能为空");
+                return;
+            }
+            $.ajax({
+                type: 'post',
+                url: "/leave/topReply",
+                data: {
+                    'userId': userId,
+                    'content': txt
+                },
+                success: function (data) {
+                    if (data.code === 1000) {
+                        // layer.msg("添加成功")
+                        location.href = "/leave/leavePage"
+                    } else {
+                        layer.msg("添加失败，请重试")
+                    }
+                },
+                typeDate: 'json'
+            })
         })
+
+        layui.use(['element', 'jquery', 'form', 'layedit', 'flow'], function () {
+            var form = layui.form;
+            var $ = layui.jquery;
+            var layedit = layui.layedit;
+            var pid;
+            //留言的编辑器
+            var editIndex = layedit.build('remarkEditor', {
+                height: 150,
+                tool: [],
+            });
+            //留言的编辑器的验证
+            form.verify({
+                replyContent: function (value) {
+                    var userId = '${sessionScope.user.id}';
+                    if (userId === '') {
+                        layer.msg("请先登录")
+                        return;
+                    }
+                    if (value === '') {
+                        layer.msg("内容不能为空");
+                        return
+                    }
+                    $.ajax({
+                        type: 'post',
+                        url: "/leave/topReply",
+                        data: {
+                            'userId': userId,
+                            'content': value,
+                            'pid': pid
+                        },
+                        success: function (data) {
+                            if (data.code === 1000) {
+                                // layer.msg("添加成功")
+                                location.href = "/leave/leavePage"
+                            } else {
+                                layer.msg("添加失败，请重试")
+                            }
+                        },
+                        typeDate: 'json'
+                    })
+                }
+            });
+            //回复按钮点击事件
+            $('#message-list').on('click', '.btn-reply', function () {
+                var targetId = $(this).data('targetid')
+                    , targetName = $(this).data('targetname')
+                    , $container = $(this).parent('p').parent().siblings('.replycontainer');
+                if ($(this).text() == '回复') {
+                    $container.find('textarea').attr('placeholder', '回复【' + targetName + '】');
+                    $container.removeClass('layui-hide');
+                    pid = targetId;
+                    $container.find('input[name="targetUserId"]').val(targetId);
+                    $(this).parents('.message-list li').find('.btn-reply').text('回复');
+                    $(this).text('收起');
+                } else {
+                    $container.addClass('layui-hide');
+                    $container.find('input[name="targetUserId"]').val(0);
+                    $(this).text('回复');
+                }
+            });
+
+        });
+
     })
 
 
