@@ -18,6 +18,7 @@
     <meta name="author" content="www.yanshisan.cn"/>
     <meta name="robots" content="all"/>
     <title>文章列表</title>
+    <link rel="icon" href="${pageContext.request.contextPath}/favicon.png" type="image/x-icon"/>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/layui/css/layui.css"/>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/master.css"/>
@@ -37,7 +38,7 @@
                 <ul>
                     <li><a href="/index">首页</a></li>
                     <li><a href="/blog/list">博客</a></li>
-                    <li><a href="message">留言</a></li>
+                    <li><a href="/leave/leavePage">吐槽</a></li>
                     <li><a href="link.html">友链</a></li>
                 </ul>
             </nav>
@@ -46,7 +47,7 @@
             </a>
 
             <a class="phone-menu ">
-                <i ></i>
+                <i></i>
                 <i></i>
                 <i></i>
             </a>
@@ -60,8 +61,10 @@
 
             <span class="searchphone d5 article-list">
                  <br class="searchphone"/>
-                <form >
-                    <input id="searchtxtphone"  onkeydown="return disableTextSubmit(event)" value="${condition != null&& !condition.equals("")?condition:''}" type="text" placeholder="搜索从这里开始...">
+                <form>
+                    <input id="searchtxtphone" onkeydown="return disableTextSubmit(event)"
+                           value="${condition != null&& !condition.equals("")?condition:''}" type="text"
+                           placeholder="搜索从这里开始...">
                     <button id="searchbtnphone" class="layui-anim-rotate" type="button"></button>
                 </form>
             </span>
@@ -141,7 +144,7 @@
             <div class="info">
                 <div class="contact">
                     <a href="javascript:void(0)" class="github" target="_blank"><i class="fa fa-github"></i></a>
-                    <a href="https://wpa.qq.com/msgrd?v=3&uin=930054439&site=qq&menu=yes" class="qq" target="_blank"
+                    <a href="http://wpa.qq.com/msgrd?v=3&uin=2258354832&site=qq&menu=yes" class="qq" target="_blank"
                        title="930054439"><i class="fa fa-qq"></i></a>
                     <a href="https://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=gbiysbG0tbWyuMHw8K-i7uw"
                        class="email" target="_blank" title="930054439@qq.com"><i class="fa fa-envelope"></i></a>

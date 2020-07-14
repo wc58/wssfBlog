@@ -16,6 +16,7 @@
     <meta name="renderer" content="webkit">
     <meta name="viewport" content="width=device-width"/>
     <title>往事随风</title>
+    <link rel="icon" href="${pageContext.request.contextPath}/favicon.png" type="image/x-icon" />
     <link href="${pageContext.request.contextPath}/layui/css/layui.css" rel="stylesheet" type="text/css">
     <link href="${pageContext.request.contextPath}/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="${pageContext.request.contextPath}/css/index_style.css" rel="stylesheet" type="text/css">
@@ -42,7 +43,7 @@
     <ul class="point">
         <li><a href="#">首页</a></li>
         <li><a href="${pageContext.request.contextPath}/blog/list">博客</a></li>
-        <li><a href="message.html">留言</a></li>
+        <li><a href="/leave/leavePage">吐槽</a></li>
         <li><a href="message.html">日记</a></li>
     </ul>
     <div class="logo"><a>Mr.Yss</a></div>

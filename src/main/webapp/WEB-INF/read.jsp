@@ -16,6 +16,7 @@
     <meta name="renderer" content="webkit">
     <meta name="viewport" content="width=device-width"/>
     <title>文章阅读</title>
+    <link rel="icon" href="${pageContext.request.contextPath}/favicon.png" type="image/x-icon" />
     <link rel="stylesheet" href="${pageContext.request.contextPath}/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/layui/css/layui.css"/>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/master.css"/>
@@ -34,7 +35,7 @@
                 <ul>
                     <li><a href="${pageContext.request.contextPath}/index">首页</a></li>
                     <li><a href="${pageContext.request.contextPath}/blog/list">博客</a></li>
-                    <li><a href="message.html">留言</a></li>
+                    <li><a href="${pageContext.request.contextPath}/leave/leavePage">吐槽</a></li>
                     <li><a href="link.html">友链</a></li>
                 </ul>
             </nav>
