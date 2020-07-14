@@ -4,6 +4,7 @@ import com.chao.wssf.entity.*;
 import lombok.Data;
 import lombok.ToString;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -12,10 +13,11 @@ import java.util.List;
  */
 @Data
 @ToString
-public class FullBlog {
+public class FullLeave {
 
-    private Article article;
-    private Other other;
-    private List<Comment> comment;
+    private Leave leave;
+    private User user;
+
+    private List<FullLeave> fullLeaves = new ArrayList<>();
 
 }
