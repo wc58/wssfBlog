@@ -4,6 +4,7 @@ import com.chao.wssf.entity.Article;
 import com.chao.wssf.entity.Comment;
 import com.chao.wssf.entity.Label;
 import com.chao.wssf.entity.Other;
+import com.chao.wssf.pojo.FullComment;
 import com.chao.wssf.service.*;
 import com.chao.wssf.util.ArticleTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,7 +63,9 @@ public class ArticleController {
         Article article = articleCache.getArticleById(id);
         List<Article> randomArticles = articleCache.getRandomArticles(id);
         Other other = otherService.getOtherByArticleId(id);
-        List<Comment> comments = commentService.getCommentsByArticleId(id);
+
+        //根据文章查出对应的评论
+        List<FullComment> fullComments = commentService.getCommentsByArticleId(id);
 
         //处理日期
         Date lately = article.getUpdateTime();
@@ -73,12 +76,13 @@ public class ArticleController {
         String month = monthFormat.format(lately);
         month = ArticleTemplate.wipeZero(month);//截取零
 
+
         model.addAttribute("day", day);
         model.addAttribute("month", month);
         model.addAttribute("article", article);
         model.addAttribute("randomArticles", randomArticles);
         model.addAttribute("other", other);
-        model.addAttribute("comments", comments);
+        model.addAttribute("comments", fullComments);
 
         return "read";
     }

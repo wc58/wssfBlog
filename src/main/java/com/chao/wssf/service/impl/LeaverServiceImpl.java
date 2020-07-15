@@ -41,9 +41,9 @@ public class LeaverServiceImpl implements ILeaveService {
             User user = userMapper.selectById(leaf.getUserId());
             fullLeave.setLeave(leaf);
             fullLeave.setUser(user);
+            fullLeaves.add(fullLeave);
             //获取回复评论
             replyLeave(leaf.getId(), user.getName(), fullLeave.getFullLeaves());
-            fullLeaves.add(fullLeave);
         }
 
         return fullLeaves;

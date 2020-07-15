@@ -8,8 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 该类包括文章的所有信息：
- * 文章的主要信息，点击量，评论，标签，置顶等等
+ * 留言响应的格式
  */
 @Data
 @ToString

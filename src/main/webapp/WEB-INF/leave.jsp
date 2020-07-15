@@ -132,10 +132,11 @@
                                         <div>
                                             <span class="username" style="color: #2E2D3C">${childLeave.user.name}</span>
                                         </div>
-                                                &nbsp;
-                                        <span style="padding-right:0;margin-left:-5px;"><i style="color: gray">回复</i></span>
+                                        &nbsp;
+                                        <span style="padding-right:0;margin-left:-5px;"><i
+                                                style="color: gray">回复</i></span>
                                             <%--被回复人--%>
-                                                <span class="username"><i>${childLeave.leave.parentName}</i></span>
+                                        <span class="username"><i>${childLeave.leave.parentName}：</i></span>
 
                                             <%--回复内容--%>
                                         <span>${childLeave.leave.content}</span>
@@ -160,10 +161,10 @@
                         </c:forEach>
 
 
-                        <div class="replycontainer layui-hide">
+                        <div id="reply" class="replycontainer layui-hide">
                             <div class="layui-form">
                                     <%--                                <input type="hidden" name="remarkId" value="1">--%>
-                                <input id="pid" type="hidden" name="targetUserId" value="0">
+                                <input type="hidden" name="targetUserId" value="0">
                                 <div class="layui-form-item">
                                 <textarea id="aaa" name="replyContent" lay-verify="replyContent" placeholder="请输入回复内容"
                                           class="layui-textarea" style="min-height:80px;"></textarea>
@@ -233,7 +234,7 @@
                 success: function (data) {
                     if (data.code === 1000) {
                         // layer.msg("添加成功")
-                        location.href = "/leave/leavePage"
+                        history.go(0);
                     } else {
                         layer.msg("添加失败，请重试")
                     }
@@ -275,7 +276,8 @@
                         success: function (data) {
                             if (data.code === 1000) {
                                 // layer.msg("添加成功")
-                                location.href = "/leave/leavePage"
+                                // location.href = "/leave/leavePage"
+                                history.go(0);
                             } else {
                                 layer.msg("添加失败，请重试")
                             }
