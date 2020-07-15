@@ -46,7 +46,7 @@
         <li><a href="/leave/leavePage">吐槽</a></li>
         <li><a href="message.html">日记</a></li>
     </ul>
-    <div class="logo"><a>Mr.Yss</a></div>
+    <div class="logo"><a>Chao.Sir</a></div>
 </div>
 <div class="section" id="section1">
     <div class="fp-tablecell">

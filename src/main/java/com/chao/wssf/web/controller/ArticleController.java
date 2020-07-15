@@ -162,7 +162,9 @@ public class ArticleController {
             ArticleTemplate articleTemplate = new ArticleTemplate();
             articleTemplate.setAssistant(article.getAssistant());
             articleTemplate.setCommentSize(other.getCommentSize());
-            articleTemplate.setFlow(other.getFlow());
+            //排除评论页面刷新所增加的点击量
+            System.out.println(other.getFlow() - other.getCommentSize());
+            articleTemplate.setFlow(other.getFlow() - other.getCommentSize());
             articleTemplate.setLabels(labels);
             articleTemplate.setLately(article.getUpdateTime());
             //设置链接地址

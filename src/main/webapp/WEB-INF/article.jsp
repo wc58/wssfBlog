@@ -33,7 +33,7 @@
 <header class="gird-header">
     <div class="header-fixed">
         <div class="header-inner">
-            <a href="/" class="header-logo" id="logo">Mr.Yss</a>
+            <a href="/" class="header-logo" id="logo">Chao.Sir</a>
             <nav class="nav" id="nav">
                 <ul>
                     <li><a href="/index">首页</a></li>
@@ -197,7 +197,6 @@
 <script>
 
     layui.use('layer', function () {
-
         var layer = layui.layer;
         var $ = layui.$
 
@@ -255,7 +254,6 @@
         })
 
         $("#searchbtnphone").click(function () {
-            // alert("aaa");
             var conditionphone = $("#searchtxtphone").val();
             location.href = "/blog/list?condition=" + conditionphone
         })
