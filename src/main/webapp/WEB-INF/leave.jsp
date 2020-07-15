@@ -100,8 +100,9 @@
                             </div>
                             <p class="info info-footer">
                                     <%--日期--%>
-                                <span class="comment-time"  style="color: gray"><f:formatDate value="${leave.leave.createTime}"
-                                                                         pattern="yyyy-MM-dd hh:mm:ss"/></span>
+                                <span class="comment-time" style="color: gray"><f:formatDate
+                                        value="${leave.leave.createTime}"
+                                        pattern="yyyy-MM-dd hh:mm:ss"/></span>
                                 <a href="javascript:;" class="btn-reply" data-targetid="${leave.leave.id}"
                                    data-targetname="${leave.user.name}">回复</a>
                             </p>
@@ -128,24 +129,29 @@
                                     <img src="${childLeave.user.icon}">
                                     <div class="info">
                                             <%--回复人--%>
-                                        <span class="username" style="color: #2E2D3C">${childLeave.user.name}</span>
-                                        <span style="padding-right:0;margin-left:-5px;">回复</span>
+                                        <div>
+                                            <span class="username" style="color: #2E2D3C">${childLeave.user.name}</span>
+                                        </div>
+                                                &nbsp;
+                                        <span style="padding-right:0;margin-left:-5px;"><i style="color: gray">回复</i></span>
                                             <%--被回复人--%>
-                                        <span class="username">${childLeave.leave.parentName}</span>
+                                                <span class="username"><i>${childLeave.leave.parentName}</i></span>
+
                                             <%--回复内容--%>
                                         <span>${childLeave.leave.content}</span>
                                     </div>
 
                                     <p class="info">
-                                    <span class="comment-time" style="color: gray"><f:formatDate value="${childLeave.leave.createTime}"
-                                                                             pattern="yyyy-MM-dd hh:mm:ss"/></span>
+                                    <span class="comment-time" style="color: gray"><f:formatDate
+                                            value="${childLeave.leave.createTime}"
+                                            pattern="yyyy-MM-dd hh:mm:ss"/></span>
                                             <%--只有是当前子评论最后一个时才加回复，要不然回复列表会乱序，如果你不喜欢，可以把if判断去掉即可--%>
-<%--                                        <c:if test="${leave.fullLeaves.get(num.index+1).user.name eq 'ERROR20020508'}">--%>
+                                            <%--                                        <c:if test="${leave.fullLeaves.get(num.index+1).user.name eq 'ERROR20020508'}">--%>
                                             <%--被回复人的id--%>
-                                            <a href="javascript:;" class="btn-reply"
-                                               data-targetid="${childLeave.leave.id}"
-                                               data-targetname="${childLeave.user.name}">回复</a>
-<%--                                        </c:if>--%>
+                                        <a href="javascript:;" class="btn-reply"
+                                           data-targetid="${childLeave.leave.id}"
+                                           data-targetname="${childLeave.user.name}">回复</a>
+                                            <%--                                        </c:if>--%>
                                     </p>
 
 
