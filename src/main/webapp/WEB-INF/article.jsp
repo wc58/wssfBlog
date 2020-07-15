@@ -18,7 +18,7 @@
     <meta name="author" content="www.yanshisan.cn"/>
     <meta name="robots" content="all"/>
     <title>文章列表</title>
-    <link rel="icon" href="${pageContext.request.contextPath}/favicon.png" type="image/x-icon"/>
+    <link rel="icon" href="${pageContext.request.contextPath}/logo.png" type="image/x-icon"/>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/layui/css/layui.css"/>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/master.css"/>
@@ -39,7 +39,7 @@
                     <li><a href="/index">首页</a></li>
                     <li><a href="/blog/list">博客</a></li>
                     <li><a href="/leave/leavePage">吐槽</a></li>
-                    <li><a href="link.html">友链</a></li>
+                    <li><a href="/link/page">友链</a></li>
                 </ul>
             </nav>
             <%-- <a href="/User/QQLogin" class="blog-user layui-anim-scale">
@@ -188,7 +188,6 @@
     </div>
 </form>
 
-
 <script src="${pageContext.request.contextPath}/layui/layui.js"></script>
 <script src="${pageContext.request.contextPath}/js/yss/gloable.js"></script>
 <script src="${pageContext.request.contextPath}/js/plugins/nprogress.js"></script>
@@ -285,7 +284,7 @@
                             icon: 2,
                             time: 4000
                         }, function (index) {
-                            location.href = "${pageContext.request.contextPath}/index.html"
+                            location.href = "${pageContext.request.contextPath}/"
                             layer.close(index);
                         });
                     },
@@ -294,7 +293,6 @@
             }
         });
     });
-
 
     window.onload = function () {
         NProgress.done();

@@ -16,7 +16,7 @@
     <meta name="renderer" content="webkit">
     <meta name="viewport" content="width=device-width"/>
     <title>文章阅读</title>
-    <link rel="icon" href="${pageContext.request.contextPath}/favicon.png" type="image/x-icon"/>
+    <link rel="icon" href="${pageContext.request.contextPath}/logo.png" type="image/x-icon"/>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/layui/css/layui.css"/>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/master.css"/>
@@ -34,10 +34,10 @@
             <a href="/blog/list" class="header-logo" id="logo">Chao.Sir</a>
             <nav class="nav" id="nav">
                 <ul>
-                    <li><a href="${pageContext.request.contextPath}/index">首页</a></li>
-                    <li><a href="${pageContext.request.contextPath}/blog/list">博客</a></li>
-                    <li><a href="${pageContext.request.contextPath}/leave/leavePage">吐槽</a></li>
-                    <li><a href="link.html">友链</a></li>
+                    <li><a href="/index">首页</a></li>
+                    <li><a href="/blog/list">博客</a></li>
+                    <li><a href="/leave/leavePage">吐槽</a></li>
+                    <li><a href="/link/page">友链</a></li>
                 </ul>
             </nav>
             <%-- <a href="#" class="blog-user">
@@ -382,7 +382,6 @@
         });
 
     })
-
 
 </script>
 </body>

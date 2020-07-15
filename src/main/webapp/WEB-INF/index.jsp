@@ -16,9 +16,10 @@
     <meta name="renderer" content="webkit">
     <meta name="viewport" content="width=device-width"/>
     <title>往事随风</title>
-    <link rel="icon" href="${pageContext.request.contextPath}/favicon.png" type="image/x-icon" />
+    <link rel="icon" href="${pageContext.request.contextPath}/logo.png" type="image/x-icon"/>
     <link href="${pageContext.request.contextPath}/layui/css/layui.css" rel="stylesheet" type="text/css">
-    <link href="${pageContext.request.contextPath}/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="${pageContext.request.contextPath}/font-awesome/css/font-awesome.min.css" rel="stylesheet"
+          type="text/css">
     <link href="${pageContext.request.contextPath}/css/index_style.css" rel="stylesheet" type="text/css">
     <link href="${pageContext.request.contextPath}/css/animate.min.css" rel="stylesheet" type="text/css">
 </head>
@@ -29,6 +30,7 @@
             display: none;
         }
     }
+
     .imgCa {
         pointer-events: none;
     }
@@ -41,10 +43,11 @@
 </div>
 <div id="navgation" class="navgation navgation_close">
     <ul class="point">
-        <li><a href="#">首页</a></li>
-        <li><a href="${pageContext.request.contextPath}/blog/list">博客</a></li>
+        <li><a href="/index">首页</a></li>
+        <li><a href="/blog/list">博客</a></li>
         <li><a href="/leave/leavePage">吐槽</a></li>
-        <li><a href="message.html">日记</a></li>
+        <li><a href="/link/page">友链</a></li>
+        <li><a id="toDiary" href="javascript:;">日记</a></li>
     </ul>
     <div class="logo"><a>Chao.Sir</a></div>
 </div>
@@ -54,7 +57,8 @@
             <div class="nav wow zoomIn" data-wow-duration="2s">
                 <h1>往事随风</h1>
                 <p>人生如棋，漫漫长路，爱恨情愁几时休...</p>
-                <a class="layui-btn " style="margin-top: 20px;background-color:transparent;" href="${pageContext.request.contextPath}/blog/list">GO TO
+                <a class="layui-btn " style="margin-top: 20px;background-color:transparent;"
+                   href="${pageContext.request.contextPath}/blog/list">GO TO
                     BLOGS&nbsp;&nbsp;<i
                             class="layui-icon layui-icon-release"></i></a>
             </div>
@@ -118,7 +122,8 @@
                                 <div class="news-head">
                                         <%--图片--%>
                                     <img src="${article.picture}"/>
-                                    <a href="${pageContext.request.contextPath}/blog/read/${article.id}" class="link"><i class="fa fa-link"></i></a>
+                                    <a href="${pageContext.request.contextPath}/blog/read/${article.id}" class="link"><i
+                                            class="fa fa-link"></i></a>
                                 </div>
                                 <div class="news-content">
                                     <h4>
@@ -156,7 +161,7 @@
                         <div class="links">
                             <ul>
                                 <li class="wow fadeInLeft"><a href="#">关于</a></li>
-                                <li class="wow fadeInRight"><a href="#">友情链接</a></li>
+                                <li class="wow fadeInRight"><a href="/diary/page">友情链接</a></li>
                             </ul>
                         </div>
                     </div>
@@ -232,8 +237,61 @@
         </div>
     </div>
 </footer>
+<form id="keyForm" class="layui-form" style="display: none">
+    <br/>
+    <label class="layui-form-label">密钥：</label>
+    <span class="layui-input-inline">
+        <input id="key" type="password" name="password" required lay-verify="required" placeholder="请输入正确的密钥"
+               autocomplete="off"
+               class="layui-input">
+    </span>
+</form>
 <script src="${pageContext.request.contextPath}/layui/layui.js"></script>
 <script src="${pageContext.request.contextPath}/js/wow.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/index.js"></script>
+<script>
+    layui.use('layer', function () {
+        var $ = layui.$;
+        $("#toDiary").click(function () {
+            layer.open({
+                type: 1,
+                area: ['330px', '180px'],
+                title: '请输入密钥'
+                , content: $("#keyForm"),
+                shade: 0,
+                btn: ['提交', '取消']
+                , btn1: function () {
+                    let key = $("#key").val();
+                    $.ajax({
+                        type: 'post',
+                        url: "/diary/key",
+                        data: {
+                            "key": key,
+                        },
+                        success: function (data) {
+                            if (data.code === 1000) {
+                                //跳转页面也传入key，防止使用特殊技术绕过js
+                                location.href = "${pageContext.request.contextPath}/diary/page?key=" + key
+                                return true;
+                            } else {
+                                layer.msg("密钥错误");
+                            }
+                            return false;
+                        },
+                        dataType: "json"
+                    })
+                },
+                btn2: function (index, layero) {
+                    $("#key").val("");
+                    return true;
+                },
+                cancel: function (layero, index) {
+                    layer.closeAll();
+                }
+
+            })
+        })
+    })
+</script>
 </body>
 </html>

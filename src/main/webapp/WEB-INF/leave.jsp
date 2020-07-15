@@ -18,7 +18,7 @@
     <meta name="author" content="www.yanshisan.cn"/>
     <meta name="robots" content="all"/>
     <title>吐槽板</title>
-    <link rel="icon" href="${pageContext.request.contextPath}/favicon.png" type="image/x-icon"/>
+    <link rel="icon" href="${pageContext.request.contextPath}/logo.png" type="image/x-icon"/>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/layui/css/layui.css"/>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/master.css"/>
@@ -38,7 +38,7 @@
                     <li><a href="/index">首页</a></li>
                     <li><a href="/blog/list">博客</a></li>
                     <li><a href="/leave/leavePage">吐槽</a></li>
-                    <li><a href="link.html">友链</a></li>
+                    <li><a href="/link/page">友链</a></li>
                 </ul>
             </nav>
             <%-- <a href="#" class="blog-user">
@@ -211,38 +211,6 @@
     };
 
 
-    layui.use('element', function () {
-        var $ = layui.$;
-        $("#tuButton").click(function () {
-            var txt = $("#tuArea").val();
-            var userId = '${sessionScope.user.id}';
-            if (userId === '') {
-                layer.msg("请先登录")
-                return;
-            }
-            if (txt === '') {
-                layer.msg("内容不能为空");
-                return;
-            }
-            $.ajax({
-                type: 'post',
-                url: "/leave/topReply",
-                data: {
-                    'userId': userId,
-                    'content': txt
-                },
-                success: function (data) {
-                    if (data.code === 1000) {
-                        // layer.msg("添加成功")
-                        history.go(0);
-                    } else {
-                        layer.msg("添加失败，请重试")
-                    }
-                },
-                typeDate: 'json'
-            })
-        })
-
         layui.use(['element', 'jquery', 'form', 'layedit', 'flow'], function () {
             var form = layui.form;
             var $ = layui.jquery;
@@ -309,7 +277,48 @@
 
     })
 
+    layui.use('layer', function () {
+        var $ = layui.$;
+        $("#toDiary").click(function () {
+            layer.open({
+                type: 1,
+                area: ['330px', '180px'],
+                title: '请输入密钥'
+                , content: $("#keyForm"),
+                shade: 0,
+                btn: ['提交', '取消']
+                , btn1: function () {
+                    let key = $("#key").val();
+                    $.ajax({
+                        type: 'post',
+                        url: "/diary/key",
+                        data: {
+                            "key": key,
+                        },
+                        success: function (data) {
+                            if (data.code === 1000) {
+                                //跳转页面也传入key，防止使用特殊技术绕过js
+                                location.href = "${pageContext.request.contextPath}/diary/page?key=" + key
+                                return true;
+                            } else {
+                                layer.msg("密钥错误");
+                            }
+                            return false;
+                        },
+                        dataType: "json"
+                    })
+                },
+                btn2: function (index, layero) {
+                    $("#key").val("");
+                    return true;
+                },
+                cancel: function (layero, index) {
+                    layer.closeAll();
+                }
 
+            })
+        })
+    })
 </script>
 </body>
 </html>

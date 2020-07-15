@@ -17,10 +17,11 @@ public class Link implements Serializable {
 
     @TableId(type = IdType.AUTO)
     private Integer id;
+    private Integer sort;
     private String title;
     private String icon;
     private String url;
-    private String describe;
+    private String des;
     private String del;
     private Date createTime;
     private Date updateTime;
