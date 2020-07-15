@@ -137,6 +137,7 @@
                                                 <%--被回复人--%>
                                             <span class="username"><i>${childLeave.leave.parentName}：</i></span>
                                         </div>
+
                                             <%--回复内容--%>
                                         <span style="white-space: pre-line;">${childLeave.leave.content}</span>
                                     </div>

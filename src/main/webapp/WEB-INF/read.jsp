@@ -17,6 +17,7 @@
     <meta name="viewport" content="width=device-width"/>
     <title>文章阅读</title>
     <link rel="icon" href="${pageContext.request.contextPath}/logo.png" type="image/x-icon"/>
+    <link rel="icon" href="${pageContext.request.contextPath}/favicon.png" type="image/x-icon"/>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/layui/css/layui.css"/>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/master.css"/>
@@ -72,6 +73,7 @@
                                 <%--点击量--%>
                                 <small class="ml10">点击量：<i
                                         class="readcount">${other.flow}</i></small>
+                                <small class="ml10">点击量：<i class="readcount">${other.flow}</i></small>
                                 <%--更新时间--%>
                                 <small class="ml10">更新于 <label><f:formatDate value="${article.updateTime}"
                                                                              pattern="yyyy-MM-dd hh:mm:ss"/></label>
