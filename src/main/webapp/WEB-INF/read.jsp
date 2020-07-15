@@ -76,7 +76,7 @@
                                           class="fc-link">${article.author}</a>
                                 </small>
                                 <%--点击量--%>
-                                <small class="ml10">点击量：<i class="readcount">${other.flow}</i></small>
+                                <small class="ml10">点击量：<i class="readcount">${other.flow - other.commentSize}</i></small>
                                 <%--更新时间--%>
                                 <small class="ml10">更新于 <label><f:formatDate value="${article.updateTime}"
                                                                              pattern="yyyy-MM-dd hh:mm:ss"/></label>

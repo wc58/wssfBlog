@@ -201,7 +201,7 @@ public class ArticleTemplate {
         template.append(readStart);
         template.append(eye);
         template.append(numStart);
-        template.append(flow);//点击量
+        template.append(flow - commentSize);//点击量
         template.append(numEnd);
         template.append(readEnd);
 

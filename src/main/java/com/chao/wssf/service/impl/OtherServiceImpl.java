@@ -55,5 +55,19 @@ public class OtherServiceImpl implements IOtherService {
         otherMapper.updateById(other);
     }
 
+    /**
+     * 评论加一
+     *
+     * @param id
+     */
+    @Override
+    public void commentSizeAdd(Integer id) {
+        QueryWrapper<Other> otherQueryWrapper = new QueryWrapper<>();
+        otherQueryWrapper.select("id", "comment_size").eq("article_id", id);
+        Other other = otherMapper.selectOne(otherQueryWrapper);
+        other.setCommentSize(other.getCommentSize() + 1);
+        otherMapper.updateById(other);
+    }
+
 
 }
