@@ -294,6 +294,7 @@
         });
     });
 
+
     window.onload = function () {
         NProgress.done();
     };

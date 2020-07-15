@@ -87,7 +87,7 @@
                         <i class="fa fa-check" style="color: green"></i>技术优先
                     </p>
                     <p>
-                        若交换友链可以在下方填写<br>
+                        若交换友链，在吐槽板中留如下格式：<br>
                         名称：往事随风<br>
                         网址：https://www.chao58.top<br>
                         图标：https://www.chao58.top/logo.png<br>
@@ -95,7 +95,6 @@
                     </p>
                     <p>
                         申请提交后若无其它原因将在24小时内审核，如超过时间还未通过，请私信我。经常光顾本站，友链可以靠前哦
-                        （吐槽板留言或者QQ私聊）
                     </p>
                 </section>
             </article>
@@ -140,52 +139,5 @@
 <script>NProgress.start();</script>
 <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
 <script src="../js/plugins/blogbenoitboucart.min.js"></script>
-<script>
-    window.onload = function () {
-        NProgress.done();
-    };
-    layui.use('layer', function () {
-        var $ = layui.$;
-        $("#toDiary").click(function () {
-            layer.open({
-                type: 1,
-                area: ['330px', '180px'],
-                title: '请输入密钥'
-                , content: $("#keyForm"),
-                shade: 0,
-                btn: ['提交', '取消']
-                , btn1: function () {
-                    let key = $("#key").val();
-                    $.ajax({
-                        type: 'post',
-                        url: "/diary/key",
-                        data: {
-                            "key": key,
-                        },
-                        success: function (data) {
-                            if (data.code === 1000) {
-                                //跳转页面也传入key，防止使用特殊技术绕过js
-                                location.href = "${pageContext.request.contextPath}/diary/page?key=" + key
-                                return true;
-                            } else {
-                                layer.msg("密钥错误");
-                            }
-                            return false;
-                        },
-                        dataType: "json"
-                    })
-                },
-                btn2: function (index, layero) {
-                    $("#key").val("");
-                    return true;
-                },
-                cancel: function (layero, index) {
-                    layer.closeAll();
-                }
-
-            })
-        })
-    })
-</script>
 </body>
 </html>

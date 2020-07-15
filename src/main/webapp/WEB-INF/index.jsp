@@ -161,7 +161,7 @@
                         <div class="links">
                             <ul>
                                 <li class="wow fadeInLeft"><a href="#">关于</a></li>
-                                <li class="wow fadeInRight"><a href="/diary/page">友情链接</a></li>
+                                <li class="wow fadeInRight"><a href="/link/page">友情链接</a></li>
                             </ul>
                         </div>
                     </div>
@@ -271,7 +271,7 @@
                         success: function (data) {
                             if (data.code === 1000) {
                                 //跳转页面也传入key，防止使用特殊技术绕过js
-                                location.href = "${pageContext.request.contextPath}/diary/page?key=" + key
+                                location.href = "${pageContext.request.contextPath}/diary/page"
                                 return true;
                             } else {
                                 layer.msg("密钥错误");

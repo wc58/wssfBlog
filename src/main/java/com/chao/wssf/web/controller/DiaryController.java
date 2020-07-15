@@ -27,13 +27,7 @@ public class DiaryController {
      * @return
      */
     @RequestMapping("page")
-    public String page(Model model, @RequestParam(required = false) String key) {
-        if (key != null && key.equals("20020508oifurhaysiuhfgieuawhgiuhyefgieuhf")) {
-            R r = checkKey(key);
-            //如果没有密钥直接跳到首页
-            if (r.getCode() != 1000)
-                return "index";
-        }
+    public String page(Model model) {
         model.addAttribute("diaries", diaryService.getAllDiaries());
         return "diary";
     }

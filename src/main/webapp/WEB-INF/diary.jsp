@@ -40,7 +40,7 @@ s
                     <li><a href="/blog/list">博客</a></li>
                     <li><a href="/leave/leavePage">吐槽</a></li>
                     <li><a href="/link/page">友链</a></li>
-                   <li><a href="/diary/page?key='20020508oifurhaysiuhfgieuawhgiuhyefgieuhf'">日记</a></li>
+                    <li><a href="/diary/page">日记</a></li>
                 </ul>
             </nav>
             <a href="#" class="blog-user">

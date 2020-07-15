@@ -39,6 +39,7 @@
                     <li><a href="/blog/list">博客</a></li>
                     <li><a href="/leave/leavePage">吐槽</a></li>
                     <li><a href="/link/page">友链</a></li>
+                   <li><a id="toDiary" href="javascript:;">日记</a></li>
                 </ul>
             </nav>
             <%-- <a href="#" class="blog-user">
@@ -210,6 +211,38 @@
         NProgress.done();
     };
 
+
+    layui.use('element', function () {
+        var $ = layui.$;
+        $("#tuButton").click(function () {
+            var txt = $("#tuArea").val();
+            var userId = '${sessionScope.user.id}';
+            if (userId === '') {
+                layer.msg("请先登录")
+                return;
+            }
+            if (txt === '') {
+                layer.msg("内容不能为空");
+                return;
+            }
+            $.ajax({
+                type: 'post',
+                url: "/leave/topReply",
+                data: {
+                    'userId': userId,
+                    'content': txt
+                },
+                success: function (data) {
+                    if (data.code === 1000) {
+                        // layer.msg("添加成功")
+                        history.go(0);
+                    } else {
+                        layer.msg("添加失败，请重试")
+                    }
+                },
+                typeDate: 'json'
+            })
+        })
 
         layui.use(['element', 'jquery', 'form', 'layedit', 'flow'], function () {
             var form = layui.form;
