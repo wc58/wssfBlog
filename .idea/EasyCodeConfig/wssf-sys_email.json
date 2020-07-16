@@ -1,0 +1,19 @@
+{
+  "name" : "SysEmail",
+  "originTableName" : "sys_email",
+  "comment" : null,
+  "fullColumn" : [ {
+    "name" : "id",
+    "comment" : null,
+    "type" : null,
+    "shortType" : null,
+    "ktShortType" : "Int",
+    "custom" : false,
+    "ext" : { }
+  } ],
+  "pkColumn" : null,
+  "otherColumn" : null,
+  "savePackageName" : "com.chao.wssf",
+  "savePath" : "./src/main/java/com/chao/wssf",
+  "saveModelName" : "blog"
+}
