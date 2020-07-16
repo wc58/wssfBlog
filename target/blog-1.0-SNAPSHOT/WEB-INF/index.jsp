@@ -46,8 +46,6 @@
         <li><a href="/index">首页</a></li>
         <li><a href="/blog/list">博客</a></li>
         <li><a href="/leave/leavePage">吐槽</a></li>
-        <li><a href="/link/page">友链</a></li>
-        <li><a href="/about">关于</a></li>
         <li><a id="toDiary" href="javascript:;">日记</a></li>
     </ul>
     <div class="logo"><a>Chao.Sir</a></div>
@@ -210,7 +208,6 @@
                             <li class="active"><a href="/blog/list"><i class="fa fa-book"></i>博文</a></li>
                             <li class="active"><a href="/leave/leavePage"><i class="fa fa-comments"></i>吐槽</a></li>
                             <li class="active"><a href="/link/page"><i class="fa fa-share"></i>友链</a></li>
-<%--                            <li class="active"><a href=""><i class="fa fa-snowflake-o"></i>日记</a></li>--%>
                             <li class="active"><a href="/about"><i class="fa fa-files-o"></i>关于</a></li>
                         </ul>
                     </div>
