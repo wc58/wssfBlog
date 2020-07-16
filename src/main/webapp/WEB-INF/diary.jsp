@@ -34,15 +34,7 @@ s
     <div class="header-fixed">
         <div class="header-inner">
             <a href="/blog/list" class="header-logo" id="logo">Chao.Sir</a>
-            <nav class="nav" id="nav">
-                <ul>
-                    <li><a href="/index">首页</a></li>
-                    <li><a href="/blog/list">博客</a></li>
-                    <li><a href="/leave/leavePage">吐槽</a></li>
-                    <li><a href="/link/page">友链</a></li>
-                    <li><a href="/diary/page">日记</a></li>
-                </ul>
-            </nav>
+            <%@ include file="include-bar.jsp" %>
             <a href="#" class="blog-user">
                 <i class="fa fa-qq"></i>
             </a>
@@ -60,7 +52,6 @@ s
             <div class="timeline-main">
                 <h1><i class="fa fa-clock-o"></i>日记</h1>
                 <div class="timeline-line"></div>
-
 
                 <c:forEach items="${diaries}" var="diary">
                     <div class="timeline-year">
@@ -82,29 +73,15 @@ s
                         </div>
                     </div>
                 </c:forEach>
+
+
                 <h1 style="padding-top:4px;padding-bottom:2px;margin-top:40px;"><i class="fa fa-hourglass-end"></i>THE
                     END</h1>
             </div>
         </div>
     </div>
 </div>
-<footer class="grid-footer">
-    <div class="footer-fixed">
-        <div class="copyright">
-            <div class="info">
-                <div class="contact">
-                    <a href="javascript:void(0)" class="github" target="_blank"><i class="fa fa-github"></i></a>
-                    <a href="#" class="qq" target="_blank"><i class="fa fa-qq"></i></a>
-                    <a href="#" class="email" target="_blank"><i class="fa fa-envelope"></i></a>
-                    <a href="javascript:void(0)" class="weixin"><i class="fa fa-weixin"></i></a>
-                </div>
-                <p class="mt05">
-                    Copyright &copy; 2018-2018 燕十三 All Rights Reserved V.3.1.3 蜀ICP备18008600号
-                </p>
-            </div>
-        </div>
-    </div>
-</footer>
+<%@ include file="include-footer.jsp" %>
 <script src="${pageContext.request.contextPath}/layui/layui.js"></script>
 <script src="${pageContext.request.contextPath}/js/yss/gloable.js"></script>
 <script src="${pageContext.request.contextPath}/js/plugins/nprogress.js"></script>

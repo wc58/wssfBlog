@@ -29,6 +29,6 @@
     </bean>
 
     <!--处理直接请求-->
-<!--    <mvc:view-controller path="aaa" view-name="test"/>-->
+    <mvc:view-controller path="about" view-name="about"/>
 
 </beans>

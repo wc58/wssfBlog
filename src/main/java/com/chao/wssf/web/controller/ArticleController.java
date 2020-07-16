@@ -164,7 +164,7 @@ public class ArticleController {
             articleTemplate.setCommentSize(other.getCommentSize());
             //排除评论页面刷新所增加的点击量
             System.out.println(other.getFlow() - other.getCommentSize());
-            articleTemplate.setFlow(other.getFlow() - other.getCommentSize());
+            articleTemplate.setFlow(other.getFlow());
             articleTemplate.setLabels(labels);
             articleTemplate.setLately(article.getUpdateTime());
             //设置链接地址

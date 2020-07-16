@@ -2,12 +2,11 @@
   Created by IntelliJ IDEA.
   User: ChaoSir
   Date: 2020/7/15
-  Time: 15:33
+  Time: 22:13
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<html>
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,7 +16,7 @@
     <meta name="viewport" content="width=device-width"/>
     <meta name="author" content="www.yanshisan.cn"/>
     <meta name="robots" content="all"/>
-    <title>友链</title>
+    <title>关于</title>
     <link rel="icon" href="${pageContext.request.contextPath}/logo.png" type="image/x-icon"/>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/layui/css/layui.css"/>
@@ -32,11 +31,17 @@
 <header class="gird-header">
     <div class="header-fixed">
         <div class="header-inner">
-            <a href="/blog/list" class="header-logo" id="logo">Chao.Sir</a>
+            <a href="/blog/list" class="header-logo" id="logo">Mr.liu</a>
             <%@ include file="include-bar.jsp" %>
-            <a href="/User/QQLogin" class="blog-user">
-                <i class="fa fa-qq"></i>
-            </a>
+            <c:if test="${sessionScope.user !=null}">
+                <img class="blog-user layui-anim-scale" src="${sessionScope.user.icon}" style="height: 50px">
+
+            </c:if>
+            <c:if test="${sessionScope.user ==null}">
+                <a id="login" href="#" class="blog-user layui-anim-scale">
+                    登录
+                </a>
+            </c:if>
             <a class="phone-menu">
                 <i></i>
                 <i></i>
@@ -62,48 +67,74 @@
             </a>
         </header>
         <div class="about-title">
-            <h1>友情链接</h1>
-            <p>同门为朋，同志为友</p>
+            <h1>关于我</h1>
+            <p>生于忧患，死于安乐</p>
         </div>
     </div>
     <div class="container-fixed">
         <div class="container-inner">
             <article>
                 <section>
-                    <h1>链接申请说明</h1>
+                    <h1>关于我</h1>
                     <p>
-                        <i class="fa fa-close" style="color: red"></i>经常宕机&nbsp;
-                        <i class="fa fa-close" style="color: red"></i>不合法规&nbsp;
-                        <i class="fa fa-close" style="color: red"></i>插边球站&nbsp;
-                        <i class="fa fa-close" style="color: red"></i>红标报毒&nbsp;
-                        <i class="fa fa-check" style="color: green"></i>原创优先&nbsp;
-                        <i class="fa fa-check" style="color: green"></i>技术优先
+                        本人是一个02年的毛头小子，17年接触编程，之后就爱上了编程
+                        <br/>
+                        到了18年正式踏入编程生涯，直到现在一个人跌跌撞撞走到了今天，虽说不是什么大佬，但也可以做点小玩意
+                        <br/>
+                        最后给自己立个flag，如果学习10年编程，还有没有什么成就，那就彻底改行，再也不碰编程
+                        <br/>
+                        加油吧，骚年！！！
                     </p>
+                    <span>
+                    可以通过以下方式联系到我：
+                </span>
+                    <ul>
+                        <li>邮 箱 ：<a href="javascript:;">2258354832@qq.com</a></li>
+                        <li>微 信 ：<a href="javascript:;">whr_chao</a></li>
+                        <li>github：<a href="javascript:;">https://github.com/wc58</a></li>
+                    </ul>
+
+                </section>
+                <section>
+                    <h1>关于本站</h1>
                     <p>
-                        若交换友链，在吐槽板中留如下格式：<br>
-                        名称：往事随风<br>
-                        网址：https://www.chao58.top<br>
-                        图标：https://www.chao58.top/logo.png<br>
-                        描述：山不在高有仙则名，水不在深有龙则灵
+                        前台开发周期：2020年7月9号 ~ 2020年7月15号完成<br/>
+                        后台开发周期：2020年7月16号 ~ 2020年7月22号完成<br/>
+                        项目正式上线：2020年7月23号
                     </p>
+                    <span>
+                    本站结构：
+                </span>
+                    <ul>
+                        <li>前 端 ：<code>Layui</code>+<code>jquery</code>+<code>燕十三模板</code></li>
+                        <li>后 端 ：<code>SSM</code>+<code>Mybatis-plus</code></li>
+                        <li>数据库：<code>Mysql</code></li>
+                        <li>存 储 ：<code>阿里轻量级服务器</code>+<code>OSS</code></li>
+                    </ul>
+                </section>
+                <section>
+                    <h1>关于版权</h1>
                     <p>
-                        申请提交后若无其它原因将在24小时内审核，如超过时间还未通过，请私信我。经常光顾本站，友链可以靠前哦
+                        本站采用「 <a href="https://creativecommons.org/licenses/by-nc/4.0/deed.zh" target="_blank">署名-非商业性使用
+                        4.0 国际 (CC BY-NC 4.0)</a>」创作共享协议。
+                        只要在使用时注明出处，那么您可以可以对本站所有原创内容进行转载、节选、二次创作，但是您不得对其用于商业目的。
                     </p>
                 </section>
+                <section>
+                    <h1>特别说明</h1>
+                    <ul>
+                        <li>本站文章仅代表个人观点，和任何组织或个人无关。</li>
+                        <li>本站前端开发代码没有考虑对IE浏览器的兼容。</li>
+                        <li>用户邮箱仅作回复消息用，不对外使用。</li>
+                    </ul>
+                    <br><br>
+                    <div>
+                        <img src="https://wssf.oss-cn-beijing.aliyuncs.com/system/about.jpg"
+                             style="width:100%;height:800px;">
+                    </div>
+                </section>
             </article>
-            <ul class="link-list">
-                <c:forEach items="${links}" var="link">
-                    <li>
-                        <div class="pd-lr-10">
-                            <a href="${link.url}" target="_blank">
-                                <img src="${link.icon}">
-                                <h3>${link.title}</h3>
-                                <p>${link.des}</p>
-                            </a>
-                        </div>
-                    </li>
-                </c:forEach>
-            </ul>
+
         </div>
     </div>
 </div>
@@ -116,3 +147,4 @@
 <script src="../js/plugins/blogbenoitboucart.min.js"></script>
 </body>
 </html>
+

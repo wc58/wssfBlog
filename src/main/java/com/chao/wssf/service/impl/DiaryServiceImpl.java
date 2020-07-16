@@ -8,10 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class DiaryServiceImpl implements IDiaryService {
@@ -23,9 +20,9 @@ public class DiaryServiceImpl implements IDiaryService {
     @Override
     public HashMap<String, List<Diary>> getAllDiaries() {
         QueryWrapper<Diary> diaryQueryWrapper = new QueryWrapper<>();
-        diaryQueryWrapper.eq("del", "0").orderByAsc("create_time");
+        diaryQueryWrapper.eq("del", "0").orderByDesc("create_time");
         List<Diary> diaries = diaryMapper.selectList(diaryQueryWrapper);
-        HashMap<String, List<Diary>> map = new HashMap<>();
+        HashMap<String, List<Diary>> map = new LinkedHashMap<>();
         SimpleDateFormat year = new SimpleDateFormat("yyyy");
 
         for (Diary diary : diaries) {

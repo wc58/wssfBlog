@@ -28,6 +28,8 @@ public class CommentController {
             commentService.addReply(comment);
             //评论数加一
             otherService.commentSizeAdd(comment.getArticleId());
+            //点击量减一
+            otherService.flowMinus(comment.getArticleId());
         } catch (Exception e) {
             e.printStackTrace();
             return R.ERROR();

@@ -32,14 +32,7 @@
     <div class="header-fixed">
         <div class="header-inner">
             <a href="/blog/list" class="header-logo" id="logo">Chao.Sir</a>
-            <nav class="nav" id="nav">
-                <ul>
-                    <li><a href="/index">首页</a></li>
-                    <li><a href="/blog/list">博客</a></li>
-                    <li><a href="/leave/leavePage">吐槽</a></li>
-                    <li><a href="/link/page">友链</a></li>
-                </ul>
-            </nav>
+            <%@ include file="include-bar.jsp" %>
             <%-- <a href="#" class="blog-user">
                  <i class="fa fa-qq"></i>
              </a>--%>
@@ -76,7 +69,8 @@
                                           class="fc-link">${article.author}</a>
                                 </small>
                                 <%--点击量--%>
-                                <small class="ml10">点击量：<i class="readcount">${other.flow - other.commentSize}</i></small>
+                                <small class="ml10">点击量：<i
+                                        class="readcount">${other.flow}</i></small>
                                 <%--更新时间--%>
                                 <small class="ml10">更新于 <label><f:formatDate value="${article.updateTime}"
                                                                              pattern="yyyy-MM-dd hh:mm:ss"/></label>
@@ -162,6 +156,10 @@
                                         <div class="info">
                                                 <%--昵称--%>
                                             <span class="username">${comment.user.name}</span>
+                                            <c:if test="${comment.user.thirdId=='2258354832'}">
+                                                <span class="layui-badge">博主</span>
+                                                &nbsp;
+                                            </c:if>
                                         </div>
                                         <div class="comment-content">
                                                 <%--内容--%>
@@ -202,6 +200,11 @@
                                                     <div>
                                                             <span class="username"
                                                                   style="color: #2E2D3C">${childComment.user.name}</span>
+                                                        <c:if test="${childComment.user.thirdId=='2258354832'}">
+                                                            <span class="layui-badge"
+                                                                  style="height: 16px;font-size: 9px;">博主</span>
+                                                            &nbsp;
+                                                        </c:if>
                                                     </div>
                                                     &nbsp;
                                                     <span style="padding-right:0;margin-left:-5px;"><i
@@ -257,23 +260,7 @@
         </div>
     </div>
 </div>
-<footer class="grid-footer">
-    <div class="footer-fixed">
-        <div class="copyright">
-            <div class="info">
-                <div class="contact">
-                    <a href="javascript:void(0)" class="github" target="_blank"><i class="fa fa-github"></i></a>
-                    <a href="#" class="qq" target="_blank"><i class="fa fa-qq"></i></a>
-                    <a href="#" class="email" target="_blank"><i class="fa fa-envelope"></i></a>
-                    <a href="javascript:void(0)" class="weixin"><i class="fa fa-weixin"></i></a>
-                </div>
-                <p class="mt05">
-                    Copyright &copy; 2018-2018 燕十三 All Rights Reserved V.3.1.3 蜀ICP备18008600号
-                </p>
-            </div>
-        </div>
-    </div>
-</footer>
+<%@ include file="include-footer.jsp" %>
 <script src="${pageContext.request.contextPath}/layui/layui.js"></script>
 <script src="${pageContext.request.contextPath}/js/yss/gloable.js"></script>
 <script src="${pageContext.request.contextPath}/js/plugins/nprogress.js"></script>

@@ -33,15 +33,7 @@
     <div class="header-fixed">
         <div class="header-inner">
             <a href="/blog/list" class="header-logo" id="logo">Chao.Sir</a>
-            <nav class="nav" id="nav">
-                <ul>
-                    <li><a href="/index">首页</a></li>
-                    <li><a href="/blog/list">博客</a></li>
-                    <li><a href="/leave/leavePage">吐槽</a></li>
-                    <li><a href="/link/page">友链</a></li>
-                   <li><a id="toDiary" href="javascript:;">日记</a></li>
-                </ul>
-            </nav>
+            <%@ include file="include-bar.jsp" %>
             <%-- <a href="#" class="blog-user">
                  <i class="fa fa-qq"></i>
              </a>--%>
@@ -94,10 +86,14 @@
                             <div class="info">
                                     <%--昵称--%>
                                 <span class="username">${leave.user.name}</span>
+                                <c:if test="${leave.user.thirdId=='2258354832'}">
+                                    <span class="layui-badge">博主</span>
+                                    &nbsp;
+                                </c:if>
                             </div>
                             <div class="comment-content">
                                     <%--内容--%>
-                                    ${leave.leave.content}
+                                <span style="white-space: pre-line;">${leave.leave.content}</>
                             </div>
                             <p class="info info-footer">
                                     <%--日期--%>
@@ -132,15 +128,17 @@
                                             <%--回复人--%>
                                         <div>
                                             <span class="username" style="color: #2E2D3C">${childLeave.user.name}</span>
+                                            <c:if test="${childLeave.user.thirdId=='2258354832'}">
+                                                <span class="layui-badge" style="height: 16px;font-size: 9px;">博主</span>
+                                                &nbsp;
+                                            </c:if>
+                                            <span style="padding-right:0;margin-left:-5px;"><i
+                                                    style="color: gray">回复</i></span>
+                                                <%--被回复人--%>
+                                            <span class="username"><i>${childLeave.leave.parentName}：</i></span>
                                         </div>
-                                        &nbsp;
-                                        <span style="padding-right:0;margin-left:-5px;"><i
-                                                style="color: gray">回复</i></span>
-                                            <%--被回复人--%>
-                                        <span class="username"><i>${childLeave.leave.parentName}：</i></span>
-
                                             <%--回复内容--%>
-                                        <span>${childLeave.leave.content}</span>
+                                        <span style="white-space: pre-line;">${childLeave.leave.content}</span>
                                     </div>
 
                                     <p class="info">
@@ -184,23 +182,7 @@
         </div>
     </div>
 </div>
-<footer class="grid-footer">
-    <div class="footer-fixed">
-        <div class="copyright">
-            <div class="info">
-                <div class="contact">
-                    <a href="javascript:void(0)" class="github" target="_blank"><i class="fa fa-github"></i></a>
-                    <a href="#" class="qq" target="_blank"><i class="fa fa-qq"></i></a>
-                    <a href="#" class="email" target="_blank"><i class="fa fa-envelope"></i></a>
-                    <a href="javascript:void(0)" class="weixin"><i class="fa fa-weixin"></i></a>
-                </div>
-                <p class="mt05">
-                    Copyright &copy; 2018-2018 燕十三 All Rights Reserved V.3.1.3 蜀ICP备18008600号
-                </p>
-            </div>
-        </div>
-    </div>
-</footer>
+<%@ include file="include-footer.jsp" %>
 <script src="${pageContext.request.contextPath}/layui/layui.js"></script>
 <script src="${pageContext.request.contextPath}/js/yss/gloable.js"></script>
 <script src="${pageContext.request.contextPath}/js/plugins/nprogress.js"></script>
@@ -308,49 +290,6 @@
 
         });
 
-    })
-
-    layui.use('layer', function () {
-        var $ = layui.$;
-        $("#toDiary").click(function () {
-            layer.open({
-                type: 1,
-                area: ['330px', '180px'],
-                title: '请输入密钥'
-                , content: $("#keyForm"),
-                shade: 0,
-                btn: ['提交', '取消']
-                , btn1: function () {
-                    let key = $("#key").val();
-                    $.ajax({
-                        type: 'post',
-                        url: "/diary/key",
-                        data: {
-                            "key": key,
-                        },
-                        success: function (data) {
-                            if (data.code === 1000) {
-                                //跳转页面也传入key，防止使用特殊技术绕过js
-                                location.href = "${pageContext.request.contextPath}/diary/page?key=" + key
-                                return true;
-                            } else {
-                                layer.msg("密钥错误");
-                            }
-                            return false;
-                        },
-                        dataType: "json"
-                    })
-                },
-                btn2: function (index, layero) {
-                    $("#key").val("");
-                    return true;
-                },
-                cancel: function (layero, index) {
-                    layer.closeAll();
-                }
-
-            })
-        })
     })
 </script>
 </body>

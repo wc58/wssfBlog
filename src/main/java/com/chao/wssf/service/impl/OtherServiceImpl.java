@@ -41,19 +41,6 @@ public class OtherServiceImpl implements IOtherService {
         return otherMapper.selectOne(otherQueryWrapper);
     }
 
-    /**
-     * 访问量加一
-     *
-     * @param id
-     */
-    @Override
-    public void flowAdd(Integer id) {
-        QueryWrapper<Other> otherQueryWrapper = new QueryWrapper<>();
-        otherQueryWrapper.select("id", "flow").eq("article_id", id);
-        Other other = otherMapper.selectOne(otherQueryWrapper);
-        other.setFlow(other.getFlow() + 1);
-        otherMapper.updateById(other);
-    }
 
     /**
      * 评论加一
@@ -69,5 +56,36 @@ public class OtherServiceImpl implements IOtherService {
         otherMapper.updateById(other);
     }
 
+    /**
+     * 访问量加一
+     *
+     * @param id
+     */
+    @Override
+    public void flowAdd(Integer id) {
+        flow("add", id);
+    }
+
+    /**
+     * 访问量减一
+     *
+     * @param id
+     */
+    @Override
+    public void flowMinus(Integer id) {
+        flow("minus", id);
+    }
+
+    private void flow(String type, Integer id) {
+        QueryWrapper<Other> otherQueryWrapper = new QueryWrapper<>();
+        otherQueryWrapper.select("id", "flow").eq("article_id", id);
+        Other other = otherMapper.selectOne(otherQueryWrapper);
+        if (type.equals("add")) {
+            other.setFlow(other.getFlow() + 1);
+        } else {
+            other.setFlow(other.getFlow() - 1);
+        }
+        otherMapper.updateById(other);
+    }
 
 }
