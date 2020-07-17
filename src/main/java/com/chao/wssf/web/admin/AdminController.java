@@ -31,9 +31,11 @@ public class AdminController {
     @ResponseBody
     public R login(String username, String password, HttpSession session) {
         try {
-            //已经登录过
-            if (session.getAttribute("admin") != null) {
-                return R.OK();
+
+            Admin sessionAdmin = (Admin) session.getAttribute("admin");
+            //再次登录且不是同一用户，则把之前session给清空
+            if (sessionAdmin != null && sessionAdmin.getUsername().equals(username)) {
+                session.invalidate();
             }
             //验证
             Admin admin = adminService.checkAdmin(username, password);
