@@ -33,7 +33,7 @@
 <header class="gird-header">
     <div class="header-fixed">
         <div class="header-inner">
-            <a href="/" class="header-logo" id="logo">Chao.Sir</a>
+            <a href="/blog/list" class="header-logo" id="logo">Chao.Sir</a>
             <%@ include file="include-bar.jsp" %>
             <%-- <a href="/User/QQLogin" class="blog-user layui-anim-scale">
                  <i class="fa fa-qq"></i>

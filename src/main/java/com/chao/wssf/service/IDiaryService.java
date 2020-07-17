@@ -10,4 +10,5 @@ public interface IDiaryService {
 
     HashMap<String, List<Diary>> getAllDiaries();
 
+    int getAllDiarySize();
 }

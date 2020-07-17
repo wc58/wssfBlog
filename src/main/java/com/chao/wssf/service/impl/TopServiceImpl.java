@@ -45,4 +45,13 @@ public class TopServiceImpl implements ITopService {
         }
         return ids;
     }
+
+    /**
+     * 获取所有置顶数
+     * @return
+     */
+    @Override
+    public int getAllTopSize() {
+        return topMapper.selectCount(new QueryWrapper<>());
+    }
 }

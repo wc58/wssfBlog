@@ -16,4 +16,6 @@ public interface IOtherService {
     void commentSizeAdd(Integer id);
 
     void flowMinus(Integer id);
+
+    int getAllFlowSize();
 }

@@ -21,4 +21,9 @@ public class LinkServiceImpl implements ILinkService {
         linkQueryWrapper.eq("del", "1").orderByAsc("sort");
         return linkMapper.selectList(linkQueryWrapper);
     }
+
+    @Override
+    public int getAllLinkSize() {
+        return linkMapper.selectCount(new QueryWrapper<>());
+    }
 }

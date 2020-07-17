@@ -49,6 +49,7 @@ public class CommentServiceImpl implements ICommentService {
         commentMapper.insert(comment);
     }
 
+
     private void reply(Integer pid, String parentName, List<FullComment> fullComments) {
 
         QueryWrapper<Comment> commentQueryWrapper = new QueryWrapper<>();
@@ -76,6 +77,18 @@ public class CommentServiceImpl implements ICommentService {
             reply(comment.getId(), user.getName(), fullComments);
         }
 
+    }
+
+    //==========================================================================================================
+
+    /**
+     * 获取所有评论数
+     *
+     * @return
+     */
+    @Override
+    public int getAllCommentSize() {
+        return commentMapper.selectCount(new QueryWrapper<>());
     }
 
 

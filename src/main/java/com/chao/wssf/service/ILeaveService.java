@@ -10,4 +10,6 @@ public interface ILeaveService {
     List<FullLeave> getAllFullComments();
 
     void addReply(Leave leave);
+
+    int getAllLeaveSize();
 }

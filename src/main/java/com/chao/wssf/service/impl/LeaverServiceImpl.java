@@ -61,6 +61,7 @@ public class LeaverServiceImpl implements ILeaveService {
         leaveMapper.insert(leave);
     }
 
+
     /**
      * 获取对应的回复
      *
@@ -94,6 +95,13 @@ public class LeaverServiceImpl implements ILeaveService {
             replyLeave(leaf.getId(), user.getName(), fullLeaves);
         }
 
+    }
+
+    //==========================================================================================================
+
+    @Override
+    public int getAllLeaveSize() {
+        return leaveMapper.selectCount(new QueryWrapper<>());
     }
 
 }

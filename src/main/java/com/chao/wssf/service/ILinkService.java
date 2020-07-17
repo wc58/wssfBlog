@@ -8,4 +8,5 @@ public interface ILinkService {
 
     List<Link> getAllLinks();
 
+    int getAllLinkSize();
 }

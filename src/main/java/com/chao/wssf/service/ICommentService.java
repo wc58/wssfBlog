@@ -11,4 +11,5 @@ public interface ICommentService {
 
     void addReply(Comment comment);
 
+    int getAllCommentSize();
 }

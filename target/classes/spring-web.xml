@@ -28,7 +28,20 @@
         <property name="suffix" value=".jsp"/>
     </bean>
 
+    <!--拦截器-->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/admin/**"/>
+            <mvc:exclude-mapping path="/admin"/>
+            <mvc:exclude-mapping path="/admin/login"/>
+            <bean class="com.chao.wssf.web.interceptor.AdminLoginInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
+
     <!--处理直接请求-->
     <mvc:view-controller path="about" view-name="about"/>
+
+    <mvc:view-controller path="admin" view-name="admin/login"/>
+    <mvc:view-controller path="a" view-name="admin/a"/>
 
 </beans>

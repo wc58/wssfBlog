@@ -9,4 +9,5 @@ public interface ITopService {
 
     List<Top> getArticleIdByTops();
 
+    int getAllTopSize();
 }

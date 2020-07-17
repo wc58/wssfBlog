@@ -20,4 +20,16 @@ public class UserServiceImpl implements IUserService {
         userQueryWrapper.eq("third_id", thirdId).eq("email", email).eq("del", "0");
         return userMapper.selectOne(userQueryWrapper);
     }
+
+    //==========================================================================================================
+
+    /**
+     * 获取所有用户（包括被禁用的）
+     *
+     * @return
+     */
+    @Override
+    public int getAllUserSize() {
+        return userMapper.selectCount(new QueryWrapper<>());
+    }
 }

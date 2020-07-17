@@ -70,4 +70,16 @@ public class LabelServiceImpl implements ILabelService {
         articleLabelQueryWrapper.select("article_id").eq("label_id", id);
         return articleLabelMapper.selectList(articleLabelQueryWrapper).stream().map(ArticleLabel::getArticleId).collect(Collectors.toList());
     }
+
+    //==========================================================================================================
+
+    /**
+     * 获取所有标签数
+     *
+     * @return
+     */
+    @Override
+    public int getAllLabelSize() {
+        return labelMapper.selectCount(new QueryWrapper<>());
+    }
 }

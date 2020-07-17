@@ -22,6 +22,7 @@ com\chao\wssf\service\ITopService.class
 com\chao\wssf\web\controller\UserController.class
 com\chao\wssf\entity\User.class
 com\chao\wssf\mapper\LeaveMapper.class
+com\chao\wssf\web\admin\PageController.class
 com\chao\wssf\mapper\LinkMapper.class
 com\chao\wssf\service\impl\OtherServiceImpl.class
 com\chao\wssf\web\controller\DiaryController.class
@@ -36,6 +37,9 @@ com\chao\wssf\entity\Other.class
 com\chao\wssf\entity\Leave.class
 com\chao\wssf\mapper\EmailMapper.class
 com\chao\wssf\service\impl\LeaverServiceImpl.class
+com\chao\wssf\service\IAdminService.class
+com\chao\wssf\service\impl\AdminServiceImpl.class
+com\chao\wssf\web\admin\AdminController.class
 com\chao\wssf\mapper\TopMapper.class
 com\chao\wssf\entity\About.class
 com\chao\wssf\entity\Diary.class
@@ -47,6 +51,7 @@ com\chao\wssf\entity\Link.class
 com\chao\wssf\mapper\DiaryMapper.class
 com\chao\wssf\mapper\LabelMapper.class
 com\chao\wssf\util\ResultCode.class
+com\chao\wssf\web\interceptor\AdminLoginInterceptor.class
 com\chao\wssf\mapper\UserMapper.class
 com\chao\wssf\entity\Article.class
 com\chao\wssf\mapper\OtherMapper.class

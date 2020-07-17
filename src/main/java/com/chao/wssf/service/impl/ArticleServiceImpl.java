@@ -1,7 +1,10 @@
 package com.chao.wssf.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.conditions.query.QueryChainWrapper;
 import com.chao.wssf.entity.Article;
 import com.chao.wssf.entity.Other;
+import com.chao.wssf.mapper.ArticleMapper;
 import com.chao.wssf.service.ArticleCache;
 import com.chao.wssf.service.IArticleService;
 import com.chao.wssf.service.ILabelService;
@@ -21,9 +24,10 @@ public class ArticleServiceImpl implements IArticleService {
     private IOtherService otherService;
     @Autowired
     private ArticleCache articleCache;
-
     @Autowired
     private ILabelService labelService;
+    @Autowired
+    private ArticleMapper articleMapper;
 
     /**
      * 点击量排序查询
@@ -94,6 +98,16 @@ public class ArticleServiceImpl implements IArticleService {
     @Override
     public void conditionArticle(String condition) {
         articleCache.conditionArticle(condition);
+    }
+
+    //==========================================================================================================
+
+    /**
+     * 获取所有文章数（包括未展示）
+     */
+    @Override
+    public int getAllArticleSize() {
+        return articleMapper.selectCount(new QueryWrapper<>());
     }
 
 

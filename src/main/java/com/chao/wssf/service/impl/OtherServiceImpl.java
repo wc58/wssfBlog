@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class OtherServiceImpl implements IOtherService {
@@ -76,6 +77,7 @@ public class OtherServiceImpl implements IOtherService {
         flow("minus", id);
     }
 
+
     private void flow(String type, Integer id) {
         QueryWrapper<Other> otherQueryWrapper = new QueryWrapper<>();
         otherQueryWrapper.select("id", "flow").eq("article_id", id);
@@ -86,6 +88,24 @@ public class OtherServiceImpl implements IOtherService {
             other.setFlow(other.getFlow() - 1);
         }
         otherMapper.updateById(other);
+    }
+
+
+
+    /**
+     * 所有文章浏览量
+     *
+     * @return
+     */
+    @Override
+    public int getAllFlowSize() {
+        QueryWrapper<Other> otherQueryWrapper = new QueryWrapper<>();
+        List<Integer> collect = otherMapper.selectList(otherQueryWrapper).stream().map(Other::getFlow).collect(Collectors.toList());
+        int allFlow = 0;
+        for (Integer integer : collect) {
+            allFlow += integer;
+        }
+        return allFlow;
     }
 
 }

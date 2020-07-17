@@ -36,4 +36,14 @@ public class DiaryServiceImpl implements IDiaryService {
 
         return map;
     }
+
+    /**
+     * 获取所有日记
+     *
+     * @return
+     */
+    @Override
+    public int getAllDiarySize() {
+        return diaryMapper.selectCount(new QueryWrapper<>());
+    }
 }

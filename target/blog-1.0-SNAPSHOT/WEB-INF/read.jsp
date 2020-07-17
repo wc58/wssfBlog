@@ -24,6 +24,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/gloable.css"/>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/blog.css"/>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/message.css"/>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/highlight/styles/monokai-sublime.css"/>
 </head>
 <body>
 <div class="header">
@@ -205,12 +206,13 @@
                                                                   style="height: 16px;font-size: 9px;">博主</span>
                                                             &nbsp;
                                                         </c:if>
+                                                        <span style="padding-right:0;margin-left:-5px;"><i
+                                                                style="color: gray">回复</i></span>
+                                                            <%--被回复人--%>
+                                                        <span class="username"><i>${childComment.comment.parentName}：</i></span>
                                                     </div>
                                                     &nbsp;
-                                                    <span style="padding-right:0;margin-left:-5px;"><i
-                                                            style="color: gray">回复</i></span>
-                                                        <%--被回复人--%>
-                                                    <span class="username"><i>${childComment.comment.parentName}：</i></span>
+
 
                                                         <%--回复内容--%>
                                                     <span>${childComment.comment.content}</span>
@@ -265,8 +267,10 @@
 <script src="${pageContext.request.contextPath}/js/yss/gloable.js"></script>
 <script src="${pageContext.request.contextPath}/js/plugins/nprogress.js"></script>
 <script src="${pageContext.request.contextPath}/js/pagecomment.js"></script>
+<script src="${pageContext.request.contextPath}/highlight/highlight.pack.js"></script>
 <script>NProgress.start();</script>
 <script>
+    hljs.initHighlightingOnLoad();
     window.onload = function () {
         NProgress.done();
     };

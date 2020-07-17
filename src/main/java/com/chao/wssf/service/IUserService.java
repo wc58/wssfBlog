@@ -7,4 +7,6 @@ public interface IUserService {
     User checkUser(String thirdId, String email);
 
 
+    int getAllUserSize();
+
 }

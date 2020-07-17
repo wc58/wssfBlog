@@ -16,4 +16,6 @@ public interface IArticleService {
     void sortArticle(Integer id);
 
     void conditionArticle(String condition);
+
+    int getAllArticleSize();
 }

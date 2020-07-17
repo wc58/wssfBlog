@@ -129,7 +129,7 @@
                     </ul>
                     <br><br>
                     <div>
-                        <img src="https://wssf.oss-cn-beijing.aliyuncs.com/system/about.jpg"
+                        <img src="/image/about.jpg"
                              style="width:100%;height:800px;">
                     </div>
                 </section>
