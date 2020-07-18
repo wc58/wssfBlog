@@ -13,6 +13,7 @@ com\chao\wssf\mapper\ArticleLabelMapper.class
 com\chao\wssf\service\impl\DiaryServiceImpl.class
 com\chao\wssf\util\PropertiesUtils.class
 com\chao\wssf\service\ILeaveService.class
+com\chao\wssf\web\admin\FileUploadController.class
 com\chao\wssf\entity\Top.class
 com\chao\wssf\entity\Comment.class
 com\chao\wssf\service\ILinkService.class
@@ -46,7 +47,6 @@ com\chao\wssf\web\admin\AdminController.class
 com\chao\wssf\mapper\TopMapper.class
 com\chao\wssf\entity\About.class
 com\chao\wssf\entity\Diary.class
-com\chao\wssf\web\admin\WriteBlogController.class
 com\chao\wssf\mapper\AdminMapper.class
 com\chao\wssf\mapper\CommentMapper.class
 com\chao\wssf\service\impl\CommentServiceImpl.class

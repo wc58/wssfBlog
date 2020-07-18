@@ -32,7 +32,6 @@ E:\IdeaCode\chao\blog\src\main\java\com\chao\wssf\service\impl\CommentServiceImp
 E:\IdeaCode\chao\blog\src\main\java\com\chao\wssf\mapper\ArticleMapper.java
 E:\IdeaCode\chao\blog\src\main\java\com\chao\wssf\mapper\LabelMapper.java
 E:\IdeaCode\chao\blog\src\main\java\com\chao\wssf\service\impl\LinkServiceImpl.java
-E:\IdeaCode\chao\blog\src\main\java\com\chao\wssf\web\admin\WriteBlogController.java
 E:\IdeaCode\chao\blog\src\main\java\com\chao\wssf\service\IArticleService.java
 E:\IdeaCode\chao\blog\src\main\java\com\chao\wssf\web\controller\LinkController.java
 E:\IdeaCode\chao\blog\src\main\java\com\chao\wssf\entity\Email.java
@@ -62,5 +61,6 @@ E:\IdeaCode\chao\blog\src\main\java\com\chao\wssf\mapper\EmailMapper.java
 E:\IdeaCode\chao\blog\src\main\java\com\chao\wssf\util\ResultCode.java
 E:\IdeaCode\chao\blog\src\main\java\com\chao\wssf\mapper\OtherMapper.java
 E:\IdeaCode\chao\blog\src\main\java\com\chao\wssf\entity\Label.java
+E:\IdeaCode\chao\blog\src\main\java\com\chao\wssf\web\admin\FileUploadController.java
 E:\IdeaCode\chao\blog\src\main\java\com\chao\wssf\web\controller\LeaveController.java
 E:\IdeaCode\chao\blog\src\main\java\com\chao\wssf\mapper\CommentMapper.java

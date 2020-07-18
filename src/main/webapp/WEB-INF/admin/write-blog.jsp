@@ -63,6 +63,7 @@
                     <button type="button" class="layui-btn" id="uploadCover">
                         <i class="layui-icon">&#xe67c;</i>上传图片
                     </button>
+                    <span id="image"></span>
                 </div>
             </div>
         </div>
@@ -131,6 +132,10 @@
 
     var E = window.wangEditor
     var editor = new E('#tools', '#content')
+    editor.customConfig.uploadImgMaxSize = 10 * 1024 * 1024
+    editor.customConfig.uploadImgMaxLength = 5
+    editor.customConfig.uploadFileName = 'article'
+    editor.customConfig.uploadImgServer = '/admin/uploadPictures'
     editor.create()
 
     $("#save").click(function () {
@@ -157,9 +162,9 @@
     })
 
 
+    /*封面上传和删除*/
     layui.use('upload', function () {
         var upload = layui.upload;
-
         //执行实例
         upload.render({
             elem: '#uploadCover',
@@ -168,13 +173,37 @@
             field: 'cover',
             size: 1024 * 3,
             done: function (res) {
-                alert(res)
                 if (res.code === 1000) {
-                    alert(res);
+                    document.getElementById("uploadCover").style.display = "none";
+                    var img = document.createElement('img');//创建一个标签
+                    img.setAttribute('src', res.map.imageUrl);//给标签定义src链接
+                    img.setAttribute('id', 'coverImage');
+                    img.setAttribute("title", "双击删除图片");
+                    img.ondblclick = function () {
+                        img.style.display = "none";
+                        document.getElementById("uploadCover").style.display = "block";
+                        //删除图片
+                        $.ajax({
+                            type: 'post',
+                            url: '/admin/delCover',
+                            data: {
+                                'filePath': res.map.imageUrl
+                            },
+                            success: function (data) {
+                                if (data.code === 1000) {
+                                    layer.msg("删除成功");
+                                }
+                            },
+                            dataType: 'json'
+                        })
+                    };
+                    img.style.height = '150px';
+                    img.style.width = '250px';
+                    document.getElementById('image').appendChild(img);//放到指定的id里
                 }
             },
             error: function () {
-                //请求异常回调
+
             }
         });
     });
