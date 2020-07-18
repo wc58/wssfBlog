@@ -168,8 +168,9 @@
             field: 'cover',
             size: 1024 * 3,
             done: function (res) {
+                alert(res)
                 if (res.code === 1000) {
-                    alert(res.map.servicePath);
+                    alert(res);
                 }
             },
             error: function () {
