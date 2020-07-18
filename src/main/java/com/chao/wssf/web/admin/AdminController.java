@@ -1,9 +1,7 @@
 package com.chao.wssf.web.admin;
 
 import com.chao.wssf.entity.Admin;
-import com.chao.wssf.mapper.AdminMapper;
 import com.chao.wssf.service.IAdminService;
-import com.chao.wssf.service.impl.AdminServiceImpl;
 import com.chao.wssf.util.R;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

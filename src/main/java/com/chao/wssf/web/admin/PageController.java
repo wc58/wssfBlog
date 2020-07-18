@@ -50,7 +50,7 @@ public class PageController {
         //获取吐槽数
         int leaveSize = leaveService.getAllLeaveSize();
         model.addAttribute("leaveSize", leaveSize);
-        //获取分类数
+        //获取标签数
         int labelSize = labelService.getAllLabelSize();
         model.addAttribute("labelSize", labelSize);
         //获取友链数
@@ -71,5 +71,13 @@ public class PageController {
         return "admin/desk";
     }
 
+    /**
+     * 写博客
+     * @return
+     */
+    @RequestMapping("writeBlog")
+    public String writeBlog() {
+        return "admin/write-blog";
+    }
 
 }

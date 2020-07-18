@@ -18,9 +18,11 @@ E:\IdeaCode\chao\blog\src\main\java\com\chao\wssf\entity\Article.java
 E:\IdeaCode\chao\blog\src\main\java\com\chao\wssf\service\IOtherService.java
 E:\IdeaCode\chao\blog\src\main\java\com\chao\wssf\mapper\ArticleLabelMapper.java
 E:\IdeaCode\chao\blog\src\main\java\com\chao\wssf\web\controller\UserController.java
+E:\IdeaCode\chao\blog\src\main\java\com\chao\wssf\web\controller\LabelController.java
 E:\IdeaCode\chao\blog\src\main\java\com\chao\wssf\service\impl\ArticleServiceImpl.java
 E:\IdeaCode\chao\blog\src\main\java\com\chao\wssf\entity\User.java
 E:\IdeaCode\chao\blog\src\main\java\com\chao\wssf\web\controller\IndexPageController.java
+E:\IdeaCode\chao\blog\src\main\java\com\chao\wssf\util\PropertiesUtils.java
 E:\IdeaCode\chao\blog\src\main\java\com\chao\wssf\entity\Top.java
 E:\IdeaCode\chao\blog\src\main\java\com\chao\wssf\web\controller\ArticleController.java
 E:\IdeaCode\chao\blog\src\main\java\com\chao\wssf\web\controller\DiaryController.java
@@ -30,6 +32,7 @@ E:\IdeaCode\chao\blog\src\main\java\com\chao\wssf\service\impl\CommentServiceImp
 E:\IdeaCode\chao\blog\src\main\java\com\chao\wssf\mapper\ArticleMapper.java
 E:\IdeaCode\chao\blog\src\main\java\com\chao\wssf\mapper\LabelMapper.java
 E:\IdeaCode\chao\blog\src\main\java\com\chao\wssf\service\impl\LinkServiceImpl.java
+E:\IdeaCode\chao\blog\src\main\java\com\chao\wssf\web\admin\WriteBlogController.java
 E:\IdeaCode\chao\blog\src\main\java\com\chao\wssf\service\IArticleService.java
 E:\IdeaCode\chao\blog\src\main\java\com\chao\wssf\web\controller\LinkController.java
 E:\IdeaCode\chao\blog\src\main\java\com\chao\wssf\entity\Email.java
@@ -38,6 +41,7 @@ E:\IdeaCode\chao\blog\src\main\java\com\chao\wssf\entity\Other.java
 E:\IdeaCode\chao\blog\src\main\java\com\chao\wssf\entity\About.java
 E:\IdeaCode\chao\blog\src\main\java\com\chao\wssf\entity\ArticleLabel.java
 E:\IdeaCode\chao\blog\src\main\java\com\chao\wssf\pojo\FullLeave.java
+E:\IdeaCode\chao\blog\src\main\java\com\chao\wssf\pojo\WriteLabel.java
 E:\IdeaCode\chao\blog\src\main\java\com\chao\wssf\web\admin\PageController.java
 E:\IdeaCode\chao\blog\src\main\java\com\chao\wssf\mapper\DiaryMapper.java
 E:\IdeaCode\chao\blog\src\main\java\com\chao\wssf\service\ILabelService.java

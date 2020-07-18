@@ -35,9 +35,9 @@ s
         <div class="header-inner">
             <a href="/blog/list" class="header-logo" id="logo">Chao.Sir</a>
             <%@ include file="include-bar.jsp" %>
-            <a href="#" class="blog-user">
+           <%-- <a href="#" class="blog-user">
                 <i class="fa fa-qq"></i>
-            </a>
+            </a>--%>
             <a class="phone-menu">
                 <i></i>
                 <i></i>

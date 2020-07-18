@@ -16,13 +16,10 @@
     <meta name="viewport"
           content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi"/>
     <meta http-equiv="Cache-Control" content="no-siteapp"/>
-    <link rel="stylesheet" href="../../css/font.css">
-    <link rel="stylesheet" href="../../css/xadmin.css">
-    <script src="../../layui/layui.js" charset="utf-8"></script>
-    <script type="text/javascript" src="../../js/xadmin.js"></script>
+    <%@ include file="staticSource.jsp" %>
     <script>
         // 是否开启刷新记忆tab功能
-        var is_remember = true;
+        var is_remember = false;
     </script>
 </head>
 <body class="index">
@@ -90,7 +87,7 @@
                 <ul class="sub-menu">
 
                     <li>
-                        <a onclick="xadmin.add_tab('添加文章','writeBlog.html')">
+                        <a onclick="xadmin.add_tab('添加文章','/admin/writeBlog')">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>添加文章</cite></a>
                     </li>
