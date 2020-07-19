@@ -11,7 +11,7 @@
         classpath:*.properties：仅仅加载本模块（jar）的资源文件
         classpath*:*.properties：不仅加载本模块（jar）的资源文件还加其他模块（jar）下的资源文件
     -->
-    <context:property-placeholder location="classpath*:*.properties"/>
+    <context:property-placeholder location="classpath*:/properties/*.properties"/>
 
     <!--配置数据源-->
     <bean class="com.alibaba.druid.pool.DruidDataSource" id="dataSource">
