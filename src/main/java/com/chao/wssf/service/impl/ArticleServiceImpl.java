@@ -136,49 +136,18 @@ public class ArticleServiceImpl implements IArticleService {
     @Override
     @Transactional
     public int addArticle(String title, String assistant, String picture, String content, String author, String status, Boolean del, Boolean top, Integer[] labels) {
-        Article article = new Article();
-        article.setTitle(title);
-        article.setAssistant(assistant);
-        article.setPicture(picture);
-        article.setContent(content);
-        article.setAuthor(author);
-        article.setStatus(status);
-        if (del) {
-            article.setDel("0");
-        } else {
-            article.setDel("1");
-        }
-        article.setCreateTime(new Date());
-        article.setUpdateTime(new Date());
-        articleMapper.insert(article);
-        Integer articleId = article.getId();
+        //添加文章表
+        int articleId = insertOrUpdateArticle(null, title, assistant, picture, content, author, status, del);
         //其他表
         Other other = new Other();
         other.setArticleId(articleId);
         other.setFlow(0);
         other.setCommentSize(0);
         otherMapper.insert(other);
-        //标签表
-        for (Integer labelId : labels) {
-            ArticleLabel articleLabel = new ArticleLabel();
-            articleLabel.setArticleId(articleId);
-            articleLabel.setLabelId(labelId);
-            articleLabelMapper.insert(articleLabel);
-        }
-        //置顶表
-        Integer tops = topMapper.selectCount(new QueryWrapper<Top>().eq("del", "0"));
-        if (top && tops <= 5) {
-            Top t = new Top();
-            t.setArticleId(articleId);
-            //默认永久
-            t.setEver("1");
-            t.setDel("0");
-            //首次最高
-            t.setSort(0);
-            t.setStartTime(new Date());
-            t.setEndTime(new Date());
-            topMapper.insert(t);
-        }
+        //设置标签
+        setLabels(articleId, labels);
+        //设置置顶状态
+        setTop(articleId, top);
         articleCache.updateData();
         return articleId;
     }
@@ -201,8 +170,41 @@ public class ArticleServiceImpl implements IArticleService {
     @Override
     @Transactional
     public int updateArticle(Integer id, String title, String assistant, String picture, String content, String author, String status, Boolean del, Boolean top, Integer[] labels) {
+
+        //更新文章表
+        int articleId = insertOrUpdateArticle(id, title, assistant, picture, content, author, status, del);
+
+        //删除旧的重新添加
+        QueryWrapper<ArticleLabel> articleLabelQueryWrapper = new QueryWrapper<>();
+        articleLabelQueryWrapper.eq("article_id", articleId);
+        articleLabelMapper.delete(articleLabelQueryWrapper);
+        //设置标签
+        setLabels(articleId, labels);
+
+        //置顶表
+        QueryWrapper<Top> topQueryWrapper = new QueryWrapper<>();
+        topQueryWrapper.eq("article_id", articleId);
+        //设置置顶状态
+        setTop(articleId, top);
+        articleCache.updateData();
+        return articleId;
+    }
+
+    /**
+     * 更新或者添加文章
+     *
+     * @param id
+     * @param title
+     * @param assistant
+     * @param picture
+     * @param content
+     * @param author
+     * @param status
+     * @param del
+     * @return
+     */
+    private int insertOrUpdateArticle(Integer id, String title, String assistant, String picture, String content, String author, String status, Boolean del) {
         Article article = new Article();
-        article.setId(id);
         article.setTitle(title);
         article.setAssistant(assistant);
         article.setPicture(picture);
@@ -214,30 +216,28 @@ public class ArticleServiceImpl implements IArticleService {
         } else {
             article.setDel("1");
         }
-
         article.setUpdateTime(new Date());
-        //更新主表
-        articleMapper.updateById(article);
-
-        Integer articleId = article.getId();
-
-        //更新标签表
-        //删除旧的重新添加
-        QueryWrapper<ArticleLabel> articleLabelQueryWrapper = new QueryWrapper<>();
-        articleLabelQueryWrapper.eq("article_id", articleId);
-        articleLabelMapper.delete(articleLabelQueryWrapper);
-        for (Integer labelId : labels) {
-            ArticleLabel articleLabel = new ArticleLabel();
-            articleLabel.setArticleId(articleId);
-            articleLabel.setLabelId(labelId);
-            articleLabelMapper.insert(articleLabel);
+        if (id != null) {
+            article.setId(id);
+            articleMapper.updateById(article);
+        } else {
+            article.setCreateTime(new Date());
+            articleMapper.insert(article);
         }
+        return article.getId();
+    }
 
-        //置顶表
+    /**
+     * 设置置顶状态
+     *
+     * @param articleId
+     * @param top
+     */
+    private void setTop(Integer articleId, Boolean top) {
+        Integer tops = topMapper.selectCount(new QueryWrapper<Top>().eq("del", "0"));
         QueryWrapper<Top> topQueryWrapper = new QueryWrapper<>();
         topQueryWrapper.eq("article_id", articleId);
-        Integer tops = topMapper.selectCount(new QueryWrapper<Top>().eq("del", "0"));
-        if (top && tops <= 5) {
+        if (top && tops < 5) {
             QueryWrapper<Top> topQueryWrapper1 = new QueryWrapper<>();
             topQueryWrapper1.eq("article_id", articleId);
             Integer integer = topMapper.selectCount(topQueryWrapper1);
@@ -264,9 +264,21 @@ public class ArticleServiceImpl implements IArticleService {
             t.setEndTime(new Date());
             topMapper.update(t, topQueryWrapper);
         }
-        articleCache.updateData();
-        return articleId;
     }
 
+    /**
+     * 为文章设置标签
+     *
+     * @param articleId
+     * @param labels
+     */
+    private void setLabels(Integer articleId, Integer[] labels) {
+        for (Integer labelId : labels) {
+            ArticleLabel articleLabel = new ArticleLabel();
+            articleLabel.setArticleId(articleId);
+            articleLabel.setLabelId(labelId);
+            articleLabelMapper.insert(articleLabel);
+        }
+    }
 
 }

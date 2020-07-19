@@ -128,6 +128,18 @@
 
 <script>
 
+    var unloadPageTip = function () {
+        return "您编辑的文章内容还没有进行保存!";
+    };
+    window.onbeforeunload = unloadPageTip;
+
+    $(function () {
+        var topSize = '${topSize}';
+        if (topSize >= 5) {
+            $("#top").attr('disabled', 'disabled')
+        }
+    })
+
     //标签
     var select;
     var id;
@@ -150,6 +162,31 @@
         var top = $("#top").prop("checked");
         //标签
         var labels = select.getValue('value');
+
+        if (title == '') {
+            layer.msg("怎么能没有了标题呢？")
+            return;
+        }
+
+        if (labels == '') {
+            layer.msg("至少选择一个标签")
+            return;
+        }
+
+        if (picture === undefined && assistant === '') {
+            layer.msg("封面和描述必须任选其一")
+            return;
+        }
+
+        if (status == '') {
+            layer.msg("状态也不能为空啊！")
+            return;
+        }
+
+        if (content.length < 20) {
+            layer.msg("内容也忒少了把！")
+            return;
+        }
 
         $.ajax({
             type: 'post',
@@ -175,14 +212,6 @@
             },
             dataType: 'json'
         })
-        /*
-                alert("标签" + labels)
-                alert("标题" + title);
-                alert("描述" + assistant);
-                alert("封面" + picture);
-                alert("内容" + content);
-                alert("发布" + del)
-                alert("置顶" + top)*/
     });
 
     //直接发布

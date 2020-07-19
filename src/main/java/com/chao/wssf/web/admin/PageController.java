@@ -73,10 +73,13 @@ public class PageController {
 
     /**
      * 写博客
+     *
      * @return
      */
     @RequestMapping("writeBlog")
-    public String writeBlog() {
+    public String writeBlog(Model model) {
+        int topSize = topService.getTopSize();
+        model.addAttribute("topSize", topSize);
         return "admin/write-blog";
     }
 

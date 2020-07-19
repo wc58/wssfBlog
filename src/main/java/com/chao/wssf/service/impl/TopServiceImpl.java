@@ -48,10 +48,17 @@ public class TopServiceImpl implements ITopService {
 
     /**
      * 获取所有置顶数
+     *
      * @return
      */
     @Override
     public int getAllTopSize() {
         return topMapper.selectCount(new QueryWrapper<>());
+    }
+
+    public int getTopSize() {
+        QueryWrapper<Top> topQueryWrapper = new QueryWrapper<>();
+        topQueryWrapper.eq("del", "0");
+        return topMapper.selectCount(topQueryWrapper);
     }
 }
