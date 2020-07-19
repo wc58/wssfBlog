@@ -3,7 +3,7 @@ package com.chao.wssf.web.admin;
 import com.aliyun.oss.OSS;
 import com.aliyun.oss.OSSClientBuilder;
 import com.aliyun.oss.OSSException;
-import com.chao.wssf.util.PropertiesUtils;
+import com.chao.wssf.properties.OssProperties;
 import com.chao.wssf.util.R;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +26,7 @@ import java.util.UUID;
 public class FileUploadController {
 
     @Autowired
-    private PropertiesUtils propertiesUtils;
+    private OssProperties ossProperties;
 
 
     /**
@@ -38,8 +38,8 @@ public class FileUploadController {
     @PostMapping("uploadCover")
     @ResponseBody
     public R uploadCover(@RequestParam("cover") MultipartFile file) {
-        String bucketName = propertiesUtils.getBucketName();
-        String endpoint = propertiesUtils.getEndpoint();
+        String bucketName = ossProperties.getBucketName();
+        String endpoint = ossProperties.getEndpoint();
         OSS oss = getOss();
         //文件路径加名称
         String filename = "cover" + "/" + new DateTime().toString("yyyy/MM/dd") + "/" + UUID.randomUUID().toString() + file.getOriginalFilename();//设置日期格式
@@ -63,8 +63,8 @@ public class FileUploadController {
     @PostMapping("uploadPictures")
     @ResponseBody
     public Map<String, Object> uploadPictures(@RequestParam("article") MultipartFile[] files) {
-        String bucketName = propertiesUtils.getBucketName();
-        String endpoint = propertiesUtils.getEndpoint();
+        String bucketName = ossProperties.getBucketName();
+        String endpoint = ossProperties.getEndpoint();
         OSS oss = getOss();
         HashMap<String, Object> map = new HashMap<>();
         ArrayList<String> paths = new ArrayList<>();
@@ -96,7 +96,7 @@ public class FileUploadController {
     @ResponseBody
     public R delCover(@RequestParam String filePath) {
         try {
-            String bucketName = propertiesUtils.getBucketName();
+            String bucketName = ossProperties.getBucketName();
             filePath = filePath.replace("https://wssf.oss-cn-beijing.aliyuncs.com/", "");
             OSS oss = getOss();
             oss.deleteObject(bucketName, filePath);
@@ -108,9 +108,9 @@ public class FileUploadController {
     }
 
     private OSS getOss() {
-        String endpoint = propertiesUtils.getEndpoint();
-        String accessKeyId = propertiesUtils.getAccessKeyId();
-        String accessKeySecret = propertiesUtils.getAccessKeySecret();
+        String endpoint = ossProperties.getEndpoint();
+        String accessKeyId = ossProperties.getAccessKeyId();
+        String accessKeySecret = ossProperties.getAccessKeySecret();
         //开始连接OSS
         return new OSSClientBuilder().build(endpoint, accessKeyId, accessKeySecret);
     }

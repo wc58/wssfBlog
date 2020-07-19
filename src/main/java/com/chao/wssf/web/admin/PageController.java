@@ -1,5 +1,6 @@
 package com.chao.wssf.web.admin;
 
+import com.chao.wssf.properties.WssfProperties;
 import com.chao.wssf.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -30,6 +31,8 @@ public class PageController {
     private ITopService topService;
     @Autowired
     private IAdminService adminService;
+    @Autowired
+    private WssfProperties wssfProperties;
 
     /**
      * 桌面
@@ -79,7 +82,7 @@ public class PageController {
     @RequestMapping("writeBlog")
     public String writeBlog(Model model) {
         int topSize = topService.getTopSize();
-        model.addAttribute("topSize", topSize);
+        model.addAttribute("topSize", topSize < wssfProperties.getQuerySize());
         return "admin/write-blog";
     }
 

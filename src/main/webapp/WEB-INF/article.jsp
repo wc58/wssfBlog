@@ -251,7 +251,8 @@
         var flow = layui.flow;
         flow.load({
             elem: '#LAY_bloglist',
-            isAuto: false,
+            isAuto: true,
+            mb:1,
             end:'-----------我也是有底线的-----------',
             done: function (page, next) {
                 $.ajax({

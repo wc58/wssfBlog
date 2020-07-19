@@ -135,7 +135,8 @@
 
     $(function () {
         var topSize = '${topSize}';
-        if (topSize >= 5) {
+        //说明支持置顶了
+        if (topSize == 'false') {
             $("#top").attr('disabled', 'disabled')
         }
     })

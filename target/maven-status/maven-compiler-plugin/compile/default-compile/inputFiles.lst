@@ -7,6 +7,7 @@ E:\IdeaCode\chao\blog\src\main\java\com\chao\wssf\service\impl\AdminServiceImpl.
 E:\IdeaCode\chao\blog\src\main\java\com\chao\wssf\mapper\AdminMapper.java
 E:\IdeaCode\chao\blog\src\main\java\com\chao\wssf\web\controller\CommentController.java
 E:\IdeaCode\chao\blog\src\main\java\com\chao\wssf\mapper\LinkMapper.java
+E:\IdeaCode\chao\blog\src\main\java\com\chao\wssf\properties\OssProperties.java
 E:\IdeaCode\chao\blog\src\main\java\com\chao\wssf\util\ArticleTemplate.java
 E:\IdeaCode\chao\blog\src\main\java\com\chao\wssf\service\impl\LabelServiceImpl.java
 E:\IdeaCode\chao\blog\src\main\java\com\chao\wssf\service\impl\TopServiceImpl.java
@@ -22,7 +23,6 @@ E:\IdeaCode\chao\blog\src\main\java\com\chao\wssf\web\controller\LabelController
 E:\IdeaCode\chao\blog\src\main\java\com\chao\wssf\service\impl\ArticleServiceImpl.java
 E:\IdeaCode\chao\blog\src\main\java\com\chao\wssf\entity\User.java
 E:\IdeaCode\chao\blog\src\main\java\com\chao\wssf\web\controller\IndexPageController.java
-E:\IdeaCode\chao\blog\src\main\java\com\chao\wssf\util\PropertiesUtils.java
 E:\IdeaCode\chao\blog\src\main\java\com\chao\wssf\entity\Top.java
 E:\IdeaCode\chao\blog\src\main\java\com\chao\wssf\web\controller\ArticleController.java
 E:\IdeaCode\chao\blog\src\main\java\com\chao\wssf\web\controller\DiaryController.java
@@ -58,6 +58,7 @@ E:\IdeaCode\chao\blog\src\main\java\com\chao\wssf\mapper\UserMapper.java
 E:\IdeaCode\chao\blog\src\main\java\com\chao\wssf\web\admin\AdminController.java
 E:\IdeaCode\chao\blog\src\main\java\com\chao\wssf\entity\Link.java
 E:\IdeaCode\chao\blog\src\main\java\com\chao\wssf\mapper\EmailMapper.java
+E:\IdeaCode\chao\blog\src\main\java\com\chao\wssf\properties\WssfProperties.java
 E:\IdeaCode\chao\blog\src\main\java\com\chao\wssf\util\ResultCode.java
 E:\IdeaCode\chao\blog\src\main\java\com\chao\wssf\mapper\OtherMapper.java
 E:\IdeaCode\chao\blog\src\main\java\com\chao\wssf\entity\Label.java

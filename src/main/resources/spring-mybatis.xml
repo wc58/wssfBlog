@@ -1,39 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:context="http://www.springframework.org/schema/context"
        xmlns:tx="http://www.springframework.org/schema/tx"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd
-        http://www.springframework.org/schema/context
-        http://www.springframework.org/schema/context/spring-context.xsd
+
+
         http://www.springframework.org/schema/tx
         http://www.springframework.org/schema/tx/spring-tx.xsd">
 
-
-    <!--扫描所有文件夹-->
-<!--    <context:component-scan base-package="com.chao.wssf"/>-->
-
-    <!--加载属性文件
-        classpath:*.properties：仅仅加载本模块（jar）的资源文件
-        classpath*:*.properties：不仅加载本模块（jar）的资源文件还加其他模块（jar）下的资源文件
-    -->
-    <context:property-placeholder location="classpath*:*.properties"/>
-
-    <!--配置数据源-->
-    <bean class="com.alibaba.druid.pool.DruidDataSource" id="dataSource">
-        <property name="driverClassName" value="${db.driver}"/>
-        <property name="url" value="${db.url}"/>
-        <property name="username" value="${db.username}"/>
-        <property name="password" value="${db.password}"/>
-    </bean>
-
-    <bean class="com.chao.wssf.util.PropertiesUtils" id="propertiesUtils">
-        <property name="endpoint" value="${oss.endpoint}"/>
-        <property name="accessKeyId" value="${oss.accessKeyId}"/>
-        <property name="accessKeySecret" value="${oss.accessKeySecret}"/>
-        <property name="bucketName" value="${oss.bucketName}"/>
-    </bean>
 
     <!--配置事务-->
     <bean class="org.springframework.jdbc.datasource.DataSourceTransactionManager">

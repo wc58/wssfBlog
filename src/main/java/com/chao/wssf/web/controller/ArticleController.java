@@ -1,10 +1,10 @@
 package com.chao.wssf.web.controller;
 
 import com.chao.wssf.entity.Article;
-import com.chao.wssf.entity.Comment;
 import com.chao.wssf.entity.Label;
 import com.chao.wssf.entity.Other;
 import com.chao.wssf.pojo.FullComment;
+import com.chao.wssf.properties.WssfProperties;
 import com.chao.wssf.service.*;
 import com.chao.wssf.util.ArticleTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,10 +39,14 @@ public class ArticleController {
     @Autowired
     private ICommentService commentService;
 
+    @Autowired
+    private WssfProperties wssfProperties;
+
     @RequestMapping("update")
     public void update() {
         articleCache.updateData();
     }
+
 
     private Boolean isSort = false;
     private Boolean isCondition = false;
@@ -134,13 +138,13 @@ public class ArticleController {
     @RequestMapping("article")
     @ResponseBody
     public Map<String, Object> articleJson(Integer page) {
-        //每次查询5条（文章的主要信息）
-        Map<String, Object> articleMap = articleService.listArticle(page, 5, isSort, isCondition);
+        //每次查询8条（文章的主要信息）
+        Map<String, Object> articleMap = articleService.listArticle(page, wssfProperties.getQuerySize(), isSort, isCondition);
         HashMap<String, Object> map = new HashMap<>();
         //渲染页面
         map.put("articles", renderTemplate((List<Article>) articleMap.get("data"), (int) articleMap.get("tops")));
         //总页面数
-        map.put("pageTotal", ((int) articleMap.get("total") / 5) + 1);
+        map.put("pageTotal", ((int) articleMap.get("total") / 8) + 1);
         return map;
     }
 

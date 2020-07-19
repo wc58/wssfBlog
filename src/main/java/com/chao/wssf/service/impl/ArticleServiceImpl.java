@@ -237,7 +237,7 @@ public class ArticleServiceImpl implements IArticleService {
         Integer tops = topMapper.selectCount(new QueryWrapper<Top>().eq("del", "0"));
         QueryWrapper<Top> topQueryWrapper = new QueryWrapper<>();
         topQueryWrapper.eq("article_id", articleId);
-        if (top && tops < 5) {
+        if (top && tops < 8) {
             QueryWrapper<Top> topQueryWrapper1 = new QueryWrapper<>();
             topQueryWrapper1.eq("article_id", articleId);
             Integer integer = topMapper.selectCount(topQueryWrapper1);
