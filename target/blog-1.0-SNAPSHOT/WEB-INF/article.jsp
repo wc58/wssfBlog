@@ -95,8 +95,7 @@
                         <li data-index="1"><a href="/blog/list">全部文章</a></li>
                         <%--标签--%>
                         <c:forEach items="${labels}" var="label" varStatus="i">
-                            <li data-index="${i.count+1}"><a href="/blog/list?sortId=${label.id}">${label.name}&nbsp;&nbsp;&nbsp;&nbsp;<i
-                                    style="color:ForestGreen">(${label.size})</i></a></li>
+                            <li data-index="${i.count+1}"><a href="/blog/list?sortId=${label.id}">${label.name}</a></li>
                         </c:forEach>
                     </ul>
                 </div>
@@ -108,7 +107,7 @@
                     <div class="article-category-title">标签导航</div>
                     <a href="/blog/list">全部文章</a>
                     <c:forEach items="${labels}" var="label">
-                        <a href="/blog/list?sortId=${label.id}">${label.name}&nbsp;&nbsp;&nbsp;&nbsp;<i>(${label.size})</i></a>
+                        <a href="/blog/list?sortId=${label.id}">${label.name}</a>
                     </c:forEach>
                 </div>
 
@@ -173,6 +172,10 @@
 <script src="${pageContext.request.contextPath}/js/yss/article.js"></script>
 <script>
 
+    window.onload = function () {
+        NProgress.done();
+    };
+
     layui.use('layer', function () {
         var layer = layui.layer;
         var $ = layui.$
@@ -223,7 +226,6 @@
     });
 
     layui.use('element', function () {
-        var element = layui.element;
         var $ = layui.$
         $("#searchbtn").click(function () {
             var condition = $("#searchtxt").val();
@@ -250,6 +252,7 @@
         flow.load({
             elem: '#LAY_bloglist',
             isAuto: false,
+            end:'-----------我也是有底线的-----------',
             done: function (page, next) {
                 $.ajax({
                     type: 'post',
@@ -273,9 +276,7 @@
     });
 
 
-    window.onload = function () {
-        NProgress.done();
-    };
+
 </script>
 </body>
 </html>

@@ -18,7 +18,6 @@ public class Label implements Serializable {
     @TableId(type = IdType.AUTO)
     private Integer id;
     private String name;
-    private Integer size;
     private Integer sort;
     private String del;
     private Date createTime;

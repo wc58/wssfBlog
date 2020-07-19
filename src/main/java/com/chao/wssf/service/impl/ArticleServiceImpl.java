@@ -1,8 +1,10 @@
 package com.chao.wssf.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.extension.conditions.query.QueryChainWrapper;
-import com.chao.wssf.entity.*;
+import com.chao.wssf.entity.Article;
+import com.chao.wssf.entity.ArticleLabel;
+import com.chao.wssf.entity.Other;
+import com.chao.wssf.entity.Top;
 import com.chao.wssf.mapper.ArticleLabelMapper;
 import com.chao.wssf.mapper.ArticleMapper;
 import com.chao.wssf.mapper.OtherMapper;
@@ -15,12 +17,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.*;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
 public class ArticleServiceImpl implements IArticleService {
-
     @Autowired
     private IOtherService otherService;
     @Autowired
@@ -234,16 +238,23 @@ public class ArticleServiceImpl implements IArticleService {
         topQueryWrapper.eq("article_id", articleId);
         Integer tops = topMapper.selectCount(new QueryWrapper<Top>().eq("del", "0"));
         if (top && tops <= 5) {
+            QueryWrapper<Top> topQueryWrapper1 = new QueryWrapper<>();
+            topQueryWrapper1.eq("article_id", articleId);
+            Integer integer = topMapper.selectCount(topQueryWrapper1);
             Top t = new Top();
             t.setArticleId(articleId);
-            //默认永久
+            //永久
             t.setEver("1");
             t.setDel("0");
             //首次最高
             t.setSort(0);
             t.setStartTime(new Date());
             t.setEndTime(new Date());
-            topMapper.update(t, topQueryWrapper);
+            if (integer != 0) {
+                topMapper.update(t, topQueryWrapper);
+            } else {
+                topMapper.insert(t);
+            }
         } else {
             Top t = new Top();
             t.setArticleId(articleId);
