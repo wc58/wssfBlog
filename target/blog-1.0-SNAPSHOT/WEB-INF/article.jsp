@@ -23,9 +23,10 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/layui/css/layui.css"/>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/master.css"/>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/gloable.css"/>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/gloable.css"/>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/blog.css"/>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css"/>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/nprogress.css"/>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/blog.css"/>
 </head>
 <body>
 <div class="header">
@@ -124,7 +125,7 @@
                         </ul>
                     </div>
                 </div>
-                <div class="other-item">
+                <div class="other-item" id="categoryandsearch">
                     <h5 class="other-item-title">置顶推荐</h5>
                     <div class="inner">
                         <ul class="hot-list-article">
@@ -171,6 +172,40 @@
 <script>NProgress.start();</script>
 <script src="${pageContext.request.contextPath}/js/yss/article.js"></script>
 <script>
+
+    /*加载文章*/
+    layui.use('flow', function () {
+        var $ = layui.jquery;
+        var flow = layui.flow;
+        flow.load({
+            elem: '#LAY_bloglist',
+            isAuto: true,
+            mb: 1,
+            end: '-----------我也是有底线的-----------',
+            done: function (page, next) {
+                $.ajax({
+                    type: 'post',
+                    url: 'article?page=' + page,
+                    success: function (data) {
+                        next(data.articles, page < data.pageTotal);
+
+                    },
+                    error: function () {
+                        layer.msg('服务器出现了错误，请联系管理员，谢谢。<br/>QQ：2258354832<br/>email：2258354832@qq.com', {
+                            icon: 2,
+                            time: 4000
+                        }, function (index) {
+                            location.href = "${pageContext.request.contextPath}/"
+                            layer.close(index);
+                        });
+                    },
+                    dataType: 'json'
+                })
+
+            }
+        });
+
+    });
 
     window.onload = function () {
         NProgress.done();
@@ -244,38 +279,6 @@
             return false;
         }
     }
-
-    /*加载文章*/
-    layui.use('flow', function () {
-        var $ = layui.jquery;
-        var flow = layui.flow;
-        flow.load({
-            elem: '#LAY_bloglist',
-            isAuto: true,
-            mb:1,
-            end:'-----------我也是有底线的-----------',
-            done: function (page, next) {
-                $.ajax({
-                    type: 'post',
-                    url: 'article?page=' + page,
-                    success: function (data) {
-                        next(data.articles, page < data.pageTotal);
-                    },
-                    error: function () {
-                        layer.msg('服务器出现了错误，请联系管理员，谢谢。<br/>QQ：2258354832<br/>email：2258354832@qq.com', {
-                            icon: 2,
-                            time: 4000
-                        }, function (index) {
-                            location.href = "${pageContext.request.contextPath}/"
-                            layer.close(index);
-                        });
-                    },
-                    dataType: 'json'
-                })
-            }
-        });
-    });
-
 
 
 </script>
