@@ -2,19 +2,20 @@ package com.chao.wssf.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.conditions.query.QueryChainWrapper;
-import com.chao.wssf.entity.Article;
-import com.chao.wssf.entity.Other;
+import com.chao.wssf.entity.*;
+import com.chao.wssf.mapper.ArticleLabelMapper;
 import com.chao.wssf.mapper.ArticleMapper;
+import com.chao.wssf.mapper.OtherMapper;
+import com.chao.wssf.mapper.TopMapper;
 import com.chao.wssf.service.ArticleCache;
 import com.chao.wssf.service.IArticleService;
 import com.chao.wssf.service.ILabelService;
 import com.chao.wssf.service.IOtherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -22,6 +23,12 @@ public class ArticleServiceImpl implements IArticleService {
 
     @Autowired
     private IOtherService otherService;
+    @Autowired
+    private ArticleLabelMapper articleLabelMapper;
+    @Autowired
+    private TopMapper topMapper;
+    @Autowired
+    private OtherMapper otherMapper;
     @Autowired
     private ArticleCache articleCache;
     @Autowired
@@ -108,6 +115,146 @@ public class ArticleServiceImpl implements IArticleService {
     @Override
     public int getAllArticleSize() {
         return articleMapper.selectCount(new QueryWrapper<>());
+    }
+
+    /**
+     * 添加文章
+     *
+     * @param title
+     * @param assistant
+     * @param picture
+     * @param content
+     * @param status
+     * @param del
+     * @param top
+     * @param labels
+     */
+    @Override
+    @Transactional
+    public int addArticle(String title, String assistant, String picture, String content, String author, String status, Boolean del, Boolean top, Integer[] labels) {
+        Article article = new Article();
+        article.setTitle(title);
+        article.setAssistant(assistant);
+        article.setPicture(picture);
+        article.setContent(content);
+        article.setAuthor(author);
+        article.setStatus(status);
+        if (del) {
+            article.setDel("0");
+        } else {
+            article.setDel("1");
+        }
+        article.setCreateTime(new Date());
+        article.setUpdateTime(new Date());
+        articleMapper.insert(article);
+        Integer articleId = article.getId();
+        //其他表
+        Other other = new Other();
+        other.setArticleId(articleId);
+        other.setFlow(0);
+        other.setCommentSize(0);
+        otherMapper.insert(other);
+        //标签表
+        for (Integer labelId : labels) {
+            ArticleLabel articleLabel = new ArticleLabel();
+            articleLabel.setArticleId(articleId);
+            articleLabel.setLabelId(labelId);
+            articleLabelMapper.insert(articleLabel);
+        }
+        //置顶表
+        Integer tops = topMapper.selectCount(new QueryWrapper<Top>().eq("del", "0"));
+        if (top && tops <= 5) {
+            Top t = new Top();
+            t.setArticleId(articleId);
+            //默认永久
+            t.setEver("1");
+            t.setDel("0");
+            //首次最高
+            t.setSort(0);
+            t.setStartTime(new Date());
+            t.setEndTime(new Date());
+            topMapper.insert(t);
+        }
+        articleCache.updateData();
+        return articleId;
+    }
+
+    /**
+     * 更新操作
+     *
+     * @param id
+     * @param title
+     * @param assistant
+     * @param picture
+     * @param content
+     * @param author
+     * @param status
+     * @param del
+     * @param top
+     * @param labels
+     * @return
+     */
+    @Override
+    @Transactional
+    public int updateArticle(Integer id, String title, String assistant, String picture, String content, String author, String status, Boolean del, Boolean top, Integer[] labels) {
+        Article article = new Article();
+        article.setId(id);
+        article.setTitle(title);
+        article.setAssistant(assistant);
+        article.setPicture(picture);
+        article.setContent(content);
+        article.setAuthor(author);
+        article.setStatus(status);
+        if (del) {
+            article.setDel("0");
+        } else {
+            article.setDel("1");
+        }
+
+        article.setUpdateTime(new Date());
+        //更新主表
+        articleMapper.updateById(article);
+
+        Integer articleId = article.getId();
+
+        //更新标签表
+        //删除旧的重新添加
+        QueryWrapper<ArticleLabel> articleLabelQueryWrapper = new QueryWrapper<>();
+        articleLabelQueryWrapper.eq("article_id", articleId);
+        articleLabelMapper.delete(articleLabelQueryWrapper);
+        for (Integer labelId : labels) {
+            ArticleLabel articleLabel = new ArticleLabel();
+            articleLabel.setArticleId(articleId);
+            articleLabel.setLabelId(labelId);
+            articleLabelMapper.insert(articleLabel);
+        }
+
+        //置顶表
+        QueryWrapper<Top> topQueryWrapper = new QueryWrapper<>();
+        topQueryWrapper.eq("article_id", articleId);
+        Integer tops = topMapper.selectCount(new QueryWrapper<Top>().eq("del", "0"));
+        if (top && tops <= 5) {
+            Top t = new Top();
+            t.setArticleId(articleId);
+            //默认永久
+            t.setEver("1");
+            t.setDel("0");
+            //首次最高
+            t.setSort(0);
+            t.setStartTime(new Date());
+            t.setEndTime(new Date());
+            topMapper.update(t, topQueryWrapper);
+        } else {
+            Top t = new Top();
+            t.setArticleId(articleId);
+            t.setDel("1");
+            t.setEver("0");
+            t.setStartTime(new Date());
+            t.setEndTime(new Date());
+            topMapper.update(t, topQueryWrapper);
+        }
+        articleCache.updateData();
+        return articleId;
     }
 
 

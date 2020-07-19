@@ -39,6 +39,7 @@ com\chao\wssf\service\ArticleCache.class
 com\chao\wssf\pojo\FullComment.class
 com\chao\wssf\entity\Other.class
 com\chao\wssf\entity\Leave.class
+com\chao\wssf\web\admin\BlogController.class
 com\chao\wssf\mapper\EmailMapper.class
 com\chao\wssf\service\impl\LeaverServiceImpl.class
 com\chao\wssf\service\IAdminService.class

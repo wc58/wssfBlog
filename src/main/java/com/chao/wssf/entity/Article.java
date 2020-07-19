@@ -23,7 +23,6 @@ public class Article implements Serializable {
     private String content;
     private String author;
     private String status;
-    private String url;
     private String del;
     private Date createTime;
     private Date updateTime;

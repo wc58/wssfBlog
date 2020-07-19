@@ -19,5 +19,5 @@
 <link rel="stylesheet" href="../../layui/css/layui.css">
 <link rel="stylesheet" href="../../css/wangEditor.css">
 <script src="../../js/jquery.min.js"></script>
-<script src="../../js/wangEditor.min.js"></script>
+<script src="../../js/wangEditor.js"></script>
 <script src="../../js/xm-select.js"></script>

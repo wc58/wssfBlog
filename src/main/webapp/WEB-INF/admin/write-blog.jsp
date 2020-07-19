@@ -34,7 +34,8 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">标题：</label>
                     <div class="layui-input-block">
-                        <input type="text" name="title" placeholder="请输入标题" autocomplete="off" class="layui-input">
+                        <input id="title" type="text" name="title" placeholder="请输入标题" autocomplete="off"
+                               class="layui-input">
                     </div>
                 </div>
             </div>
@@ -53,7 +54,7 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">描述：</label>
                     <div class="layui-input-block">
-                        <textarea name="desc" placeholder="请输入内容" class="layui-textarea"></textarea>
+                        <textarea id="assistant" name="desc" placeholder="请输入文章描述" class="layui-textarea"></textarea>
                     </div>
                 </div>
             </div>
@@ -73,7 +74,8 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">状态：</label>
                     <div class="layui-input-block">
-                        <input type="text" name="title" placeholder="请输入标题" autocomplete="off" class="layui-input">
+                        <input id="status" type="text" name="title" placeholder="专题？转载？自创？" autocomplete="off"
+                               class="layui-input">
                     </div>
                 </div>
             </div>
@@ -82,7 +84,7 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">发布</label>
                     <div class="layui-input-inline">
-                        <input type="checkbox" name="switch" lay-skin="switch">
+                        <input id="del" value="0" type="checkbox" name="switch" lay-skin="switch" lay-text="ON|OFF">
                     </div>
                 </div>
             </div>
@@ -91,7 +93,7 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">置顶</label>
                     <div class="layui-input-inline">
-                        <input type="checkbox" name="switch" lay-skin="switch">
+                        <input id="top" value="1" type="checkbox" name="switch" lay-skin="switch" lay-text="ON|OFF">
                     </div>
                 </div>
             </div>
@@ -126,6 +128,68 @@
 
 <script>
 
+    //标签
+    var select;
+    var id;
+
+    //仅仅保存，不发布
+    $("#save").click(function () {
+        //标题
+        var title = $("#title").val();
+        //描述
+        var assistant = $("#assistant").val();
+        //封面
+        var picture = $("#coverImage").attr('src');
+        //内容
+        var content = editor.txt.html();
+        //状态
+        var status = $("#status").val();
+        //发布
+        var del = $("#del").prop("checked");
+        //置顶
+        var top = $("#top").prop("checked");
+        //标签
+        var labels = select.getValue('value');
+
+        $.ajax({
+            type: 'post',
+            url: '/admin/addArticle',
+            data: {
+                'clientId': id,
+                'title': title,
+                'assistant': assistant,
+                'picture': picture,
+                'content': content,
+                'status': status,
+                'del': del,
+                'top': top,
+                'labels': labels.join()
+            },
+            success: function (data) {
+                if (data.code === 1000) {
+                    layer.msg("保存成功")
+                    id = data.map.id;
+                } else {
+                    layer.msg("保存失败，请注意数据！！！")
+                }
+            },
+            dataType: 'json'
+        })
+        /*
+                alert("标签" + labels)
+                alert("标题" + title);
+                alert("描述" + assistant);
+                alert("封面" + picture);
+                alert("内容" + content);
+                alert("发布" + del)
+                alert("置顶" + top)*/
+    });
+
+    //直接发布
+    $("#submit").click(function () {
+        alert(editor.txt.html());
+    });
+
     layui.use('form', function () {
 
     });
@@ -138,21 +202,12 @@
     editor.customConfig.uploadImgServer = '/admin/uploadPictures'
     editor.create()
 
-    $("#save").click(function () {
-        layer.msg(editor.txt.text());
-    });
-
-    $("#submit").click(function () {
-        alert(editor.txt.html());
-    });
-
-
     $.ajax({
         type: 'post',
         url: '/label/getAllLabels',
         dataType: 'json',
         success: function (data) {
-            xmSelect.render({
+            select = xmSelect.render({
                 // 这里绑定css选择器
                 el: '#label',
                 // 渲染的数据
@@ -180,7 +235,9 @@
                     img.setAttribute('id', 'coverImage');
                     img.setAttribute("title", "双击删除图片");
                     img.ondblclick = function () {
-                        img.style.display = "none";
+                        // img.style.display = "none";
+                        //删除照片
+                        $("#coverImage").remove();
                         document.getElementById("uploadCover").style.display = "block";
                         //删除图片
                         $.ajax({
