@@ -90,19 +90,4 @@ public class PageController {
         model.addAttribute("topSize", topSize < wssfProperties.getQuerySize());
         return "admin/write-blog";
     }
-
-    /**
-     * 普通文章列表
-     *
-     * @return
-     */
-    @RequestMapping("ArticleCommList")
-    public String ArticleCommList(Model model) {
-        //查询出既不是置顶也不是删除的文章
-        List<Integer> tops = topService.getArticleIdByTops().stream().map(Top::getArticleId).collect(Collectors.toList());
-        List<Article> articles = articleService.getCommArticle(tops);
-        model.addAttribute("articles", articles);
-        return "admin/article-comm-list";
-    }
-
 }

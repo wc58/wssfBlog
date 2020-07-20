@@ -1,5 +1,6 @@
 package com.chao.wssf.service;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.chao.wssf.entity.Article;
 
 import java.util.List;
@@ -23,5 +24,5 @@ public interface IArticleService {
 
     int updateArticle(Integer id, String title, String assistant, String picture, String content, String author, String status, Boolean del, Boolean top, Integer[] labels);
 
-    List<Article> getCommArticle(List<Integer> tops);
+    Page<Article> getCommArticle(List<Integer> tops, Integer page, Integer limit);
 }

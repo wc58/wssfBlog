@@ -93,7 +93,7 @@
                     </li>
 
                     <li>
-                        <a onclick="xadmin.add_tab('文章列表','/admin/ArticleCommList')">
+                        <a onclick="xadmin.add_tab('文章列表','/admin/articleCommList')">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>文章列表</cite></a>
                     </li>

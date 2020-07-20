@@ -27,10 +27,20 @@
     -->
     <mvc:annotation-driven>
         <mvc:message-converters>
-
-
-
+            <!-- <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+                 <property name="supportedMediaTypes" value="text/plain;charset=UTF-8"/>
+             </bean>
+             <bean class="org.springframework.http.converter.ByteArrayHttpMessageConverter">
+                 <property name="supportedMediaTypes" value="application/octet-stream;charset=UTF-8"/>
+             </bean>-->
             <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+                <!-- 兼容多种json格式响应 -->
+                <!-- <property name="supportedMediaTypes">
+                     <list>
+                         <value>application/json;charset=UTF-8</value>
+                         <value>text/json;charset=UTF-8</value>
+                     </list>
+                 </property>-->
                 <property name="objectMapper">
                     <bean class="com.chao.wssf.util.JsonMapper"/>
                 </property>
@@ -62,6 +72,6 @@
     <mvc:view-controller path="about" view-name="about"/>
 
     <mvc:view-controller path="admin" view-name="admin/login"/>
-    <mvc:view-controller path="a" view-name="admin/a"/>
+    <mvc:view-controller path="admin/articleCommList" view-name="admin/article-comm-list"/>
 
 </beans>

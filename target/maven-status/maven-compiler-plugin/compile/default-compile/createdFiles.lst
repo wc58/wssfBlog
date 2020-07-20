@@ -50,6 +50,7 @@ com\chao\wssf\mapper\TopMapper.class
 com\chao\wssf\entity\About.class
 com\chao\wssf\entity\Diary.class
 com\chao\wssf\mapper\AdminMapper.class
+com\chao\wssf\util\JsonMapper.class
 com\chao\wssf\mapper\CommentMapper.class
 com\chao\wssf\service\impl\CommentServiceImpl.class
 com\chao\wssf\web\controller\LinkController.class

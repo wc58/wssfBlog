@@ -1,5 +1,6 @@
 package com.chao.wssf.web.admin;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.chao.wssf.entity.Admin;
 import com.chao.wssf.entity.Article;
 import com.chao.wssf.entity.Top;
@@ -13,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Controller
@@ -61,10 +64,16 @@ public class BlogController {
 
     @RequestMapping("getCommArticle")
     @ResponseBody
-    public List<Article> getCommArticle() {
+    public Map<String, Object> getCommArticle(Integer page,Integer limit) {
         //查询出既不是置顶也不是删除的文章
         List<Integer> tops = topService.getArticleIdByTops().stream().map(Top::getArticleId).collect(Collectors.toList());
-        return articleService.getCommArticle(tops);
+        Page<Article> articlePage = articleService.getCommArticle(tops, page, limit);
+        //封装数据
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("code",0);
+        map.put("count",articlePage.getTotal());
+        map.put("data",articlePage.getRecords());
+        return map;
     }
 
 }

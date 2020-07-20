@@ -1,6 +1,7 @@
 package com.chao.wssf.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.chao.wssf.entity.Article;
 import com.chao.wssf.entity.ArticleLabel;
 import com.chao.wssf.entity.Other;
@@ -290,10 +291,12 @@ public class ArticleServiceImpl implements IArticleService {
      * @return
      */
     @Override
-    public List<Article> getCommArticle(List<Integer> tops) {
+    public Page<Article> getCommArticle(List<Integer> tops, Integer page, Integer limit) {
         QueryWrapper<Article> articleQueryWrapper = new QueryWrapper<>();
-        articleQueryWrapper.eq("del", "0").ne("id", tops);
-        return articleMapper.selectList(articleQueryWrapper);
+        articleQueryWrapper.eq("del", "0").ne("id", tops).orderByDesc("update_time");
+        Page<Article> articlePage = new Page<>(page, limit);
+        return
+                articleMapper.selectPage(articlePage, articleQueryWrapper);
     }
 
 }
