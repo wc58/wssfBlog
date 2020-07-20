@@ -27,4 +27,6 @@ public interface IArticleService {
     Page<Article> getCommArticle(List<Integer> tops, Integer page, Integer limit);
 
     Article getArticleById(Integer id);
+
+    void updateArticle(Article article);
 }

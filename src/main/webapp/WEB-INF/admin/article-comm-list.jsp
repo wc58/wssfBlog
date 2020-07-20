@@ -115,20 +115,27 @@
         table.on('tool(articleTable)', function (obj) {
             var data = obj.data; //获得当前行数据
             var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
-            var tr = obj.tr; //获得当前行 tr 的 DOM 对象（如果有的话）
 
+            //置顶
             if (layEvent === 'top') {
                 layer.confirm('确定要置顶吗？' + data.id, function (index) {
                     obj.del();
                     layer.close(index);
-
                 });
             } else if (layEvent === 'edit') { //编辑
-                alert("编辑" + data.id + data.title)
-                obj.update({
-                    data
-                });
-            } else if (layEvent === 'delete') {
+                $.ajax({
+                    type: 'post',
+                    url: '/admin/updateArticle',
+                    data: data,
+                    success: function (res) {
+                        obj.update({
+                            res
+                        });
+                    },
+                    dataType: 'json'
+                })
+
+            } else if (layEvent === 'delete') {//删除
                 layer.confirm('真的删除行么？' + data.id, function (index) {
                     obj.del();
                     layer.close(index);

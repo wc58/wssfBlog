@@ -311,4 +311,14 @@ public class ArticleServiceImpl implements IArticleService {
         return articleMapper.selectById(id);
     }
 
+    /**
+     * 主要用于在列表中更新使用
+     *
+     * @param article
+     */
+    @Override
+    public void updateArticle(Article article) {
+        articleMapper.updateById(article);
+    }
+
 }
