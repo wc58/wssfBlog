@@ -321,4 +321,17 @@ public class ArticleServiceImpl implements IArticleService {
         articleMapper.updateById(article);
     }
 
+    /**
+     * 逻辑删除
+     *
+     * @param id
+     */
+    @Override
+    public void deleteArticleById(Integer id) {
+        Article article = new Article();
+        article.setId(id);
+        article.setDel("1");
+        articleMapper.updateById(article);
+    }
+
 }

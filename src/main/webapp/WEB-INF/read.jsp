@@ -211,9 +211,6 @@
                                                             <%--被回复人--%>
                                                         <span class="username"><i>${childComment.comment.parentName}：</i></span>
                                                     </div>
-                                                    &nbsp;
-
-
                                                         <%--回复内容--%>
                                                     <span>${childComment.comment.content}</span>
                                                 </div>

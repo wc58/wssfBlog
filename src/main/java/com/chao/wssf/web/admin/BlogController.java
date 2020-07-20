@@ -100,6 +100,21 @@ public class BlogController {
         return article;
     }
 
+    /**
+     * 列表逻辑删除文章
+     *
+     * @param id
+     */
+    @RequestMapping("deleteArticle")
+    public R deleteArticle(Integer id) {
+        try {
+            articleService.deleteArticleById(id);
+            return R.OK();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return R.ERROR();
+        }
+    }
 
     /**
      * 查出普通的文章

@@ -139,7 +139,20 @@
                 layer.confirm('真的删除行么？' + data.id, function (index) {
                     obj.del();
                     layer.close(index);
-
+                    //服务器删除
+                    $.ajax({
+                        type: 'post',
+                        url: '/admin/deleteArticle',
+                        data: data,
+                        success: function (res) {
+                            if (res.code === 1000) {
+                                layer.msg("删除成功！");
+                            } else {
+                                layer.msg("删除失败！服务器错误！");
+                            }
+                        },
+                        dataType: 'json'
+                    })
                 });
             }
         });

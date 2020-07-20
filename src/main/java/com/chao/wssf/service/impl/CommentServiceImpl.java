@@ -25,6 +25,8 @@ public class CommentServiceImpl implements ICommentService {
     private UserMapper userMapper;
 
 
+
+
     @Override
     public List<FullComment> getCommentsByArticleId(Integer id) {
         QueryWrapper<Comment> commentQueryWrapper = new QueryWrapper<>();
@@ -41,6 +43,8 @@ public class CommentServiceImpl implements ICommentService {
         }
         return fullComments;
     }
+
+
 
     @Override
     public void addReply(Comment comment) {
@@ -78,8 +82,6 @@ public class CommentServiceImpl implements ICommentService {
         }
 
     }
-
-    //==========================================================================================================
 
     /**
      * 获取所有评论数

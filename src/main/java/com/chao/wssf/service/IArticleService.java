@@ -29,4 +29,6 @@ public interface IArticleService {
     Article getArticleById(Integer id);
 
     void updateArticle(Article article);
+
+    void deleteArticleById(Integer id);
 }
