@@ -22,4 +22,6 @@ public interface IArticleService {
     int addArticle(String title, String assistant, String picture, String content, String author, String status, Boolean del, Boolean top, Integer[] labels);
 
     int updateArticle(Integer id, String title, String assistant, String picture, String content, String author, String status, Boolean del, Boolean top, Integer[] labels);
+
+    List<Article> getCommArticle(List<Integer> tops);
 }

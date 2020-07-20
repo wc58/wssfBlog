@@ -1,11 +1,16 @@
 package com.chao.wssf.web.admin;
 
+import com.chao.wssf.entity.Article;
+import com.chao.wssf.entity.Top;
 import com.chao.wssf.properties.WssfProperties;
 import com.chao.wssf.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/admin")
@@ -35,7 +40,7 @@ public class PageController {
     private WssfProperties wssfProperties;
 
     /**
-     * 桌面
+     * 桌面页面
      *
      * @return
      */
@@ -75,7 +80,7 @@ public class PageController {
     }
 
     /**
-     * 写博客
+     * 写博客页面
      *
      * @return
      */
@@ -84,6 +89,20 @@ public class PageController {
         int topSize = topService.getTopSize();
         model.addAttribute("topSize", topSize < wssfProperties.getQuerySize());
         return "admin/write-blog";
+    }
+
+    /**
+     * 普通文章列表
+     *
+     * @return
+     */
+    @RequestMapping("ArticleCommList")
+    public String ArticleCommList(Model model) {
+        //查询出既不是置顶也不是删除的文章
+        List<Integer> tops = topService.getArticleIdByTops().stream().map(Top::getArticleId).collect(Collectors.toList());
+        List<Article> articles = articleService.getCommArticle(tops);
+        model.addAttribute("articles", articles);
+        return "admin/article-comm-list";
     }
 
 }

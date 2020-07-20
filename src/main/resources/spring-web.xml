@@ -11,6 +11,8 @@
         http://www.springframework.org/schema/context/spring-context.xsd">
 
 
+    <!--配置日期转换器-->
+
     <!--文件上传-->
     <bean class="org.springframework.web.multipart.commons.CommonsMultipartResolver" id="multipartResolver">
         <property name="defaultEncoding" value="UTF-8"/>
@@ -23,7 +25,18 @@
     <!--开启注解驱动
         service层已经进行了所有的包扫描了
     -->
-    <mvc:annotation-driven/>
+    <mvc:annotation-driven>
+        <mvc:message-converters>
+
+
+
+            <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+                <property name="objectMapper">
+                    <bean class="com.chao.wssf.util.JsonMapper"/>
+                </property>
+            </bean>
+        </mvc:message-converters>
+    </mvc:annotation-driven>
 
     <!--处理静态资源-->
     <mvc:default-servlet-handler/>

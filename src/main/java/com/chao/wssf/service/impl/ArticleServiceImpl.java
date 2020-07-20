@@ -190,6 +190,7 @@ public class ArticleServiceImpl implements IArticleService {
         return articleId;
     }
 
+
     /**
      * 更新或者添加文章
      *
@@ -279,6 +280,20 @@ public class ArticleServiceImpl implements IArticleService {
             articleLabel.setLabelId(labelId);
             articleLabelMapper.insert(articleLabel);
         }
+    }
+
+
+    /**
+     * 既不是置顶也没有被删除
+     *
+     * @param tops
+     * @return
+     */
+    @Override
+    public List<Article> getCommArticle(List<Integer> tops) {
+        QueryWrapper<Article> articleQueryWrapper = new QueryWrapper<>();
+        articleQueryWrapper.eq("del", "0").ne("id", tops);
+        return articleMapper.selectList(articleQueryWrapper);
     }
 
 }
