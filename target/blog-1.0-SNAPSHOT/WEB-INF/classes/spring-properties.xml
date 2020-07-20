@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!--加载属性文件
+        classpath:*.properties：仅仅加载本模块（jar）的资源文件
+        classpath*:*.properties：不仅加载本模块（jar）的资源文件还加其他模块（jar）下的资源文件
+    -->
+    <context:property-placeholder location="classpath*:/properties/*.properties"/>
+
+    <!--配置数据源-->
+    <bean class="com.alibaba.druid.pool.DruidDataSource" id="dataSource">
+        <property name="driverClassName" value="${db.driver}"/>
+        <property name="url" value="${db.url}"/>
+        <property name="username" value="${db.username}"/>
+        <property name="password" value="${db.password}"/>
+    </bean>
+
+    <!--对象储存oss-->
+    <bean class="com.chao.wssf.properties.OssProperties" id="propertiesUtils">
+        <property name="endpoint" value="${oss.endpoint}"/>
+        <property name="accessKeyId" value="${oss.accessKeyId}"/>
+        <property name="accessKeySecret" value="${oss.accessKeySecret}"/>
+        <property name="bucketName" value="${oss.bucketName}"/>
+    </bean>
+
+    <!--系统相关属性-->
+    <bean class="com.chao.wssf.properties.WssfProperties" id="wssfProperties">
+        <property name="querySize" value="${query.size}"/>
+    </bean>
+
+
+</beans>
