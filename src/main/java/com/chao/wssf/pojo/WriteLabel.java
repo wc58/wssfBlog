@@ -9,6 +9,7 @@ public class WriteLabel {
 
     private String name;
     private Integer value;
+    private Boolean selected;
 
 
 }

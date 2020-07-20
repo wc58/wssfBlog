@@ -25,4 +25,6 @@ public interface IArticleService {
     int updateArticle(Integer id, String title, String assistant, String picture, String content, String author, String status, Boolean del, Boolean top, Integer[] labels);
 
     Page<Article> getCommArticle(List<Integer> tops, Integer page, Integer limit);
+
+    Article getArticleById(Integer id);
 }

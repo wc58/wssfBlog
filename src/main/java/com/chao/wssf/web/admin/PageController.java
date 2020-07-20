@@ -8,9 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/admin")
@@ -85,8 +85,19 @@ public class PageController {
      * @return
      */
     @RequestMapping("writeBlog")
-    public String writeBlog(Model model) {
+    public String writeBlog(@RequestParam(required = false) Integer id, Model model) {
         int topSize = topService.getTopSize();
+        //说明是更新
+        if (id != null) {
+            Article article = articleService.getArticleById(id);
+            model.addAttribute("article", article);
+            //查询是否置顶
+            Top top = topService.getTopByArticleId(id);
+            model.addAttribute("top", top != null);
+            List<Integer> ids = labelService.getLabelIdsByArticleId(id);
+            model.addAttribute("labels", ids);
+        }
+        //是否可以置顶
         model.addAttribute("topSize", topSize < wssfProperties.getQuerySize());
         return "admin/write-blog";
     }

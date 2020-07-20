@@ -65,7 +65,10 @@
                     <button type="button" class="layui-btn" id="uploadCover">
                         <i class="layui-icon">&#xe67c;</i>上传图片
                     </button>
-                    <span id="image"></span>
+                    <span id="image">
+                        <img id="coverImage" ondblclick="delCover()" title="双击删除图片"
+                             style="height: 150px;width: 250px;display: none">
+                    </span>
                 </div>
             </div>
         </div>
@@ -85,7 +88,9 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">发布</label>
                     <div class="layui-input-inline">
-                        <input id="del" value="0" type="checkbox" name="switch" lay-skin="switch" lay-text="ON|OFF">
+                        <input ${article.del == 0?'checked':''} id="del" value="0" type="checkbox" name="switch"
+                                                                lay-skin="switch"
+                                                                lay-text="ON|OFF">
                     </div>
                 </div>
             </div>
@@ -94,7 +99,8 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">置顶</label>
                     <div class="layui-input-inline">
-                        <input id="top" value="1" type="checkbox" name="switch" lay-skin="switch" lay-text="ON|OFF">
+                        <input ${top == true?'checked':''} id="top" value="1" type="checkbox" name="switch"
+                                                           lay-skin="switch" lay-text="ON|OFF">
                     </div>
                 </div>
             </div>
@@ -106,8 +112,10 @@
         <br/>
         <div id="tools" class="toolbar">
         </div>
-        <div style="padding: 5px 0; color: #ccc"></div>
+        <div style="padding: 5px 0; color: #ccc">
+        </div>
         <div id="content" class="text">
+            <p>${article.content}</p>
         </div>
     </div>
 </div>
@@ -134,19 +142,57 @@
     };
     window.onbeforeunload = unloadPageTip;
 
-    $(function () {
-        var topSize = '${topSize}';
-        //说明支持置顶了
-        if (topSize == 'false') {
-            $("#top").attr('disabled', 'disabled')
-        }
-    })
-
     //标签
     var select;
     var id;
+    var labels;
 
-    //仅仅保存，不发布
+    $(function () {
+
+        //数据回显
+        id = '${article.id}';
+        //标题
+        var title = '${article.title}';
+        var assistant = '${article.assistant}';
+        var status = '${article.status}';
+        var cover = '${article.picture}';
+        var top = '${top}';
+        labels = '${labels}';
+        var topSize = '${topSize}';
+        //说明不支持置顶了
+        if (topSize == 'false' && top == 'false') {
+            $("#top").attr('disabled', 'disabled')
+        }
+        $("#title").val(title);
+        //描述
+        $("#assistant").val(assistant);
+        //封面
+        if (cover != '') {
+            document.getElementById("uploadCover").style.display = "none";
+            var img = document.getElementById("coverImage");
+            img.src = cover
+            img.style.display = "block";
+        }
+        //状态
+        $("#status").val(status);
+        //标签
+        $.ajax({
+            type: 'post',
+            url: '/label/getAllLabels?id=' + id,
+            dataType: 'json',
+            success: function (data) {
+                select = xmSelect.render({
+                    // 这里绑定css选择器
+                    el: '#label',
+                    // 渲染的数据
+                    data: data,
+                });
+            }
+        })
+    })
+
+
+    //保存设置
     $("#save").click(function () {
         //标题
         var title = $("#title").val();
@@ -218,7 +264,7 @@
 
     //写新的文章
     $("#newBlog").click(function () {
-       location.reload();
+        location.reload();
     });
 
     layui.use('form', function () {
@@ -233,22 +279,11 @@
     editor.customConfig.uploadImgServer = '/admin/uploadPictures'
     editor.create()
 
-    $.ajax({
-        type: 'post',
-        url: '/label/getAllLabels',
-        dataType: 'json',
-        success: function (data) {
-            select = xmSelect.render({
-                // 这里绑定css选择器
-                el: '#label',
-                // 渲染的数据
-                data: data,
-            });
-        }
-    })
 
 
-    /*封面上传和删除*/
+    var imageUrl;
+
+    /*封面上传*/
     layui.use('upload', function () {
         var upload = layui.upload;
         //执行实例
@@ -260,41 +295,44 @@
             size: 1024 * 3,
             done: function (res) {
                 if (res.code === 1000) {
+                    imageUrl = res.map.imageUrl;
                     document.getElementById("uploadCover").style.display = "none";
-                    var img = document.createElement('img');//创建一个标签
+                    var img = document.getElementById("coverImage");//创建一个标签
                     img.setAttribute('src', res.map.imageUrl);//给标签定义src链接
-                    img.setAttribute('id', 'coverImage');
-                    img.setAttribute("title", "双击删除图片");
-                    img.ondblclick = function () {
-                        // img.style.display = "none";
-                        //删除照片
-                        $("#coverImage").remove();
-                        document.getElementById("uploadCover").style.display = "block";
-                        //删除图片
-                        $.ajax({
-                            type: 'post',
-                            url: '/admin/delCover',
-                            data: {
-                                'filePath': res.map.imageUrl
-                            },
-                            success: function (data) {
-                                if (data.code === 1000) {
-                                    layer.msg("删除成功");
-                                }
-                            },
-                            dataType: 'json'
-                        })
-                    };
-                    img.style.height = '150px';
-                    img.style.width = '250px';
-                    document.getElementById('image').appendChild(img);//放到指定的id里
+                    img.style.display = "block";
                 }
             },
             error: function () {
 
             }
         });
+
+
     });
+
+    /*双击删除封面*/
+    function delCover() {
+        //删除照片
+        // $("#coverImage").remove();
+        var img = document.getElementById("coverImage");//创建一个标签
+        img.style.display = "none";
+        document.getElementById("uploadCover").style.display = "block";
+        //删除图片
+        $.ajax({
+            type: 'post',
+            url: '/admin/delCover',
+            data: {
+                'filePath': imageUrl
+            },
+            success: function (data) {
+                if (data.code === 1000) {
+                    layer.msg("删除成功")
+                    img.setAttribute('src', '');//给标签定义src链接
+                }
+            },
+            dataType: 'json'
+        })
+    }
 </script>
 </body>
 </html>

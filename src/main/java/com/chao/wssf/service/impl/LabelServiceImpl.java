@@ -44,9 +44,7 @@ public class LabelServiceImpl implements ILabelService {
     @Override
     public List<String> getLabelNamesByArticleId(Integer id) {
         //首先查询出文章id所对的标签id有哪些
-        QueryWrapper<ArticleLabel> articleLabelQueryWrapper = new QueryWrapper<>();
-        articleLabelQueryWrapper.select("label_id").eq("article_id", id);
-        List<Integer> labelIds = articleLabelMapper.selectList(articleLabelQueryWrapper).stream().map(ArticleLabel::getLabelId).collect(Collectors.toList());
+        List<Integer> labelIds = getLabelIdsByArticleId(id);
 
         //然后再查出所对应的名称
         if (labelIds.size() > 0) {
@@ -81,5 +79,18 @@ public class LabelServiceImpl implements ILabelService {
     @Override
     public int getAllLabelSize() {
         return labelMapper.selectCount(new QueryWrapper<>());
+    }
+
+    /**
+     * 获取文章所对应的标签id
+     *
+     * @param id
+     * @return
+     */
+    @Override
+    public List<Integer> getLabelIdsByArticleId(Integer id) {
+        QueryWrapper<ArticleLabel> articleLabelQueryWrapper = new QueryWrapper<>();
+        articleLabelQueryWrapper.select("label_id").eq("article_id", id);
+        return articleLabelMapper.selectList(articleLabelQueryWrapper).stream().map(ArticleLabel::getLabelId).collect(Collectors.toList());
     }
 }

@@ -13,4 +13,6 @@ public interface ILabelService {
     List<Integer> getArticleIdsByLabelId(Integer id);
 
     int getAllLabelSize();
+
+    List<Integer> getLabelIdsByArticleId(Integer id);
 }

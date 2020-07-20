@@ -12,4 +12,6 @@ public interface ITopService {
     int getAllTopSize();
 
     int getTopSize();
+
+    Top getTopByArticleId(Integer id);
 }

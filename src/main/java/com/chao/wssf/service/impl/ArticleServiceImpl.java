@@ -296,8 +296,19 @@ public class ArticleServiceImpl implements IArticleService {
         //把置顶的文章排除掉（mybatis plus查询语句没有错，但是查出来有问题，所有手动排除）
         selectPage.getRecords().removeIf(next -> tops.contains(next.getId()));
         //一定要注意，置顶列表中无论如何都不能存在 已经被删除 文章id
-        selectPage.setTotal(selectPage.getTotal()-tops.size());
+        selectPage.setTotal(selectPage.getTotal() - tops.size());
         return selectPage;
+    }
+
+    /**
+     * 根据id查询文章
+     *
+     * @param id
+     * @return
+     */
+    @Override
+    public Article getArticleById(Integer id) {
+        return articleMapper.selectById(id);
     }
 
 }

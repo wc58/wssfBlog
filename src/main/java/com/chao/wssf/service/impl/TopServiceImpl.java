@@ -61,4 +61,17 @@ public class TopServiceImpl implements ITopService {
         topQueryWrapper.eq("del", "0");
         return topMapper.selectCount(topQueryWrapper);
     }
+
+    /**
+     * 根据文文章id查询
+     *
+     * @param id
+     * @return
+     */
+    @Override
+    public Top getTopByArticleId(Integer id) {
+        QueryWrapper<Top> topQueryWrapper = new QueryWrapper<>();
+        topQueryWrapper.eq("del", "0").eq("article_id", id);
+        return topMapper.selectOne(topQueryWrapper);
+    }
 }

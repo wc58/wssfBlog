@@ -101,11 +101,12 @@
         table.on('rowDouble(articleTable)', function (obj) {
             layer.open({
                 type: 2,
-                title:'修改文章',
-                content: '/admin/writeBlog',
+                anim: 1,
+                title: '修改文章',
+                content: '/admin/writeBlog?id=' + obj.data.id,
                 area: ['1200px', '650px'],
                 cancel: function () {
-                    alert('回调');
+                    layer.msg('回调');
                 }
             });
         });
