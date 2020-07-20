@@ -24,6 +24,7 @@
     </style>
 </head>
 <body>
+
 <div class="layui-container">
     <br/>
     <br/>
@@ -119,8 +120,8 @@
     <div class="layui-col-md3">
         <div class="layui-form-item">
             <div class="layui-input-inline">
+                <button id="newBlog" class="layui-btn layui-btn-radius layui-btn-normal">重写</button>
                 <button id="save" class="layui-btn layui-btn-radius">保存</button>
-                <button id="submit" class="layui-btn layui-btn-radius layui-btn-normal">立即提交</button>
             </div>
         </div>
     </div>
@@ -215,9 +216,9 @@
         })
     });
 
-    //直接发布
-    $("#submit").click(function () {
-        alert(editor.txt.html());
+    //写新的文章
+    $("#newBlog").click(function () {
+       location.reload();
     });
 
     layui.use('form', function () {
