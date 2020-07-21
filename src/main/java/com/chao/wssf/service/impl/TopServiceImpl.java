@@ -26,24 +26,10 @@ public class TopServiceImpl implements ITopService {
      */
     @Override
     public List<Top> getArticleIdByTops() {
-        //查询现在所有的指定文章
+        //查询所有的指定文章
         QueryWrapper<Top> topQueryWrapper = new QueryWrapper<>();
-        topQueryWrapper.eq("del", 0).orderByAsc("sort");
-        List<Top> tops = topMapper.selectList(topQueryWrapper);
-        //判断置顶时间是否在指定时间内
-        ArrayList<Top> ids = new ArrayList<>();
-        for (Top top : tops) {
-            long endTime = top.getEndTime().getTime();
-            long startTime = top.getStartTime().getTime();
-            long time = new Date().getTime();
-            //1：则表明永久置顶
-            if (top.getEver().equals("1")) {
-                ids.add(top);
-            } else if (startTime < time && endTime > time) {
-                ids.add(top);
-            }
-        }
-        return ids;
+        topQueryWrapper.orderByAsc("sort");
+        return topMapper.selectList(topQueryWrapper);
     }
 
     /**
@@ -58,7 +44,6 @@ public class TopServiceImpl implements ITopService {
 
     public int getTopSize() {
         QueryWrapper<Top> topQueryWrapper = new QueryWrapper<>();
-        topQueryWrapper.eq("del", "0");
         return topMapper.selectCount(topQueryWrapper);
     }
 
@@ -71,7 +56,7 @@ public class TopServiceImpl implements ITopService {
     @Override
     public Top getTopByArticleId(Integer id) {
         QueryWrapper<Top> topQueryWrapper = new QueryWrapper<>();
-        topQueryWrapper.eq("del", "0").eq("article_id", id);
+        topQueryWrapper.eq("article_id", id);
         return topMapper.selectOne(topQueryWrapper);
     }
 }

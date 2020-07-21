@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
-import javax.xml.crypto.Data;
 import java.text.ParseException;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -122,13 +121,41 @@ public class BlogController {
         }
     }
 
+    /**
+     * 根据id查找文章
+     *
+     * @param id
+     * @return
+     */
     @RequestMapping("getArticleById")
     @ResponseBody
     public R getArticleById(Integer id) {
         try {
             Article articleById = articleService.getArticleById(id);
-            System.out.println(articleById);
             return R.OK().data("article", articleById);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return R.ERROR();
+        }
+    }
+
+    /**
+     * 根据id置顶文章
+     *
+     * @param id
+     * @return
+     */
+    @RequestMapping("topArticle")
+    @ResponseBody
+    public R topArticle(Integer id) {
+        try {
+            int flag = articleService.topArticle(id);
+            if (flag == 1) {//返回说明置顶成功
+                articleCache.updateData();
+                return R.OK();
+            } else {
+                return R.ERROR();
+            }
         } catch (Exception e) {
             e.printStackTrace();
             return R.ERROR();
@@ -149,9 +176,36 @@ public class BlogController {
         try {
             //查询出既不是置顶也不是删除的文章
             List<Integer> tops = topService.getArticleIdByTops().stream().map(Top::getArticleId).collect(Collectors.toList());
+            //防止sql错误
+            tops.add(-1);
             Page<Article> articlePage = articleService.getCommArticle(tops, page, limit, title, author, status, startTime, endTime);
             //封装数据
+            map.put("code", 0);
+            map.put("count", articlePage.getTotal());
+            map.put("data", articlePage.getRecords());
+            return map;
+        } catch (ParseException e) {
+            e.printStackTrace();
+            map.put("code", 1);
+            return map;
+        }
+    }
 
+    /**
+     * 查出删除的文章
+     *
+     * @param page
+     * @param limit
+     * @return
+     */
+    @RequestMapping("getDelArticle")
+    @ResponseBody
+    public Map<String, Object> getDelArticle(Integer page, Integer limit, String title, String author, String status, String startTime, String endTime) {
+        HashMap<String, Object> map = new HashMap<>();
+        try {
+            //查询出是删除的文章
+            Page<Article> articlePage = articleService.getDelArticle(page, limit, title, author, status, startTime, endTime);
+            //封装数据
             map.put("code", 0);
             map.put("count", articlePage.getTotal());
             map.put("data", articlePage.getRecords());

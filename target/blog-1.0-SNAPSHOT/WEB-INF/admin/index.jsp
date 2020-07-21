@@ -93,59 +93,26 @@
                     </li>
 
                     <li>
-                        <a onclick="xadmin.add_tab('文章列表','/admin/articleCommList')">
+                        <a onclick="xadmin.add_tab('普通文章','/admin/articleCommList',true)">
                             <i class="iconfont">&#xe6a7;</i>
-                            <cite>文章列表</cite></a>
+                            <cite>普通文章</cite></a>
                     </li>
                     <li>
-                        <a onclick="xadmin.add_tab('会员列表(动态表格)','member-list1.html',true)">
+                        <a onclick="xadmin.add_tab('删除文章','/admin/articleDelList',true)">
                             <i class="iconfont">&#xe6a7;</i>
-                            <cite>置顶列表</cite></a>
+                            <cite>删除文章</cite></a>
                     </li>
                     <li>
-                        <a onclick="xadmin.add_tab('会员删除','member-del.html')">
+                        <a onclick="xadmin.add_tab('置顶文章','/admin/articleTopList',true)">
                             <i class="iconfont">&#xe6a7;</i>
-                            <cite>分类管理</cite></a>
-                    </li>
-                    <li>
-                        <a onclick="xadmin.add_tab('会员删除','member-del.html')">
-                            <i class="iconfont">&#xe6a7;</i>
-                            <cite>吐槽管理</cite></a>
-                    </li>
-                    <li>
-                        <a onclick="xadmin.add_tab('会员删除','member-del.html')">
-                            <i class="iconfont">&#xe6a7;</i>
-                            <cite>友链管理</cite></a>
-                    </li>
-                    <!--    <li>
-                            <a href="javascript:;">
-                                <i class="iconfont">&#xe70b;</i>
-                                <cite>会员管理</cite>
-                                <i class="iconfont nav_right">&#xe697;</i></a>
-                            <ul class="sub-menu">
-                                <li>
-                                    <a onclick="xadmin.add_tab('会员删除','member-del.html')">
-                                        <i class="iconfont">&#xe6a7;</i>
-                                        <cite>会员删除</cite></a>
-                                </li>
-                                <li>
-                                    <a onclick="xadmin.add_tab('等级管理','member-list1.html')">
-                                        <i class="iconfont">&#xe6a7;</i>
-                                        <cite>等级管理</cite></a>
-                                </li>
-                            </ul>
-                        </li>-->
-                    <li>
-                        <a onclick="xadmin.add_tab('数据统计','data-info.html')">
-                            <i class="iconfont">&#xe6a7;</i>
-                            <cite>数据统计</cite></a>
+                            <cite>置顶文章</cite></a>
                     </li>
                 </ul>
             </li>
             <li>
                 <a href="javascript:;">
-                    <i class="iconfont left-nav-li" lay-tips="订单管理">&#xe723;</i>
-                    <cite>用户管理</cite>
+                    <i class="iconfont left-nav-li" lay-tips="评论管理">&#xe723;</i>
+                    <cite>评论管理</cite>
                     <i class="iconfont nav_right">&#xe697;</i></a>
                 <ul class="sub-menu">
                     <li>

@@ -19,9 +19,5 @@ public class Top implements Serializable {
     private Integer id;
     private Integer articleId;
     private Integer sort;
-    private String ever;
-    private String del;
-    private Date startTime;
-    private Date endTime;
 
 }

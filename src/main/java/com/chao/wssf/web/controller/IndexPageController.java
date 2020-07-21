@@ -27,7 +27,7 @@ public class IndexPageController {
     @RequestMapping({"/", "index"})
     public String indexPage(Model model) {
         //首页热门文章
-        List<Article> articles = articleService.hotArticle();
+        List<Article> articles = articleService.getHotArticle();
         model.addAttribute("articles", articles);
         return "index";
     }

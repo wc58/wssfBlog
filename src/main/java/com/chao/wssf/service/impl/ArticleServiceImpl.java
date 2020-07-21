@@ -10,6 +10,7 @@ import com.chao.wssf.mapper.ArticleLabelMapper;
 import com.chao.wssf.mapper.ArticleMapper;
 import com.chao.wssf.mapper.OtherMapper;
 import com.chao.wssf.mapper.TopMapper;
+import com.chao.wssf.properties.WssfProperties;
 import com.chao.wssf.service.ArticleCache;
 import com.chao.wssf.service.IArticleService;
 import com.chao.wssf.service.ILabelService;
@@ -40,6 +41,8 @@ public class ArticleServiceImpl implements IArticleService {
     private ILabelService labelService;
     @Autowired
     private ArticleMapper articleMapper;
+    @Autowired
+    private WssfProperties wssfProperties;
 
     /**
      * 点击量排序查询
@@ -47,7 +50,7 @@ public class ArticleServiceImpl implements IArticleService {
      * @return
      */
     @Override
-    public List<Article> hotArticle() {
+    public List<Article> getHotArticle() {
         List<Integer> articleIds = otherService.getOtherPaging().stream().map(Other::getArticleId).collect(Collectors.toList());
         //查出对应的文章
         return articleCache.getArticleByIds(articleIds);
@@ -59,7 +62,7 @@ public class ArticleServiceImpl implements IArticleService {
      * @return
      */
     @Override
-    public List<Article> topArticle() {
+    public List<Article> getTopArticle() {
         //查出对应的文章
         return articleCache.getTops();
     }
@@ -232,40 +235,30 @@ public class ArticleServiceImpl implements IArticleService {
     /**
      * 设置置顶状态
      *
-     * @param articleId
-     * @param top
+     * @param articleId 文章ID
+     * @param top       是否置顶
      */
-    private void setTop(Integer articleId, Boolean top) {
-        Integer tops = topMapper.selectCount(new QueryWrapper<Top>().eq("del", "0"));
-        QueryWrapper<Top> topQueryWrapper = new QueryWrapper<>();
-        topQueryWrapper.eq("article_id", articleId);
-        if (top && tops < 8) {
-            QueryWrapper<Top> topQueryWrapper1 = new QueryWrapper<>();
-            topQueryWrapper1.eq("article_id", articleId);
-            Integer integer = topMapper.selectCount(topQueryWrapper1);
+    private int setTop(Integer articleId, Boolean top) {
+        //目前置顶数
+        Integer tops = topMapper.selectCount(new QueryWrapper<>());
+        //既是置顶又在可控数量内
+        if (top && tops < wssfProperties.getQuerySize()) {
             Top t = new Top();
             t.setArticleId(articleId);
-            //永久
-            t.setEver("1");
-            t.setDel("0");
-            //首次最高
             t.setSort(0);
-            t.setStartTime(new Date());
-            t.setEndTime(new Date());
-            if (integer != 0) {
-                topMapper.update(t, topQueryWrapper);
-            } else {
-                topMapper.insert(t);
-            }
-        } else {
-            Top t = new Top();
-            t.setArticleId(articleId);
-            t.setDel("1");
-            t.setEver("0");
-            t.setStartTime(new Date());
-            t.setEndTime(new Date());
-            topMapper.update(t, topQueryWrapper);
+            topMapper.insert(t);
+            return 1;
         }
+        return 0;
+    }
+
+    /**
+     * 取消置顶状态
+     *
+     * @param articleId 文章ID
+     */
+    private void cancelTop(Integer articleId) {
+        topMapper.delete(new QueryWrapper<Top>().eq("article_id", articleId));
     }
 
     /**
@@ -296,25 +289,7 @@ public class ArticleServiceImpl implements IArticleService {
         //必备条件
         articleQueryWrapper.notIn("id", tops).eq("del", "0").orderByDesc("create_time");
         //可选条件
-        if (!StringUtils.isEmpty(title)) {
-            articleQueryWrapper.like("title", title);
-        }
-        if (!StringUtils.isEmpty(author)) {
-            articleQueryWrapper.like("author", author);
-        }
-        if (!StringUtils.isEmpty(status)) {
-            articleQueryWrapper.like("status", status);
-        }
-        //对日期进行转换
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        if (!StringUtils.isEmpty(startTime)) {
-            Date date = simpleDateFormat.parse(startTime);
-            articleQueryWrapper.ge("create_time", date);
-        }
-        if (!StringUtils.isEmpty(endTime)) {
-            Date date = simpleDateFormat.parse(endTime);
-            articleQueryWrapper.le("create_time", date);
-        }
+        condition(title, author, status, startTime, endTime, articleQueryWrapper);
         Page<Article> articlePage = new Page<>(page, limit);
         return articleMapper.selectPage(articlePage, articleQueryWrapper);
     }
@@ -352,5 +327,73 @@ public class ArticleServiceImpl implements IArticleService {
         article.setDel("1");
         articleMapper.updateById(article);
     }
+
+    /**
+     * 被逻辑删除的文章
+     *
+     * @param page
+     * @param limit
+     * @param title
+     * @param author
+     * @param status
+     * @param startTime
+     * @param endTime
+     * @return
+     */
+    @Override
+    public Page<Article> getDelArticle(Integer page, Integer limit, String title, String author, String status, String startTime, String endTime) throws ParseException {
+        QueryWrapper<Article> articleQueryWrapper = new QueryWrapper<>();
+        //必备条件
+        articleQueryWrapper.ne("del", "0").orderByDesc("create_time");
+        //可选条件
+        condition(title, author, status, startTime, endTime, articleQueryWrapper);
+        Page<Article> articlePage = new Page<>(page, limit);
+        return articleMapper.selectPage(articlePage, articleQueryWrapper);
+    }
+
+    /**
+     * 指定文章置顶
+     *
+     * @param id
+     * @return
+     */
+    @Override
+    public int topArticle(Integer id) {
+        return setTop(id, true);
+    }
+
+    /**
+     * 非必要的条件
+     *
+     * @param title
+     * @param author
+     * @param status
+     * @param startTime
+     * @param endTime
+     * @param articleQueryWrapper
+     * @throws ParseException
+     */
+    private void condition(String title, String author, String status, String startTime, String endTime, QueryWrapper<Article> articleQueryWrapper) throws ParseException {
+        if (!StringUtils.isEmpty(title)) {
+            articleQueryWrapper.like("title", title);
+        }
+        if (!StringUtils.isEmpty(author)) {
+            articleQueryWrapper.like("author", author);
+        }
+        if (!StringUtils.isEmpty(status)) {
+            articleQueryWrapper.like("status", status);
+        }
+        //对日期进行转换
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        if (!StringUtils.isEmpty(startTime)) {
+            Date date = simpleDateFormat.parse(startTime);
+            articleQueryWrapper.ge("create_time", date);
+        }
+        if (!StringUtils.isEmpty(endTime)) {
+            Date date = simpleDateFormat.parse(endTime);
+            articleQueryWrapper.le("create_time", date);
+        }
+    }
+
 
 }

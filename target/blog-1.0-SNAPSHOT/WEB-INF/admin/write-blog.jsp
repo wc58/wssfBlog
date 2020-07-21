@@ -161,7 +161,7 @@
         labels = '${labels}';
         var topSize = '${topSize}';
         //说明不支持置顶了
-        if (topSize == 'false' && top == 'false') {
+        if (topSize == 'false' && top == 'false' || topSize == 'false') {
             $("#top").attr('disabled', 'disabled')
         }
         $("#title").val(title);

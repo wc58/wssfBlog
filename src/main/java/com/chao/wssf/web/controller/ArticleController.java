@@ -116,10 +116,10 @@ public class ArticleController {
         }
 
         //侧边栏热门文章
-        List<Article> hotArticles = articleService.hotArticle();
+        List<Article> hotArticles = articleService.getHotArticle();
         model.addAttribute("hotArticles", hotArticles);
         //置顶文章
-        List<Article> topArticles = articleService.topArticle();
+        List<Article> topArticles = articleService.getTopArticle();
         model.addAttribute("topArticles", topArticles);
         //标签导航
         List<Label> labels = labelService.getAllLabel();

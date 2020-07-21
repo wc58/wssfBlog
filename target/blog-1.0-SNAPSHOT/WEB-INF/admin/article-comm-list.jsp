@@ -188,9 +188,22 @@
 
             //置顶
             if (layEvent === 'top') {
-                layer.confirm('确定要置顶吗？' + data.id, function (index) {
-                    obj.del();
-                    layer.close(index);
+                layer.confirm('确定要置顶吗？', function (index) {
+                    $.ajax({
+                        type: 'post',
+                        url: '/admin/topArticle',
+                        data: data,
+                        success: function (res) {
+                            if (res.code === 1000) {
+                                layer.msg("置顶成功！");
+                                obj.del();
+                                layer.close(index);
+                            } else {
+                                layer.msg("置顶失败！可能置顶数量超限了！");
+                            }
+                        },
+                        dataType: 'json'
+                    })
                 });
             } else if (layEvent === 'edit') { //编辑
                 $.ajax({
@@ -213,8 +226,6 @@
 
             } else if (layEvent === 'delete') {//删除
                 layer.confirm('真的删除行么？', function (index) {
-                    obj.del();
-                    layer.close(index);
                     //服务器删除
                     $.ajax({
                         type: 'post',
@@ -223,6 +234,8 @@
                         success: function (res) {
                             if (res.code === 1000) {
                                 layer.msg("删除成功！");
+                                obj.del();
+                                layer.close(index);
                             } else {
                                 layer.msg("删除失败！服务器错误！");
                             }

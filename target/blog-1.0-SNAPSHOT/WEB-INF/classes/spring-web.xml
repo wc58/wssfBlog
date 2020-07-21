@@ -73,5 +73,7 @@
 
     <mvc:view-controller path="admin" view-name="admin/login"/>
     <mvc:view-controller path="admin/articleCommList" view-name="admin/article-comm-list"/>
+    <mvc:view-controller path="admin/articleTopList" view-name="admin/article-top-list"/>
+    <mvc:view-controller path="admin/articleDelList" view-name="admin/article-del-list"/>
 
 </beans>

@@ -9,9 +9,9 @@ import java.util.Map;
 
 public interface IArticleService {
 
-    List<Article> hotArticle();
+    List<Article> getHotArticle();
 
-    List<Article> topArticle();
+    List<Article> getTopArticle();
 
     Map<String, Object> listArticle(Integer currentPage, Integer size, Boolean isSort, Boolean isCondition);
 
@@ -25,11 +25,15 @@ public interface IArticleService {
 
     int updateArticle(Integer id, String title, String assistant, String picture, String content, String author, String status, Boolean del, Boolean top, Integer[] labels);
 
-    Page<Article> getCommArticle(List<Integer> tops, Integer page, Integer limit,  String title, String author, String status, String startTime, String endTime) throws ParseException;
+    Page<Article> getCommArticle(List<Integer> tops, Integer page, Integer limit, String title, String author, String status, String startTime, String endTime) throws ParseException;
 
     Article getArticleById(Integer id);
 
     void updateArticle(Article article);
 
     void deleteArticleById(Integer id);
+
+    Page<Article> getDelArticle(Integer page, Integer limit, String title, String author, String status, String startTime, String endTime) throws ParseException;
+
+    int topArticle(Integer id);
 }
