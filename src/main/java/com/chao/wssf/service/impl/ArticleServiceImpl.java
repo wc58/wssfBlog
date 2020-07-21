@@ -290,14 +290,9 @@ public class ArticleServiceImpl implements IArticleService {
     @Override
     public Page<Article> getCommArticle(List<Integer> tops, Integer page, Integer limit) {
         QueryWrapper<Article> articleQueryWrapper = new QueryWrapper<>();
-        articleQueryWrapper.eq("del", "0").orderByDesc("update_time");
+        articleQueryWrapper.notIn("id", tops).eq("del", "0").orderByDesc("update_time");
         Page<Article> articlePage = new Page<>(page, limit);
-        Page<Article> selectPage = articleMapper.selectPage(articlePage, articleQueryWrapper);
-        //把置顶的文章排除掉（mybatis plus查询语句没有错，但是查出来有问题，所有手动排除）
-        selectPage.getRecords().removeIf(next -> tops.contains(next.getId()));
-        //一定要注意，置顶列表中无论如何都不能存在 已经被删除 文章id
-        selectPage.setTotal(selectPage.getTotal() - tops.size());
-        return selectPage;
+        return articleMapper.selectPage(articlePage, articleQueryWrapper);
     }
 
     /**
