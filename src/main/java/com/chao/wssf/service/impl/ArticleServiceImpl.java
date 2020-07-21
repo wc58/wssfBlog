@@ -17,7 +17,10 @@ import com.chao.wssf.service.IOtherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -288,9 +291,30 @@ public class ArticleServiceImpl implements IArticleService {
      * @return
      */
     @Override
-    public Page<Article> getCommArticle(List<Integer> tops, Integer page, Integer limit) {
+    public Page<Article> getCommArticle(List<Integer> tops, Integer page, Integer limit, String title, String author, String status, String startTime, String endTime) throws ParseException {
         QueryWrapper<Article> articleQueryWrapper = new QueryWrapper<>();
-        articleQueryWrapper.notIn("id", tops).eq("del", "0").orderByDesc("update_time");
+        //必备条件
+        articleQueryWrapper.notIn("id", tops).eq("del", "0").orderByDesc("create_time");
+        //可选条件
+        if (!StringUtils.isEmpty(title)) {
+            articleQueryWrapper.like("title", title);
+        }
+        if (!StringUtils.isEmpty(author)) {
+            articleQueryWrapper.like("author", author);
+        }
+        if (!StringUtils.isEmpty(status)) {
+            articleQueryWrapper.like("status", status);
+        }
+        //对日期进行转换
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        if (!StringUtils.isEmpty(startTime)) {
+            Date date = simpleDateFormat.parse(startTime);
+            articleQueryWrapper.ge("create_time", date);
+        }
+        if (!StringUtils.isEmpty(endTime)) {
+            Date date = simpleDateFormat.parse(endTime);
+            articleQueryWrapper.le("create_time", date);
+        }
         Page<Article> articlePage = new Page<>(page, limit);
         return articleMapper.selectPage(articlePage, articleQueryWrapper);
     }

@@ -16,10 +16,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import javax.xml.crypto.Data;
+import java.text.ParseException;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Controller
@@ -145,16 +144,23 @@ public class BlogController {
      */
     @RequestMapping("getCommArticle")
     @ResponseBody
-    public Map<String, Object> getCommArticle(Integer page, Integer limit) {
-        //查询出既不是置顶也不是删除的文章
-        List<Integer> tops = topService.getArticleIdByTops().stream().map(Top::getArticleId).collect(Collectors.toList());
-        Page<Article> articlePage = articleService.getCommArticle(tops, page, limit);
-        //封装数据
+    public Map<String, Object> getCommArticle(Integer page, Integer limit, String title, String author, String status, String startTime, String endTime) {
         HashMap<String, Object> map = new HashMap<>();
-        map.put("code", 0);
-        map.put("count", articlePage.getTotal());
-        map.put("data", articlePage.getRecords());
-        return map;
+        try {
+            //查询出既不是置顶也不是删除的文章
+            List<Integer> tops = topService.getArticleIdByTops().stream().map(Top::getArticleId).collect(Collectors.toList());
+            Page<Article> articlePage = articleService.getCommArticle(tops, page, limit, title, author, status, startTime, endTime);
+            //封装数据
+
+            map.put("code", 0);
+            map.put("count", articlePage.getTotal());
+            map.put("data", articlePage.getRecords());
+            return map;
+        } catch (ParseException e) {
+            e.printStackTrace();
+            map.put("code", 1);
+            return map;
+        }
     }
 
 }

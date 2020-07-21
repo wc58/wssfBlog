@@ -47,10 +47,21 @@
                         </div>
                         <div class="layui-inline layui-show-xs-block">
                             <input id="sStatus" type="text" name="username" placeholder="状态" autocomplete="off"
-                                   class="layui-input"></div>
+                                   class="layui-input">
+                        </div>
                         <div class="layui-inline layui-show-xs-block">
-                            <button id="sreach" class="layui-btn" lay-submit="" lay-filter="sreach">
+                            <input type="text" class="layui-input" placeholder="开始时间" id="startTime">
+                        </div>
+                        <div class="layui-inline layui-show-xs-block">
+                            <input type="text" class="layui-input" placeholder="结束时间" id="endTime">
+                        </div>
+                        <div class="layui-inline layui-show-xs-block">
+                            <button id="search" class="layui-btn">
                                 <i class="layui-icon">&#xe615;</i></button>
+                        </div>
+                        <div class="layui-inline layui-show-xs-block">
+                            <button id="reset" class="layui-btn layui-btn-normal">
+                                <i class="layui-icon">&#xe9aa;</i></button>
                         </div>
                     </div>
                 </div>
@@ -71,10 +82,14 @@
     </div>
 </script>
 <script>
+
+    var $;
+    var tableArticle;
     layui.use('table', function () {
         var table = layui.table;
+        $ = layui.$;
         //第一个实例
-        table.render({
+        tableArticle = table.render({
             elem: '#article'
             , url: '/admin/getCommArticle' //数据接口
             , size: 'lg'
@@ -96,6 +111,57 @@
                 , {field: 'updateTime', title: '最近修改', width: 142, sort: true}
                 , {fixed: 'right', width: 170, align: 'center', toolbar: '#bar'}
             ]]
+
+        });
+
+        $("#search").click(function () {
+            tableArticle.reload({
+                url: '/admin/getCommArticle' //数据接口
+                , where: {
+                    title: $("#sTitle").val(),
+                    author: $("#sAuthor").val(),
+                    status: $("#sStatus").val(),
+                    startTime: $("#startTime").val(),
+                    endTime: $("#endTime").val()
+                }, page: {
+                    curr: 1
+                }
+            })
+        })
+
+        $("#reset").click(function () {
+
+            var title = $("#sTitle").val('')
+            var sAuthor = $("#sAuthor").val('')
+            var sStatus = $("#sStatus").val('')
+            var startTime = $("#startTime").val('')
+            var endTime = $("#endTime").val('')
+
+            tableArticle.reload({
+                url: '/admin/getCommArticle' //数据接口
+                , where: {
+                    title: title.val(),
+                    author: sAuthor.val(),
+                    status: sStatus.val(),
+                    startTime: startTime.val(),
+                    endTime: endTime.val()
+                }, page: {
+                    curr: 1
+                }
+            })
+        })
+
+        layui.use('laydate', function () {
+            var laydate = layui.laydate;
+
+            laydate.render({
+                elem: '#startTime'
+            });
+
+            laydate.render({
+                elem: '#endTime'
+            });
+
         });
 
         //监听行双击事件
@@ -105,10 +171,12 @@
                 anim: 1,
                 title: '修改文章',
                 content: '/admin/writeBlog?id=' + obj.data.id,
-                area: ['1200px', '650px'],
+                area: ['1200px', '700px'],
                 end: function () {
                     layer.msg("更新数据")
-                    location.reload();
+                    tableArticle.reload({
+                        url: '/admin/getCommArticle' //数据接口
+                    })
                 }
             });
         });

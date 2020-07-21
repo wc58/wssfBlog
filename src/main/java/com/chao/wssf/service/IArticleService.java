@@ -3,6 +3,7 @@ package com.chao.wssf.service;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.chao.wssf.entity.Article;
 
+import java.text.ParseException;
 import java.util.List;
 import java.util.Map;
 
@@ -24,7 +25,7 @@ public interface IArticleService {
 
     int updateArticle(Integer id, String title, String assistant, String picture, String content, String author, String status, Boolean del, Boolean top, Integer[] labels);
 
-    Page<Article> getCommArticle(List<Integer> tops, Integer page, Integer limit);
+    Page<Article> getCommArticle(List<Integer> tops, Integer page, Integer limit,  String title, String author, String status, String startTime, String endTime) throws ParseException;
 
     Article getArticleById(Integer id);
 
