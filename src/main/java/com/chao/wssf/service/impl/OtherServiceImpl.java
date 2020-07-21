@@ -1,6 +1,7 @@
 package com.chao.wssf.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.chao.wssf.entity.Comment;
 import com.chao.wssf.entity.Other;
 import com.chao.wssf.mapper.OtherMapper;
 import com.chao.wssf.service.IOtherService;
@@ -91,7 +92,6 @@ public class OtherServiceImpl implements IOtherService {
     }
 
 
-
     /**
      * 所有文章浏览量
      *
@@ -106,6 +106,16 @@ public class OtherServiceImpl implements IOtherService {
             allFlow += integer;
         }
         return allFlow;
+    }
+
+    /**
+     * 真实的删除其他表的信息
+     *
+     * @param id
+     */
+    @Override
+    public void deleteRealOtherByArticleId(Integer id) {
+        otherMapper.delete(new QueryWrapper<Other>().eq("article_id", id));
     }
 
 }

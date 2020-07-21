@@ -76,9 +76,9 @@
 </body>
 <script type="text/html" id="bar">
     <div class="layui-btn-container">
-        <a class="layui-btn layui-btn-xs  layui-btn-normal" lay-event="top"><i class="layui-icon">&#xe604;</i></a>
+        <a class="layui-btn layui-btn-xs  layui-btn-normal" lay-event="top"><i class="layui-icon">&#xe62f;</i></a>
         <a class="layui-btn layui-btn-xs" lay-event="edit"> <i class="layui-icon">&#xe605;</i></a>
-        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="delete"><i class="layui-icon">&#xe640;</i></a>
+        <a class="layui-btn layui-btn-warm layui-btn-xs" lay-event="delete"><i class="layui-icon">&#xe640;</i></a>
     </div>
 </script>
 <script>
@@ -188,23 +188,21 @@
 
             //置顶
             if (layEvent === 'top') {
-                layer.confirm('确定要置顶吗？', function (index) {
-                    $.ajax({
-                        type: 'post',
-                        url: '/admin/topArticle',
-                        data: data,
-                        success: function (res) {
-                            if (res.code === 1000) {
-                                layer.msg("置顶成功！");
-                                obj.del();
-                                layer.close(index);
-                            } else {
-                                layer.msg("置顶失败！可能置顶数量超限了！");
-                            }
-                        },
-                        dataType: 'json'
-                    })
-                });
+                $.ajax({
+                    type: 'post',
+                    url: '/admin/topArticle',
+                    data: data,
+                    success: function (res) {
+                        if (res.code === 1000) {
+                            layer.msg("置顶成功！");
+                            obj.del();
+                            layer.close(index);
+                        } else {
+                            layer.msg("置顶失败！可能置顶数量超限了！");
+                        }
+                    },
+                    dataType: 'json'
+                })
             } else if (layEvent === 'edit') { //编辑
                 $.ajax({
                     type: 'post',

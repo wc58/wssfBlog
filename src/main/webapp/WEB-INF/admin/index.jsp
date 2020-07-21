@@ -98,14 +98,14 @@
                             <cite>普通文章</cite></a>
                     </li>
                     <li>
-                        <a onclick="xadmin.add_tab('删除文章','/admin/articleDelList',true)">
-                            <i class="iconfont">&#xe6a7;</i>
-                            <cite>删除文章</cite></a>
-                    </li>
-                    <li>
                         <a onclick="xadmin.add_tab('置顶文章','/admin/articleTopList',true)">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>置顶文章</cite></a>
+                    </li>
+                    <li>
+                        <a onclick="xadmin.add_tab('删除文章','/admin/articleDelList',true)">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>删除文章</cite></a>
                     </li>
                 </ul>
             </li>

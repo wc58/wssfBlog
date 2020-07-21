@@ -36,4 +36,8 @@ public interface IArticleService {
     Page<Article> getDelArticle(Integer page, Integer limit, String title, String author, String status, String startTime, String endTime) throws ParseException;
 
     int topArticle(Integer id);
+
+    void deleteRealArticleById(Integer id);
+
+    void restoreArticle(Integer id);
 }

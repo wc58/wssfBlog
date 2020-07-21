@@ -11,10 +11,7 @@ import com.chao.wssf.mapper.ArticleMapper;
 import com.chao.wssf.mapper.OtherMapper;
 import com.chao.wssf.mapper.TopMapper;
 import com.chao.wssf.properties.WssfProperties;
-import com.chao.wssf.service.ArticleCache;
-import com.chao.wssf.service.IArticleService;
-import com.chao.wssf.service.ILabelService;
-import com.chao.wssf.service.IOtherService;
+import com.chao.wssf.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -43,6 +40,8 @@ public class ArticleServiceImpl implements IArticleService {
     private ArticleMapper articleMapper;
     @Autowired
     private WssfProperties wssfProperties;
+    @Autowired
+    private ICommentService commentService;
 
     /**
      * 点击量排序查询
@@ -179,9 +178,7 @@ public class ArticleServiceImpl implements IArticleService {
         int articleId = insertOrUpdateArticle(id, title, assistant, picture, content, author, status, del);
 
         //删除旧的重新添加
-        QueryWrapper<ArticleLabel> articleLabelQueryWrapper = new QueryWrapper<>();
-        articleLabelQueryWrapper.eq("article_id", articleId);
-        articleLabelMapper.delete(articleLabelQueryWrapper);
+        labelService.deleteLabelsByArticleId(articleId);
         //设置标签
         setLabels(articleId, labels);
 
@@ -316,7 +313,7 @@ public class ArticleServiceImpl implements IArticleService {
     }
 
     /**
-     * 逻辑删除
+     * 逻辑删除文章
      *
      * @param id
      */
@@ -360,6 +357,36 @@ public class ArticleServiceImpl implements IArticleService {
     @Override
     public int topArticle(Integer id) {
         return setTop(id, true);
+    }
+
+    /**
+     * 真实的删除
+     *
+     * @param articleId
+     */
+    @Override
+    public void deleteRealArticleById(Integer articleId) {
+        //删除文章
+        articleMapper.deleteById(articleId);
+        //以及对应的评论
+        commentService.deleteRealCommentByArticleId(articleId);
+        //其他信息
+        otherService.deleteRealOtherByArticleId(articleId);
+        //标签信息
+        labelService.deleteLabelsByArticleId(articleId);
+    }
+
+    /**
+     * 还原文章
+     *
+     * @param id
+     */
+    @Override
+    public void restoreArticle(Integer id) {
+        Article article = new Article();
+        article.setId(id);
+        article.setDel("0");
+        articleMapper.updateById(article);
     }
 
     /**

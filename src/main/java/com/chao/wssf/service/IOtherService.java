@@ -18,4 +18,6 @@ public interface IOtherService {
     void flowMinus(Integer id);
 
     int getAllFlowSize();
+
+    void deleteRealOtherByArticleId(Integer id);
 }

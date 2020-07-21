@@ -25,8 +25,6 @@ public class CommentServiceImpl implements ICommentService {
     private UserMapper userMapper;
 
 
-
-
     @Override
     public List<FullComment> getCommentsByArticleId(Integer id) {
         QueryWrapper<Comment> commentQueryWrapper = new QueryWrapper<>();
@@ -43,7 +41,6 @@ public class CommentServiceImpl implements ICommentService {
         }
         return fullComments;
     }
-
 
 
     @Override
@@ -93,7 +90,15 @@ public class CommentServiceImpl implements ICommentService {
         return commentMapper.selectCount(new QueryWrapper<>());
     }
 
-
+    /**
+     * 删除文章对应的评论
+     *
+     * @param id
+     */
+    @Override
+    public void deleteRealCommentByArticleId(Integer id) {
+        commentMapper.delete(new QueryWrapper<Comment>().eq("article_id", id));
+    }
 
 
 }

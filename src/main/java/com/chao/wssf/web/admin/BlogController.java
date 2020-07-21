@@ -105,7 +105,7 @@ public class BlogController {
     }
 
     /**
-     * 列表逻辑删除文章
+     * 逻辑删除文章
      *
      * @param id
      */
@@ -114,6 +114,46 @@ public class BlogController {
     public R deleteArticle(Integer id) {
         try {
             articleService.deleteArticleById(id);
+            //刷新缓存
+            articleCache.updateData();
+            return R.OK();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return R.ERROR();
+        }
+    }
+
+    /**
+     * 真实删除文章
+     *
+     * @param id
+     */
+    @RequestMapping("deleteRealArticle")
+    @ResponseBody
+    public R deleteRealArticle(Integer id) {
+        try {
+            articleService.deleteRealArticleById(id);
+            //刷新缓存
+            articleCache.updateData();
+            return R.OK();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return R.ERROR();
+        }
+    }
+
+    /**
+     * 还原文章
+     *
+     * @param id
+     */
+    @RequestMapping("restoreArticle")
+    @ResponseBody
+    public R restoreArticle(Integer id) {
+        try {
+            articleService.restoreArticle(id);
+            //刷新缓存
+            articleCache.updateData();
             return R.OK();
         } catch (Exception e) {
             e.printStackTrace();

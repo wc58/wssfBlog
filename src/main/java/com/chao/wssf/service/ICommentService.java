@@ -12,4 +12,6 @@ public interface ICommentService {
     void addReply(Comment comment);
 
     int getAllCommentSize();
+
+    void deleteRealCommentByArticleId(Integer id);
 }

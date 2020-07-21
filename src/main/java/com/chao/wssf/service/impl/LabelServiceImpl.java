@@ -93,4 +93,14 @@ public class LabelServiceImpl implements ILabelService {
         articleLabelQueryWrapper.select("label_id").eq("article_id", id);
         return articleLabelMapper.selectList(articleLabelQueryWrapper).stream().map(ArticleLabel::getLabelId).collect(Collectors.toList());
     }
+
+    /**
+     * 删除文章对应的标签
+     *
+     * @param articleId
+     */
+    @Override
+    public void deleteLabelsByArticleId(int articleId) {
+        articleLabelMapper.delete(new QueryWrapper<ArticleLabel>().eq("article_id", articleId));
+    }
 }

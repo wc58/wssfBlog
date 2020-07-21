@@ -15,4 +15,6 @@ public interface ILabelService {
     int getAllLabelSize();
 
     List<Integer> getLabelIdsByArticleId(Integer id);
+
+    void deleteLabelsByArticleId(int articleId);
 }
