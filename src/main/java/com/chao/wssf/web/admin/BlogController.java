@@ -82,22 +82,28 @@ public class BlogController {
      */
     @PostMapping("updateArticle")
     @ResponseBody
-    public Article updateArticle(@RequestParam("id") Integer clientId, String title, String assistant, String picture, String author, String status) {
+    public R updateArticle(@RequestParam("id") Integer clientId, String title, String assistant, String picture, String author, String status) {
 
-        Article article = new Article();
-        article.setId(clientId);
-        article.setTitle(title);
-        article.setAssistant(assistant);
-        article.setPicture(picture);
-        article.setAuthor(author);
-        article.setStatus(status);
-        article.setUpdateTime(new Date());
+        Article article = null;
+        try {
+            article = new Article();
+            article.setId(clientId);
+            article.setTitle(title);
+            article.setAssistant(assistant);
+            article.setPicture(picture);
+            article.setAuthor(author);
+            article.setStatus(status);
+            article.setUpdateTime(new Date());
 
-        articleService.updateArticle(article);
+            articleService.updateArticle(article);
 
-        //刷新缓存
-        articleCache.updateData();
-        return article;
+            //刷新缓存
+            articleCache.updateData();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return R.ERROR();
+        }
+        return R.OK().data("article", article);
     }
 
     /**
@@ -106,10 +112,24 @@ public class BlogController {
      * @param id
      */
     @RequestMapping("deleteArticle")
+    @ResponseBody
     public R deleteArticle(Integer id) {
         try {
             articleService.deleteArticleById(id);
             return R.OK();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return R.ERROR();
+        }
+    }
+
+    @RequestMapping("getArticleById")
+    @ResponseBody
+    public R getArticleById(Integer id) {
+        try {
+            Article articleById = articleService.getArticleById(id);
+            System.out.println(articleById);
+            return R.OK().data("article", articleById);
         } catch (Exception e) {
             e.printStackTrace();
             return R.ERROR();

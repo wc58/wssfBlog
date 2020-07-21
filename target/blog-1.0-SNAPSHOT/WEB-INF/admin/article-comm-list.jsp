@@ -38,20 +38,21 @@
         <div class="layui-col-md12">
             <div class="layui-card">
                 <div class="layui-card-body ">
-                    <form class="layui-form layui-col-space5">
+                    <div class="layui-form layui-col-space5">
                         <div class="layui-inline layui-show-xs-block">
-                            <input class="layui-input" autocomplete="off" placeholder="作者" name="start" id="start">
+                            <input id="sTitle" class="layui-input" autocomplete="off" placeholder="标题" name="end">
                         </div>
                         <div class="layui-inline layui-show-xs-block">
-                            <input class="layui-input" autocomplete="off" placeholder="标题" name="end" id="end"></div>
+                            <input id="sAuthor" class="layui-input" autocomplete="off" placeholder="作者" name="start">
+                        </div>
                         <div class="layui-inline layui-show-xs-block">
-                            <input type="text" name="username" placeholder="状态" autocomplete="off"
+                            <input id="sStatus" type="text" name="username" placeholder="状态" autocomplete="off"
                                    class="layui-input"></div>
                         <div class="layui-inline layui-show-xs-block">
-                            <button class="layui-btn" lay-submit="" lay-filter="sreach">
+                            <button id="sreach" class="layui-btn" lay-submit="" lay-filter="sreach">
                                 <i class="layui-icon">&#xe615;</i></button>
                         </div>
-                    </form>
+                    </div>
                 </div>
                 <!--表格-->
                 <div class="layui-card-body ">
@@ -105,8 +106,9 @@
                 title: '修改文章',
                 content: '/admin/writeBlog?id=' + obj.data.id,
                 area: ['1200px', '650px'],
-                cancel: function () {
-                    layer.msg('回调');
+                end: function () {
+                    layer.msg("更新数据")
+                    location.reload();
                 }
             });
         });
@@ -128,15 +130,21 @@
                     url: '/admin/updateArticle',
                     data: data,
                     success: function (res) {
-                        obj.update({
-                            res
-                        });
+                        if (res.code == 1000) {
+                            layer.msg("更新成功！");
+                            var temp = res.map.article
+                            obj.update({
+                                temp
+                            });
+                        } else {
+                            layer.msg("更新失败！服务器错误！");
+                        }
                     },
                     dataType: 'json'
                 })
 
             } else if (layEvent === 'delete') {//删除
-                layer.confirm('真的删除行么？' + data.id, function (index) {
+                layer.confirm('真的删除行么？', function (index) {
                     obj.del();
                     layer.close(index);
                     //服务器删除

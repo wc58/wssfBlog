@@ -146,9 +146,10 @@
     var select;
     var id;
     var labels;
+    var imageUrl;
 
+    /*回显数据*/
     $(function () {
-
         //数据回显
         id = '${article.id}';
         //标题
@@ -172,6 +173,7 @@
             var img = document.getElementById("coverImage");
             img.src = cover
             img.style.display = "block";
+            imageUrl = cover
         }
         //状态
         $("#status").val(status);
@@ -280,9 +282,6 @@
     editor.create()
 
 
-
-    var imageUrl;
-
     /*封面上传*/
     layui.use('upload', function () {
         var upload = layui.upload;
@@ -326,9 +325,13 @@
             },
             success: function (data) {
                 if (data.code === 1000) {
+                    img.setAttribute('src', '');
                     layer.msg("删除成功")
-                    img.setAttribute('src', '');//给标签定义src链接
                 }
+            },
+            error: function () {
+                img.setAttribute('src', '');
+                layer.msg("图片可能服务器已经不存在了")
             },
             dataType: 'json'
         })

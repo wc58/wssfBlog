@@ -80,16 +80,18 @@
                 </div>
                 <div class="layui-row">
 
-                    <%--三篇热门文章--%>
+                    <%--上面  三篇热门文章--%>
                     <c:forEach items="${articles}" var="article" begin="0" end="2">
                         <div class="layui-col-xs12 layui-col-sm4 layui-col-md4  wow layui-anim-scale"
                              style="padding: 0 10px">
                             <div class="single-news">
+                                <c:if test="${article.picture != ''}">
                                 <div class="news-head">
                                         <%--图片--%>
                                     <img class="imgCa" src="${article.picture}"/>
                                     <a href="/blog/read/${article.id}" class="link"><i class="fa fa-link"></i></a>
                                 </div>
+                                </c:if>
                                 <div class="news-content">
                                     <h4>
                                         <a href="/blog/read/${article.id}">
@@ -113,17 +115,20 @@
                         </div>
                     </c:forEach>
 
-                    <%--三篇热门文章--%>
+                    <%--下面  三篇热门文章--%>
                     <c:forEach items="${articles}" var="article" begin="3" end="5">
                         <div class="phone layui-col-xs12 layui-col-sm4 layui-col-md4  wow layui-anim-scale"
                              style="padding: 0 10px">
                             <div class="single-news">
-                                <div class="news-head">
-                                        <%--图片--%>
-                                    <img src="${article.picture}"/>
-                                    <a href="${pageContext.request.contextPath}/blog/read/${article.id}" class="link"><i
-                                            class="fa fa-link"></i></a>
-                                </div>
+                                <c:if test="${article.picture != ''}">
+                                    <div class="news-head">
+                                            <%--图片--%>
+                                        <img src="${article.picture}"/>
+                                        <a href="${pageContext.request.contextPath}/blog/read/${article.id}"
+                                           class="link"><i
+                                                class="fa fa-link"></i></a>
+                                    </div>
+                                </c:if>
                                 <div class="news-content">
                                     <h4>
                                         <a href="${pageContext.request.contextPath}/blog/read/${article.id}">
