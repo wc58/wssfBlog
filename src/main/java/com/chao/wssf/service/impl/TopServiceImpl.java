@@ -59,4 +59,40 @@ public class TopServiceImpl implements ITopService {
         topQueryWrapper.eq("article_id", id);
         return topMapper.selectOne(topQueryWrapper);
     }
+
+    /**
+     * 根据文章修改置顶顺序
+     *
+     * @param clientId
+     * @param sort
+     */
+    @Override
+    public void updateSortByArticleId(Integer clientId, Integer sort) {
+        Top top = new Top();
+        top.setSort(sort);
+        topMapper.update(top, new QueryWrapper<Top>().eq("article_id", clientId));
+    }
+
+    /**
+     * 取消置顶状态
+     *
+     * @param articleId 文章ID
+     */
+    @Override
+    public void cancelTop(Integer articleId) {
+        topMapper.delete(new QueryWrapper<Top>().eq("article_id", articleId));
+    }
+
+    /**
+     * 添加置顶状态
+     *
+     * @param articleId
+     */
+    @Override
+    public void addTop(Integer articleId) {
+        Top t = new Top();
+        t.setArticleId(articleId);
+        t.setSort(0);
+        topMapper.insert(t);
+    }
 }

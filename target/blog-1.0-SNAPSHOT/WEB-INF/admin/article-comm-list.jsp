@@ -29,7 +29,7 @@
             </span>
     <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right"
        onclick="location.reload()" title="刷新">
-        <i class="layui-icon layui-icon-refresh" style="line-height:30px"></i>
+        <i class="layui-icon" style="line-height:30px">&#xe9aa;</i>
     </a>
     <br/>
 </div>
@@ -61,7 +61,7 @@
                         </div>
                         <div class="layui-inline layui-show-xs-block">
                             <button id="reset" class="layui-btn layui-btn-normal">
-                                <i class="layui-icon">&#xe9aa;</i></button>
+                                <i class="layui-icon layui-icon-refresh"></i></button>
                         </div>
                     </div>
                 </div>

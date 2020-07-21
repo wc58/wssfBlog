@@ -53,6 +53,7 @@ E:\IdeaCode\chao\blog\src\main\java\com\chao\wssf\pojo\FullComment.java
 E:\IdeaCode\chao\blog\src\main\java\com\chao\wssf\service\ILinkService.java
 E:\IdeaCode\chao\blog\src\main\java\com\chao\wssf\mapper\AboutMapper.java
 E:\IdeaCode\chao\blog\src\main\java\com\chao\wssf\mapper\TopMapper.java
+E:\IdeaCode\chao\blog\src\main\java\com\chao\wssf\pojo\TopArticle.java
 E:\IdeaCode\chao\blog\src\main\java\com\chao\wssf\service\IAdminService.java
 E:\IdeaCode\chao\blog\src\main\java\com\chao\wssf\mapper\UserMapper.java
 E:\IdeaCode\chao\blog\src\main\java\com\chao\wssf\web\admin\AdminController.java

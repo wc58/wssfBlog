@@ -10,8 +10,10 @@ import com.chao.wssf.mapper.ArticleLabelMapper;
 import com.chao.wssf.mapper.ArticleMapper;
 import com.chao.wssf.mapper.OtherMapper;
 import com.chao.wssf.mapper.TopMapper;
+import com.chao.wssf.pojo.TopArticle;
 import com.chao.wssf.properties.WssfProperties;
 import com.chao.wssf.service.*;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,6 +32,8 @@ public class ArticleServiceImpl implements IArticleService {
     private ArticleLabelMapper articleLabelMapper;
     @Autowired
     private TopMapper topMapper;
+    @Autowired
+    private ITopService topService;
     @Autowired
     private OtherMapper otherMapper;
     @Autowired
@@ -240,23 +244,14 @@ public class ArticleServiceImpl implements IArticleService {
         Integer tops = topMapper.selectCount(new QueryWrapper<>());
         //既是置顶又在可控数量内
         if (top && tops < wssfProperties.getQuerySize()) {
-            Top t = new Top();
-            t.setArticleId(articleId);
-            t.setSort(0);
-            topMapper.insert(t);
+            topService.addTop(articleId);
             return 1;
+        } else {
+            topService.cancelTop(articleId);
         }
         return 0;
     }
 
-    /**
-     * 取消置顶状态
-     *
-     * @param articleId 文章ID
-     */
-    private void cancelTop(Integer articleId) {
-        topMapper.delete(new QueryWrapper<Top>().eq("article_id", articleId));
-    }
 
     /**
      * 为文章设置标签
@@ -289,6 +284,40 @@ public class ArticleServiceImpl implements IArticleService {
         condition(title, author, status, startTime, endTime, articleQueryWrapper);
         Page<Article> articlePage = new Page<>(page, limit);
         return articleMapper.selectPage(articlePage, articleQueryWrapper);
+    }
+
+    /**
+     * 既不是置顶也没有被删除
+     *
+     * @param tops
+     * @return
+     */
+    @Override
+    public Page getTopArticle(List<Top> tops, Integer page, Integer limit, String title, String author, String status, String startTime, String endTime) throws ParseException {
+        QueryWrapper<Article> articleQueryWrapper = new QueryWrapper<>();
+        //必备条件
+        List<Integer> ids = tops.stream().map(Top::getArticleId).collect(Collectors.toList());
+        //防止sql错误
+        ids.add(-1);
+        articleQueryWrapper.in("id", ids);
+        //可选条件
+        condition(title, author, status, startTime, endTime, articleQueryWrapper);
+        Page<Article> articlePage = new Page<>(page, limit);
+        Page selectPage = articleMapper.selectPage(articlePage, articleQueryWrapper);
+        //偷梁换柱，因为涉及多张表，而前端响应格式限定，所有只能这样来改变数据=======================================
+        List records = selectPage.getRecords();
+        ArrayList<TopArticle> topArticles = new ArrayList<>();
+        for (int i = 0; i < records.size(); i++) {
+            Article record = (Article) records.get(i);
+            TopArticle topArticle = new TopArticle();
+            //对象属性复制
+            BeanUtils.copyProperties(tops.get(i), topArticle);
+            BeanUtils.copyProperties(record, topArticle);
+            topArticles.add(topArticle);
+        }
+        selectPage.setRecords(topArticles);
+        //偷梁换柱=======================================
+        return selectPage;
     }
 
     /**

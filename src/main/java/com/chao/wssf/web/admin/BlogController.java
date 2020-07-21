@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.chao.wssf.entity.Admin;
 import com.chao.wssf.entity.Article;
 import com.chao.wssf.entity.Top;
+import com.chao.wssf.pojo.TopArticle;
 import com.chao.wssf.service.ArticleCache;
 import com.chao.wssf.service.IArticleService;
 import com.chao.wssf.service.ITopService;
@@ -80,7 +81,7 @@ public class BlogController {
      */
     @PostMapping("updateArticle")
     @ResponseBody
-    public R updateArticle(@RequestParam("id") Integer clientId, String title, String assistant, String picture, String author, String status) {
+    public R updateArticle(@RequestParam("id") Integer clientId, String title, String assistant, String picture, String author, String status, Integer sort) {
 
         Article article = null;
         try {
@@ -94,6 +95,10 @@ public class BlogController {
             article.setUpdateTime(new Date());
 
             articleService.updateArticle(article);
+            //更新置顶顺序
+            if (sort != null) {
+                topService.updateSortByArticleId(clientId, sort);
+            }
 
             //刷新缓存
             articleCache.updateData();
@@ -160,6 +165,26 @@ public class BlogController {
             return R.ERROR();
         }
     }
+
+    /**
+     * 取消置顶
+     *
+     * @param id
+     */
+    @RequestMapping("cancelTop")
+    @ResponseBody
+    public R cancelTop(Integer id) {
+        try {
+            topService.cancelTop(id);
+            //刷新缓存
+            articleCache.updateData();
+            return R.OK();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return R.ERROR();
+        }
+    }
+
 
     /**
      * 根据id查找文章
@@ -245,6 +270,33 @@ public class BlogController {
         try {
             //查询出是删除的文章
             Page<Article> articlePage = articleService.getDelArticle(page, limit, title, author, status, startTime, endTime);
+            //封装数据
+            map.put("code", 0);
+            map.put("count", articlePage.getTotal());
+            map.put("data", articlePage.getRecords());
+            return map;
+        } catch (ParseException e) {
+            e.printStackTrace();
+            map.put("code", 1);
+            return map;
+        }
+    }
+
+    /**
+     * 查出置顶的文章
+     *
+     * @param page
+     * @param limit
+     * @return
+     */
+    @RequestMapping("getTopArticle")
+    @ResponseBody
+    public Map<String, Object> getTopArticle(Integer page, Integer limit, String title, String author, String status, String startTime, String endTime) {
+        HashMap<String, Object> map = new HashMap<>();
+        try {
+            //查询出既不是置顶也不是删除的文章
+            List<Top> tops = topService.getArticleIdByTops();
+            Page<TopArticle> articlePage = articleService.getTopArticle(tops, page, limit, title, author, status, startTime, endTime);
             //封装数据
             map.put("code", 0);
             map.put("count", articlePage.getTotal());

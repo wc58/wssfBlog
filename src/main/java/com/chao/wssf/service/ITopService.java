@@ -14,4 +14,10 @@ public interface ITopService {
     int getTopSize();
 
     Top getTopByArticleId(Integer id);
+
+    void updateSortByArticleId(Integer clientId, Integer sort);
+
+    void cancelTop(Integer id);
+
+    void addTop(Integer articleId);
 }

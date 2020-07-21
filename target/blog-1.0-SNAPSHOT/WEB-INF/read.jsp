@@ -25,7 +25,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/gloable.css"/>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/blog.css"/>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/message.css"/>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/highlight/styles/monokai-sublime.css"/>
+<%--    <link rel="stylesheet" href="${pageContext.request.contextPath}/highlight/styles/monokai-sublime.css"/>--%>
 </head>
 <body>
 <div class="header">
@@ -73,7 +73,6 @@
                                 <%--点击量--%>
                                 <small class="ml10">点击量：<i
                                         class="readcount">${other.flow}</i></small>
-                                <small class="ml10">点击量：<i class="readcount">${other.flow}</i></small>
                                 <%--更新时间--%>
                                 <small class="ml10">更新于 <label><f:formatDate value="${article.updateTime}"
                                                                              pattern="yyyy-MM-dd hh:mm:ss"/></label>
@@ -234,8 +233,6 @@
                                             </div>
                                         </c:if>
                                     </c:forEach>
-
-
                                     <div class="replycontainer layui-hide">
                                         <div class="layui-form">
                                                 <%--                                <input type="hidden" name="remarkId" value="1">--%>
@@ -266,10 +263,10 @@
 <script src="${pageContext.request.contextPath}/js/yss/gloable.js"></script>
 <script src="${pageContext.request.contextPath}/js/plugins/nprogress.js"></script>
 <script src="${pageContext.request.contextPath}/js/pagecomment.js"></script>
-<script src="${pageContext.request.contextPath}/highlight/highlight.pack.js"></script>
+<%--<script src="${pageContext.request.contextPath}/highlight/highlight.pack.js"></script>--%>
 <script>NProgress.start();</script>
 <script>
-    hljs.initHighlightingOnLoad();
+    // hljs.initHighlightingOnLoad();
     window.onload = function () {
         NProgress.done();
     };

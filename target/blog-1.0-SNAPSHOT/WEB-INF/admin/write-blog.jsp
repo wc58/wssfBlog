@@ -109,7 +109,6 @@
     </form>
     <div class="layui-row">
         <br/>
-        <br/>
         <div id="tools" class="toolbar">
         </div>
         <div style="padding: 5px 0; color: #ccc">
@@ -161,8 +160,9 @@
         labels = '${labels}';
         var topSize = '${topSize}';
         //说明不支持置顶了
-        if (topSize == 'false' && top == 'false' || topSize == 'false') {
-            $("#top").attr('disabled', 'disabled')
+        if (topSize == 'false') {
+            if (top != 'true')
+                $("#top").attr('disabled', 'disabled')
         }
         $("#title").val(title);
         //描述

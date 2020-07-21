@@ -30,6 +30,7 @@ com\chao\wssf\web\admin\PageController.class
 com\chao\wssf\mapper\LinkMapper.class
 com\chao\wssf\service\impl\OtherServiceImpl.class
 com\chao\wssf\web\controller\DiaryController.class
+com\chao\wssf\pojo\TopArticle.class
 com\chao\wssf\web\controller\IndexPageController.class
 com\chao\wssf\web\controller\CommentController.class
 com\chao\wssf\entity\Label.class

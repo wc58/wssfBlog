@@ -29,7 +29,7 @@
             </span>
     <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right"
        onclick="location.reload()" title="刷新">
-        <i class="layui-icon layui-icon-refresh" style="line-height:30px"></i>
+        <i class="layui-icon" style="line-height:30px">&#xe9aa;</i>
     </a>
     <br/>
 </div>
@@ -49,19 +49,19 @@
                             <input id="sStatus" type="text" name="username" placeholder="状态" autocomplete="off"
                                    class="layui-input">
                         </div>
-                        <div class="layui-inline layui-show-xs-block">
-                            <input type="text" class="layui-input" placeholder="开始时间" id="startTime">
-                        </div>
-                        <div class="layui-inline layui-show-xs-block">
-                            <input type="text" class="layui-input" placeholder="结束时间" id="endTime">
-                        </div>
+                        <%--  <div class="layui-inline layui-show-xs-block">
+                              <input type="text" class="layui-input" placeholder="开始时间" id="startTime">
+                          </div>
+                          <div class="layui-inline layui-show-xs-block">
+                              <input type="text" class="layui-input" placeholder="结束时间" id="endTime">
+                          </div>--%>
                         <div class="layui-inline layui-show-xs-block">
                             <button id="search" class="layui-btn">
                                 <i class="layui-icon">&#xe615;</i></button>
                         </div>
                         <div class="layui-inline layui-show-xs-block">
                             <button id="reset" class="layui-btn layui-btn-normal">
-                                <i class="layui-icon">&#xe9aa;</i></button>
+                                <i class="layui-icon  layui-icon-refresh"></i></button>
                         </div>
                     </div>
                 </div>
@@ -76,9 +76,8 @@
 </body>
 <script type="text/html" id="bar">
     <div class="layui-btn-container">
-        <a class="layui-btn layui-btn-xs  layui-btn-normal" lay-event="top"><i class="layui-icon">&#xe604;</i></a>
         <a class="layui-btn layui-btn-xs" lay-event="edit"> <i class="layui-icon">&#xe605;</i></a>
-        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="delete"><i class="layui-icon">&#xe640;</i></a>
+        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="delete"><i class="layui-icon">&#x1006;</i></a>
     </div>
 </script>
 <script>
@@ -91,7 +90,7 @@
         //第一个实例
         tableArticle = table.render({
             elem: '#article'
-            , url: '/admin/getCommArticle' //数据接口
+            , url: '/admin/getTopArticle' //数据接口
             , size: 'lg'
             , page: true //开启分页
             , cols: [[ //表头
@@ -104,11 +103,11 @@
                     width: 90,
                     templet: '<div><img src="{{ d.picture }}" style="width:350px; height:150px;"></div>', edit: 'text'
                 }
-                , {field: 'content', title: '内容', width: 149}
+                , {field: 'content', title: '内容', width: 178}
                 , {field: 'author', title: '作者', width: 78, sort: true, edit: 'text'}
                 , {field: 'status', title: '状态', width: 69, sort: true, edit: 'text'}
                 , {field: 'createTime', title: '创建时间', width: 142, sort: true}
-                , {field: 'updateTime', title: '最近修改', width: 142, sort: true}
+                , {field: 'sort', title: '排序', width: 142, sort: true, edit: 'text'}
                 , {fixed: 'right', width: 170, align: 'center', toolbar: '#bar'}
             ]]
 
@@ -116,13 +115,13 @@
 
         $("#search").click(function () {
             tableArticle.reload({
-                url: '/admin/getCommArticle' //数据接口
+                url: '/admin/getTopArticle' //数据接口
                 , where: {
                     title: $("#sTitle").val(),
                     author: $("#sAuthor").val(),
                     status: $("#sStatus").val(),
-                    startTime: $("#startTime").val(),
-                    endTime: $("#endTime").val()
+                    /*    startTime: $("#startTime").val(),
+                        endTime: $("#endTime").val()*/
                 }, page: {
                     curr: 1
                 }
@@ -134,35 +133,35 @@
             var title = $("#sTitle").val('')
             var sAuthor = $("#sAuthor").val('')
             var sStatus = $("#sStatus").val('')
-            var startTime = $("#startTime").val('')
-            var endTime = $("#endTime").val('')
+            /* var startTime = $("#startTime").val('')
+             var endTime = $("#endTime").val('')*/
 
             tableArticle.reload({
-                url: '/admin/getCommArticle' //数据接口
+                url: '/admin/getTopArticle' //数据接口
                 , where: {
                     title: title.val(),
                     author: sAuthor.val(),
                     status: sStatus.val(),
-                    startTime: startTime.val(),
-                    endTime: endTime.val()
+                    /*    startTime: startTime.val(),
+                        endTime: endTime.val()*/
                 }, page: {
                     curr: 1
                 }
             })
         })
 
-        layui.use('laydate', function () {
-            var laydate = layui.laydate;
+        /*   layui.use('laydate', function () {
+               var laydate = layui.laydate;
 
-            laydate.render({
-                elem: '#startTime'
-            });
+               laydate.render({
+                   elem: '#startTime'
+               });
 
-            laydate.render({
-                elem: '#endTime'
-            });
+               laydate.render({
+                   elem: '#endTime'
+               });
 
-        });
+           });*/
 
         //监听行双击事件
         table.on('rowDouble(articleTable)', function (obj) {
@@ -175,7 +174,7 @@
                 end: function () {
                     layer.msg("更新数据")
                     tableArticle.reload({
-                        url: '/admin/getCommArticle' //数据接口
+                        url: '/admin/getTopArticle' //数据接口
                     })
                 }
             });
@@ -187,10 +186,25 @@
             var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
 
             //置顶
-            if (layEvent === 'top') {
-                layer.confirm('确定要置顶吗？' + data.id, function (index) {
-                    obj.del();
-                    layer.close(index);
+            if (layEvent === 'delete') {
+                layer.confirm('取消置顶？', function (index) {
+
+                    //服务器删除
+                    $.ajax({
+                        type: 'post',
+                        url: '/admin/cancelTop',
+                        data: data,
+                        success: function (res) {
+                            if (res.code === 1000) {
+                                layer.msg("删除成功！");
+                                obj.del();
+                                layer.close(index);
+                            } else {
+                                layer.msg("删除失败！服务器错误！");
+                            }
+                        },
+                        dataType: 'json'
+                    })
                 });
             } else if (layEvent === 'edit') { //编辑
                 $.ajax({
@@ -211,25 +225,6 @@
                     dataType: 'json'
                 })
 
-            } else if (layEvent === 'delete') {//删除
-                layer.confirm('真的删除行么？', function (index) {
-                    obj.del();
-                    layer.close(index);
-                    //服务器删除
-                    $.ajax({
-                        type: 'post',
-                        url: '/admin/deleteArticle',
-                        data: data,
-                        success: function (res) {
-                            if (res.code === 1000) {
-                                layer.msg("删除成功！");
-                            } else {
-                                layer.msg("删除失败！服务器错误！");
-                            }
-                        },
-                        dataType: 'json'
-                    })
-                });
             }
         });
 
