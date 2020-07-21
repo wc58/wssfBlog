@@ -248,6 +248,8 @@ public class ArticleCache implements InitializingBean {
      */
     public void sortArticle(List<Integer> ids) {
         sortArticles = getArticleByIds(ids);
+        //再进行时间排序
+        insertSort(sortArticles);
     }
 
 
