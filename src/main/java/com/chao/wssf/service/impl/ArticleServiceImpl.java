@@ -244,7 +244,8 @@ public class ArticleServiceImpl implements IArticleService {
         Integer tops = topMapper.selectCount(new QueryWrapper<>());
         //既是置顶又在可控数量内
         if (top && tops < wssfProperties.getQuerySize()) {
-            topService.addTop(articleId);
+            if (topMapper.selectOne(new QueryWrapper<Top>().eq("article_id", articleId)) == null)
+                topService.addTop(articleId);
             return 1;
         } else {
             topService.cancelTop(articleId);
