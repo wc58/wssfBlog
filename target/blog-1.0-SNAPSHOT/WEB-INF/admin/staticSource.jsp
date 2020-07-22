@@ -18,6 +18,8 @@
 <%--write-blog页面--%>
 <link rel="stylesheet" href="../../layui/css/layui.css">
 <link rel="stylesheet" href="../../css/wangEditor.css">
+<link rel="stylesheet" href="../../css/wangEditor-fullscreen-plugin.css">
 <script src="../../js/jquery.min.js"></script>
 <script src="../../js/wangEditor.js"></script>
 <script src="../../js/xm-select.js"></script>
+<script src="../../js/wangEditor-fullscreen-plugin.js"></script>
