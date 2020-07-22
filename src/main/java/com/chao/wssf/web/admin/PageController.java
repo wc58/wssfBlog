@@ -99,6 +99,6 @@ public class PageController {
         }
         //是否可以置顶
         model.addAttribute("topSize", topSize < wssfProperties.getQuerySize());
-        return "admin/write-blog";
+        return "admin/article-write";
     }
 }
