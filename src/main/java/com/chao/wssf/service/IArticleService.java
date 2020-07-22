@@ -3,7 +3,6 @@ package com.chao.wssf.service;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.chao.wssf.entity.Article;
 import com.chao.wssf.entity.Top;
-import com.chao.wssf.pojo.TopArticle;
 
 import java.text.ParseException;
 import java.util.List;
@@ -46,4 +45,5 @@ public interface IArticleService {
 
     Page getTopArticle(List<Top> tops, Integer page, Integer limit, String title, String author, String status, String startTime, String endTime) throws ParseException;
 
+    List<Article> getArticleByTitle(String title);
 }

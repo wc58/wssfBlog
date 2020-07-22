@@ -146,27 +146,6 @@
     editor.customConfig.uploadImgServer = '/admin/uploadPictures'
     editor.create()
     E.fullscreen.init('#content');
-    /**
-     * @todo 查看源码
-     */
-    window.wangEditor.viewsource = {
-        init: function (editorSelector) {
-            $(editorSelector + " .w-e-toolbar").append('<div class="w-e-menu"><a class="_wangEditor_btn_viewsource" href="###" onclick="window.wangEditor.viewsource.toggleViewsource(\'' + editorSelector + '\')">源码</a></div>');
-        },
-        toggleViewsource: function (editorSelector) {
-            editorHtml = editor.txt.html();
-            if ($(editorSelector + ' ._wangEditor_btn_viewsource').text() == '源码') {
-                editorHtml = editorHtml.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/ /g, "&nbsp;");
-                $(editorSelector + ' ._wangEditor_btn_viewsource').text('返回');
-            } else {
-                editorHtml = editor.txt.text().replace(/&lt;/ig, "<").replace(/&gt;/ig, ">").replace(/&nbsp;/ig, " ");
-                $(editorSelector + ' ._wangEditor_btn_viewsource').text('源码');
-            }
-            editor.txt.html(editorHtml);
-            editor.change && editor.change();	//更新编辑器的内容
-        }
-    };
-    E.viewsource.init('#content');
 
 
     var unloadPageTip = function () {

@@ -328,6 +328,17 @@ public class ArticleServiceImpl implements IArticleService {
     }
 
     /**
+     * 根据标题查找文章
+     *
+     * @param title
+     * @return
+     */
+    @Override
+    public List<Article> getArticleByTitle(String title) {
+        return articleMapper.selectList(new QueryWrapper<Article>().like("title", title));
+    }
+
+    /**
      * 根据id查询文章
      *
      * @param id

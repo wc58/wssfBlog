@@ -19,6 +19,7 @@ com\chao\wssf\service\ILinkService.class
 com\chao\wssf\entity\ArticleLabel.class
 com\chao\wssf\service\impl\UserServiceImpl.class
 com\chao\wssf\service\IDiaryService.class
+com\chao\wssf\web\admin\CommentManageController.class
 com\chao\wssf\web\controller\LabelController.class
 com\chao\wssf\mapper\ArticleMapper.class
 com\chao\wssf\properties\OssProperties.class
@@ -54,6 +55,7 @@ com\chao\wssf\mapper\AdminMapper.class
 com\chao\wssf\util\JsonMapper.class
 com\chao\wssf\mapper\CommentMapper.class
 com\chao\wssf\service\impl\CommentServiceImpl.class
+com\chao\wssf\pojo\AllComment.class
 com\chao\wssf\web\controller\LinkController.class
 com\chao\wssf\entity\Link.class
 com\chao\wssf\mapper\DiaryMapper.class

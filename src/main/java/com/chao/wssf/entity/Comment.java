@@ -22,7 +22,7 @@ public class Comment implements Serializable {
     @TableField(exist = false)
     private String parentName;
     private Integer articleId;
-    private String userId;
+    private Integer userId;
     private String content;
     private String del;
     private Date createTime;

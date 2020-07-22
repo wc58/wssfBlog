@@ -115,7 +115,7 @@
                     <i class="iconfont nav_right">&#xe697;</i></a>
                 <ul class="sub-menu">
                     <li>
-                        <a onclick="xadmin.add_tab('添加文章','/admin/writeBlog')">
+                        <a onclick="xadmin.add_tab('添加文章','/admin/commentCommList')">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>普通评论</cite></a>
                     </li>
