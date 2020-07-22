@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.chao.wssf.entity.Top;
 import com.chao.wssf.pojo.TopArticle;
 import com.chao.wssf.service.ICommentService;
+import com.chao.wssf.service.impl.CommentServiceImpl;
 import com.chao.wssf.util.R;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -38,9 +39,44 @@ public class CommentManageController {
     @RequestMapping("getComments")
     @ResponseBody
     public Map<String, Object> getComments(Integer page, Integer limit, String title, String username, String content, String contentSize, String startTime, String endTime) {
+        return getCommentMap(false, page, limit, title, username, content, startTime, endTime);
+    }
+
+    /**
+     * 查询删除评论
+     *
+     * @param page
+     * @param limit
+     * @param title
+     * @param username
+     * @param content
+     * @param contentSize
+     * @param startTime
+     * @param endTime
+     * @return
+     */
+    @RequestMapping("getDelComments")
+    @ResponseBody
+    public Map<String, Object> getDelComments(Integer page, Integer limit, String title, String username, String content, String contentSize, String startTime, String endTime) {
+        return getCommentMap(true, page, limit, title, username, content, startTime, endTime);
+    }
+
+    /**
+     * 查询评论的核心方法
+     *
+     * @param page
+     * @param limit
+     * @param title
+     * @param username
+     * @param content
+     * @param startTime
+     * @param endTime
+     * @return
+     */
+    private Map<String, Object> getCommentMap(Boolean isDel, Integer page, Integer limit, String title, String username, String content, String startTime, String endTime) {
         HashMap<String, Object> map = new HashMap<>();
         try {
-            Page commentPage = commentService.getComments(page, limit, title, username, content, startTime, endTime);
+            Page commentPage = commentService.getComments(isDel, page, limit, title, username, content, startTime, endTime);
             //封装数据
             map.put("code", 0);
             map.put("count", commentPage.getTotal());
@@ -69,6 +105,50 @@ public class CommentManageController {
             return R.ERROR();
         }
     }
+
+    /**
+     * 真实删除评论
+     *
+     * @param id
+     */
+    @RequestMapping("deleteRealComment")
+    @ResponseBody
+    public R deleteRealComment(Integer id) {
+        try {
+            commentService.deleteRealById(id);
+            return R.OK();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return R.ERROR();
+        }
+    }
+
+
+    /**
+     * 真实删除评论
+     *
+     * @param id
+     */
+    @RequestMapping("restoreComment")
+    @ResponseBody
+    public R restoreComment(Integer id) {
+        try {
+            CommentServiceImpl commentServiceImpl = (CommentServiceImpl) commentService;
+            commentService.restoreCommentById(id);
+            if (commentServiceImpl.isRestore) {
+                return R.OK();
+            }
+            R ok = R.ERROR().data("pName", commentServiceImpl.pName);
+            //重置数据
+            commentServiceImpl.isRestore = true;
+            commentServiceImpl.pName = "";
+            return ok;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return R.ERROR();
+        }
+    }
+
 
     /**
      * 逻辑删除评论

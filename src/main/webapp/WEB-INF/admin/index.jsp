@@ -115,13 +115,13 @@
                     <i class="iconfont nav_right">&#xe697;</i></a>
                 <ul class="sub-menu">
                     <li>
-                        <a onclick="xadmin.add_tab('添加文章','/admin/commentCommList')">
+                        <a onclick="xadmin.add_tab('普通评论','/admin/commentCommList',true)">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>普通评论</cite></a>
                     </li>
 
                     <li>
-                        <a onclick="xadmin.add_tab('普通文章','/admin/articleCommList',true)">
+                        <a onclick="xadmin.add_tab('删除评论','/admin/commentDelList',true)">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>删除评论</cite></a>
                     </li>

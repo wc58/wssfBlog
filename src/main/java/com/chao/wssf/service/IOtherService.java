@@ -20,4 +20,6 @@ public interface IOtherService {
     int getAllFlowSize();
 
     void deleteRealOtherByArticleId(Integer id);
+
+    void updateCommentSizeByArticleId(Integer id, Integer size);
 }

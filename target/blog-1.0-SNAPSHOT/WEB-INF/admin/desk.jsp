@@ -26,10 +26,15 @@
                     <blockquote class="layui-elem-quote">欢迎管理员：
                         <span class="x-red">${sessionScope.admin.name}</span>！当前时间:<span id="cg"></span>
                         <script>setInterval("cg.innerHTML=new Date().toLocaleString()", 1000);</script>
+                        <a class="layui-btn layui-btn-small layui-btn-primary" style="line-height:1.6em;margin-top:3px;float:right"
+                           onclick="location.reload()" title="刷新">
+                            <i class="layui-icon" style="line-height:30px">&#xe9aa;</i>
+                        </a>
                     </blockquote>
                 </div>
             </div>
         </div>
+        <div></div>
         <div class="layui-col-md12">
             <div class="layui-card">
                 <div class="layui-card-header">数据统计</div>

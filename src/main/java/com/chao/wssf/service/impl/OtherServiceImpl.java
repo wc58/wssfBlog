@@ -118,4 +118,17 @@ public class OtherServiceImpl implements IOtherService {
         otherMapper.delete(new QueryWrapper<Other>().eq("article_id", id));
     }
 
+    /**
+     * 根据文章id更新评论数量
+     *
+     * @param id
+     * @param size
+     */
+    @Override
+    public void updateCommentSizeByArticleId(Integer id, Integer size) {
+        Other other = new Other();
+        other.setCommentSize(size);
+        otherMapper.update(other, new QueryWrapper<Other>().eq("article_id", id));
+    }
+
 }

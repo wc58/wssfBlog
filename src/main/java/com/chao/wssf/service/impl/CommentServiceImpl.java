@@ -11,6 +11,7 @@ import com.chao.wssf.pojo.AllComment;
 import com.chao.wssf.pojo.FullComment;
 import com.chao.wssf.service.IArticleService;
 import com.chao.wssf.service.ICommentService;
+import com.chao.wssf.service.IOtherService;
 import com.chao.wssf.service.IUserService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +40,9 @@ public class CommentServiceImpl implements ICommentService {
 
     @Autowired
     private IArticleService articleService;
+
+    @Autowired
+    private IOtherService otherService;
 
 
     @Override
@@ -119,20 +123,28 @@ public class CommentServiceImpl implements ICommentService {
     /**
      * 分页获取评论内容
      *
+     * @param isDel
      * @param page
      * @param limit
      * @param title
      * @param username
      * @param content
-     * @param contentSize
      * @param startTime
      * @param endTime
      * @return
      */
     @Override
-    public Page getComments(Integer page, Integer limit, String title, String username, String content, String startTime, String endTime) throws ParseException {
+    public Page getComments(Boolean isDel, Integer page, Integer limit, String title, String username, String content, String startTime, String endTime) throws ParseException {
         QueryWrapper<Comment> commentQueryWrapper = new QueryWrapper<>();
-        commentQueryWrapper.eq("del", "0").orderByDesc("create_time");
+
+        if (isDel) {//被删除的
+            commentQueryWrapper.ne("del", "0");
+        } else {
+            commentQueryWrapper.eq("del", "0");
+        }
+
+
+        commentQueryWrapper.orderByDesc("create_time");
 
 
         if (title != null && !title.equals("")) {
@@ -183,18 +195,12 @@ public class CommentServiceImpl implements ICommentService {
         return selectPage;
     }
 
-    /**
-     * 逻辑删除评论
-     *
-     * @param id
-     */
-    @Override
-    public void deleteById(Integer id) {
-        Comment comment = new Comment();
-        comment.setId(id);
-        comment.setDel("1");
-        commentMapper.updateById(comment);
-    }
+    //被评论操作的条数
+    private Integer size = 0;
+    //是否成功还原
+    public Boolean isRestore = true;
+    public String pName = "";
+
 
     /**
      * 真实删除评论
@@ -203,7 +209,105 @@ public class CommentServiceImpl implements ICommentService {
      */
     @Override
     public void deleteRealById(Integer id) {
-        commentMapper.deleteById(id);
+        deleteRecursion(id, 0);
+        updateCommentSize(id, true);
+    }
+
+    /**
+     * 逻辑删除评论
+     *
+     * @param id
+     */
+    @Override
+    public void deleteById(Integer id) {
+        deleteRecursion(id, 1);
+        updateCommentSize(id, true);
+    }
+
+    /**
+     * 还原数据
+     *
+     * @param id
+     */
+    @Override
+    public void restoreCommentById(Integer id) {
+        deleteRecursion(id, 2);
+        updateCommentSize(id, false);
+    }
+
+    /**
+     * 更新总评论数
+     *
+     * @param id
+     * @param isDel
+     */
+    public void updateCommentSize(Integer id, boolean isDel) {
+        Integer articleId = getCommentById(id).getArticleId();
+        int currentSize = 0;
+        if (isDel) {
+            currentSize = otherService.getOtherByArticleId(articleId).getCommentSize() - size;
+        } else {
+            currentSize = otherService.getOtherByArticleId(articleId).getCommentSize() + size;
+        }
+        otherService.updateCommentSizeByArticleId(articleId, currentSize);
+        //防止脏数据
+        size = 0;
+    }
+
+
+    /**
+     * 根据ID查找评论
+     *
+     * @param id
+     * @return
+     */
+    public Comment getCommentById(Integer id) {
+        return commentMapper.selectById(id);
+    }
+
+    /**
+     * 递归的删除子评论
+     *
+     * @param pid
+     */
+    private void deleteRecursion(Integer pid, Integer type) {
+        QueryWrapper<Comment> commentQueryWrapper = new QueryWrapper<>();
+        commentQueryWrapper.eq("pid", pid);
+        List<Comment> comments = commentMapper.selectList(commentQueryWrapper);
+        Comment com = new Comment();
+        com.setId(pid);
+        //真实删除
+        if (type == 0) {
+            commentMapper.deleteById(pid);
+            size++;
+        } else if (type == 1) {
+            //逻辑
+            com.setDel("1");
+            commentMapper.updateById(com);
+            size++;
+        } else if (type == 2) {
+            //获取当前评论的父评论，判断是否被删除，如果被删除则不能还原子评论
+            Integer pidDel = getCommentById(pid).getPid();
+            Comment commentDel = getCommentById(pidDel);
+            if (!pidDel.equals(0) && commentDel.getDel().equals("1")) {
+                //表示不能被还原
+                isRestore = false;
+                //该评论父评论的内容
+                pName = commentDel.getContent();
+                return;
+            }
+            //还原
+            com.setDel("0");
+            commentMapper.updateById(com);
+            size++;
+        }
+        //递归的条件出口
+        if (comments.size() <= 0) {
+            return;
+        }
+        for (Comment comment : comments) {
+            deleteRecursion(comment.getId(), type);
+        }
     }
 
     /**
@@ -219,6 +323,5 @@ public class CommentServiceImpl implements ICommentService {
         comment.setContent(content);
         commentMapper.updateById(comment);
     }
-
 
 }
