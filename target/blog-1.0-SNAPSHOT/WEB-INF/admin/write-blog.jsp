@@ -13,21 +13,20 @@
     <title>发布文章</title>
     <%@ include file="staticSource.jsp" %>
     <style type="text/css">
-        .toolbar {
-            border: 1px solid #ccc;
-        }
+        /*  .toolbar {
+              border: 1px solid #ccc;
+          }*/
 
-        .text {
-            border: 1px solid #ccc;
-            height: 580px;
-        }
+        /*  .text {
+              border: 1px solid #ccc;
+              height: 580px;
+          }*/
     </style>
     <link type="text/css" href="../../css/wangEditor.css">
 </head>
 <body>
 
 <div class="layui-container">
-    <br/>
     <br/>
     <br/>
     <form class="layui-form">
@@ -110,10 +109,11 @@
     </form>
     <div class="layui-row">
         <br/>
-        <div id="tools" class="toolbar">
-        </div>
-        <div style="padding: 5px 0; color: #ccc">
-        </div>
+        <br/>
+        <%--  <div id="tools" class="toolbar">
+          </div>--%>
+        <%--  <div style="padding: 5px 0; color: #ccc">
+          </div>--%>
         <div id="content" class="text">
             <p>${article.content}</p>
         </div>
@@ -122,20 +122,52 @@
 
 <div class="layui-row">
     <br/>
-    <div class="layui-col-md9">
+    <div class="layui-col-md8">
         <input type="button" style="border: none">
     </div>
-    <div class="layui-col-md3">
+    <div class="layui-col-md4">
         <div class="layui-form-item">
-            <div class="layui-input-inline">
-                <button id="newBlog" class="layui-btn layui-btn-radius layui-btn-normal">重写</button>
-                <button id="save" class="layui-btn layui-btn-radius">保存</button>
-            </div>
+            <button id="source" class="layui-btn layui-btn-radius layui-btn-primary">源码</button>
+            <button id="newBlog" class="layui-btn layui-btn-radius layui-btn-normal">重写</button>
+            <button id="save" class="layui-btn layui-btn-radius">保存</button>
         </div>
     </div>
 </div>
+</div>
 
 <script>
+
+
+    var E = window.wangEditor
+    var editor = new E('#content')
+    editor.customConfig.uploadImgMaxSize = 10 * 1024 * 1024
+    editor.customConfig.uploadImgMaxLength = 5
+    editor.customConfig.uploadFileName = 'article'
+    editor.customConfig.uploadImgServer = '/admin/uploadPictures'
+    editor.create()
+    E.fullscreen.init('#content');
+    /**
+     * @todo 查看源码
+     */
+    window.wangEditor.viewsource = {
+        init: function (editorSelector) {
+            $(editorSelector + " .w-e-toolbar").append('<div class="w-e-menu"><a class="_wangEditor_btn_viewsource" href="###" onclick="window.wangEditor.viewsource.toggleViewsource(\'' + editorSelector + '\')">源码</a></div>');
+        },
+        toggleViewsource: function (editorSelector) {
+            editorHtml = editor.txt.html();
+            if ($(editorSelector + ' ._wangEditor_btn_viewsource').text() == '源码') {
+                editorHtml = editorHtml.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/ /g, "&nbsp;");
+                $(editorSelector + ' ._wangEditor_btn_viewsource').text('返回');
+            } else {
+                editorHtml = editor.txt.text().replace(/&lt;/ig, "<").replace(/&gt;/ig, ">").replace(/&nbsp;/ig, " ");
+                $(editorSelector + ' ._wangEditor_btn_viewsource').text('源码');
+            }
+            editor.txt.html(editorHtml);
+            editor.change && editor.change();	//更新编辑器的内容
+        }
+    };
+    E.viewsource.init('#content');
+
 
     var unloadPageTip = function () {
         return "您编辑的文章内容还没有进行保存!";
@@ -270,17 +302,29 @@
         location.reload();
     });
 
+    var flag = 0;
+
+    /*  //查看源码
+      $("#source").click(function () {
+          if (flag === 0) {
+              var temp = editor.txt.html();
+              alert(temp)
+              editor.txt.html('')
+              editor.txt.html(temp)
+              flag = 1;
+          } else {
+              var temp = editor.txt.text();
+              alert(temp)
+              editor.txt.html('')
+              editor.txt.html(temp)
+              flag = 0;
+          }
+      });*/
+
+
     layui.use('form', function () {
 
     });
-
-    var E = window.wangEditor
-    var editor = new E('#tools', '#content')
-    editor.customConfig.uploadImgMaxSize = 10 * 1024 * 1024
-    editor.customConfig.uploadImgMaxLength = 5
-    editor.customConfig.uploadFileName = 'article'
-    editor.customConfig.uploadImgServer = '/admin/uploadPictures'
-    editor.create()
 
 
     /*封面上传*/

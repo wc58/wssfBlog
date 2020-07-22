@@ -85,7 +85,6 @@
                     <cite>文章管理</cite>
                     <i class="iconfont nav_right">&#xe697;</i></a>
                 <ul class="sub-menu">
-
                     <li>
                         <a onclick="xadmin.add_tab('添加文章','/admin/writeBlog')">
                             <i class="iconfont">&#xe6a7;</i>
@@ -116,14 +115,25 @@
                     <i class="iconfont nav_right">&#xe697;</i></a>
                 <ul class="sub-menu">
                     <li>
-                        <a onclick="xadmin.add_tab('订单列表','order-list.html')">
+                        <a onclick="xadmin.add_tab('添加文章','/admin/writeBlog')">
                             <i class="iconfont">&#xe6a7;</i>
-                            <cite>订单列表</cite></a>
+                            <cite>普通评论</cite></a>
+                    </li>
+
+                    <li>
+                        <a onclick="xadmin.add_tab('普通文章','/admin/articleCommList',true)">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>删除评论</cite></a>
                     </li>
                     <li>
-                        <a onclick="xadmin.add_tab('订单列表1','order-list1.html')">
+                        <a onclick="xadmin.add_tab('置顶文章','/admin/articleTopList',true)">
                             <i class="iconfont">&#xe6a7;</i>
-                            <cite>订单列表1</cite></a>
+                            <cite>普通吐槽</cite></a>
+                    </li>
+                    <li>
+                        <a onclick="xadmin.add_tab('删除文章','/admin/articleDelList',true)">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>删除吐槽</cite></a>
                     </li>
                 </ul>
             </li>
