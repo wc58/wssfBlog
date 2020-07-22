@@ -171,7 +171,7 @@
                 anim: 1,
                 title: '修改文章',
                 content: '/admin/writeBlog?id=' + obj.data.id,
-                area: ['1200px', '700px'],
+                area: ['1100px', '700px'],
                 end: function () {
                     layer.msg("更新数据")
                     tableArticle.reload({

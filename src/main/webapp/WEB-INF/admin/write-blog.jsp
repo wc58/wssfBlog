@@ -22,6 +22,7 @@
             height: 580px;
         }
     </style>
+    <link type="text/css" href="../../css/wangEditor.css">
 </head>
 <body>
 

@@ -307,13 +307,19 @@ public class ArticleServiceImpl implements IArticleService {
         //偷梁换柱，因为涉及多张表，而前端响应格式限定，所有只能这样来改变数据=======================================
         List records = selectPage.getRecords();
         ArrayList<TopArticle> topArticles = new ArrayList<>();
-        for (int i = 0; i < records.size(); i++) {
-            Article record = (Article) records.get(i);
-            TopArticle topArticle = new TopArticle();
-            //对象属性复制
-            BeanUtils.copyProperties(tops.get(i), topArticle);
-            BeanUtils.copyProperties(record, topArticle);
-            topArticles.add(topArticle);
+
+        for (Top top : tops) {
+            for (Object obj : records) {
+                Article article = (Article) obj;
+                if (top.getArticleId().equals(article.getId())) {
+                    TopArticle topArticle = new TopArticle();
+                    //对象属性复制
+                    BeanUtils.copyProperties(top, topArticle);
+                    BeanUtils.copyProperties(article, topArticle);
+                    topArticles.add(topArticle);
+                    break;
+                }
+            }
         }
         selectPage.setRecords(topArticles);
         //偷梁换柱=======================================

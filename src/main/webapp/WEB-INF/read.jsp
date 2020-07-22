@@ -25,7 +25,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/gloable.css"/>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/blog.css"/>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/message.css"/>
-<%--    <link rel="stylesheet" href="${pageContext.request.contextPath}/highlight/styles/monokai-sublime.css"/>--%>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/highlight/styles/monokai-sublime.css"/>
 </head>
 <body>
 <div class="header">
@@ -263,10 +263,10 @@
 <script src="${pageContext.request.contextPath}/js/yss/gloable.js"></script>
 <script src="${pageContext.request.contextPath}/js/plugins/nprogress.js"></script>
 <script src="${pageContext.request.contextPath}/js/pagecomment.js"></script>
-<%--<script src="${pageContext.request.contextPath}/highlight/highlight.pack.js"></script>--%>
+<script src="${pageContext.request.contextPath}/highlight/highlight.pack.js"></script>
 <script>NProgress.start();</script>
 <script>
-    // hljs.initHighlightingOnLoad();
+    hljs.initHighlightingOnLoad();
     window.onload = function () {
         NProgress.done();
     };
