@@ -126,12 +126,12 @@
                             <cite>删除评论</cite></a>
                     </li>
                     <li>
-                        <a onclick="xadmin.add_tab('置顶文章','/admin/articleTopList',true)">
+                        <a onclick="xadmin.add_tab('普通吐槽','/admin/leaveCommList',true)">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>普通吐槽</cite></a>
                     </li>
                     <li>
-                        <a onclick="xadmin.add_tab('删除文章','/admin/articleDelList',true)">
+                        <a onclick="xadmin.add_tab('删除吐槽','/admin/leaveDelList',true)">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>删除吐槽</cite></a>
                     </li>

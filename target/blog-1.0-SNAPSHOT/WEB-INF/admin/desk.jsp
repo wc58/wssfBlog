@@ -26,10 +26,6 @@
                     <blockquote class="layui-elem-quote">欢迎管理员：
                         <span class="x-red">${sessionScope.admin.name}</span>！当前时间:<span id="cg"></span>
                         <script>setInterval("cg.innerHTML=new Date().toLocaleString()", 1000);</script>
-                        <a class="layui-btn layui-btn-small layui-btn-primary" style="line-height:1.6em;margin-top:3px;float:right"
-                           onclick="location.reload()" title="刷新">
-                            <i class="layui-icon" style="line-height:30px">&#xe9aa;</i>
-                        </a>
                     </blockquote>
                 </div>
             </div>
@@ -114,61 +110,185 @@
                 </div>
             </div>
         </div>
-        <div class="layui-col-md12">
-            <div class="layui-card">
-                <div class="layui-card-header">系统信息</div>
-                <div class="layui-card-body ">
-                    <table class="layui-table">
-                        <tbody>
-                        <tr>
-                            <th>系统版本</th>
-                            <td>1.0</td>
-                        </tr>
-                        <tr>
-                            <th>服务器地址</th>
-                            <td>www.chao58.top</td>
-                        </tr>
-                        <tr>
-                            <th>操作系统</th>
-                            <td>Linux</td>
-                        </tr>
-                        <tr>
-                            <th>JDK版本</th>
-                            <td>8u121</td>
-                        </tr>
-                        <tr>
-                            <th>Tomcat版本</th>
-                            <td>8.5.50</td>
-                        </tr>
-                        <tr>
-                            <th>MYSQL版本</th>
-                            <td>5.7.29</td>
-                        </tr>
-                        <tr>
-                            <th>带宽</th>
-                            <td>5 MB</td>
-                        </tr>
-                        <tr>
-                            <th>流量</th>
-                            <td>1000 GB</td>
-                        </tr>
-                        <tr>
-                            <th>内存</th>
-                            <td>2 GB</td>
-                        </tr>
-                        <tr>
-                            <th>储存</th>
-                            <td>40 GB</td>
-                        </tr>
-                        </tbody>
-                    </table>
+        <div class="layui-fluid">
+            <div class="layui-row layui-col-space15">
+                <div class="layui-col-sm12 layui-col-md6">
+                    <div class="layui-card">
+                        <div class="layui-card-header">新增用户量</div>
+                        <div class="layui-card-body" style="min-height: 280px;">
+                            <div id="main1" class="layui-col-sm12" style="height: 300px;"></div>
+
+                        </div>
+                    </div>
                 </div>
-            </div>
+                <div class="layui-col-sm12 layui-col-md6">
+                    <div class="layui-card">
+                        <div class="layui-card-header">文章点击量</div>
+                        <div class="layui-card-body" style="min-height: 280px;">
+                            <div id="main2" class="layui-col-sm12" style="height: 300px;"></div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="layui-col-sm12 layui-col-md6">
+                    <div class="layui-card">
+                        <div class="layui-card-header">吐槽量</div>
+                        <div class="layui-card-body" style="min-height: 280px;">
+                            <div id="main4" class="layui-col-sm12" style="height: 300px;"></div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-col-sm12 layui-col-md6">
+                    <div class="layui-card">
+                        <div class="layui-card-header">文章回复量</div>
+                        <div class="layui-card-body" style="min-height: 280px;">
+                            <div id="main3" class="layui-col-sm12" style="height: 300px;"></div>
+
+                        </div>
+                    </div>
+                </div>
         </div>
     </div>
 </div>
 </div>
-<script>
+<script src="../../js/echarts.min.js"></script>
+<script type="text/javascript">
+    // 基于准备好的dom，初始化echarts实例
+    var myChart = echarts.init(document.getElementById('main1'));
+
+    // 指定图表的配置项和数据
+    var option = {
+        grid: {
+            top: '5%',
+            right: '1%',
+            left: '1%',
+            bottom: '10%',
+            containLabel: true
+        },
+        tooltip: {
+            trigger: 'axis'
+        },
+        xAxis: {
+            type: 'category',
+            data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
+        },
+        yAxis: {
+            type: 'value'
+        },
+        series: [{
+            name: '用户量',
+            data: [820, 932, 901, 934, 1290, 1330, 1320],
+            type: 'line',
+            smooth: true
+        }]
+    };
+
+
+    // 使用刚指定的配置项和数据显示图表。
+    myChart.setOption(option);
+
+    // 基于准备好的dom，初始化echarts实例
+    var myChart = echarts.init(document.getElementById('main2'));
+
+    // 指定图表的配置项和数据
+    var option = {
+        grid: {
+            top: '5%',
+            right: '1%',
+            left: '1%',
+            bottom: '10%',
+            containLabel: true
+        },
+        tooltip: {
+            trigger: 'axis'
+        },
+        xAxis: {
+            type: 'category',
+            data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
+        },
+        yAxis: {
+            type: 'value'
+        },
+        series: [{
+            name: '用户量',
+            data: [820, 932, 901, 934, 1290, 1330, 1320],
+            type: 'line',
+            smooth: true
+        }]
+    };
+
+    // 使用刚指定的配置项和数据显示图表。
+    myChart.setOption(option);
+
+
+    // 基于准备好的dom，初始化echarts实例
+    var myChart = echarts.init(document.getElementById('main3'));
+
+    // 指定图表的配置项和数据
+    var option = {
+        grid: {
+            top: '5%',
+            right: '1%',
+            left: '1%',
+            bottom: '10%',
+            containLabel: true
+        },
+        tooltip: {
+            trigger: 'axis'
+        },
+        xAxis: {
+            type: 'category',
+            data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
+        },
+        yAxis: {
+            type: 'value'
+        },
+        series: [{
+            name: '用户量',
+            data: [820, 932, 901, 934, 1290, 1330, 1320],
+            type: 'line',
+            smooth: true
+        }]
+    };
+
+
+    // 使用刚指定的配置项和数据显示图表。
+    myChart.setOption(option);
+
+    // 基于准备好的dom，初始化echarts实例
+    var myChart = echarts.init(document.getElementById('main4'));
+
+    // 指定图表的配置项和数据
+    var option = {
+        grid: {
+            top: '5%',
+            right: '1%',
+            left: '1%',
+            bottom: '10%',
+            containLabel: true
+        },
+        tooltip: {
+            trigger: 'axis'
+        },
+        xAxis: {
+            type: 'category',
+            data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
+        },
+        yAxis: {
+            type: 'value'
+        },
+        series: [{
+            name: '用户量',
+            data: [820, 932, 901, 934, 1290, 1330, 1320],
+            type: 'line',
+            smooth: true
+        }]
+    };
+    // 使用刚指定的配置项和数据显示图表。
+    myChart.setOption(option);
+
 
 </script>
 </body>
