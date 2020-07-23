@@ -50,14 +50,13 @@ public class CommentManageController {
      * @param title
      * @param username
      * @param content
-     * @param contentSize
      * @param startTime
      * @param endTime
      * @return
      */
     @RequestMapping("getDelComments")
     @ResponseBody
-    public Map<String, Object> getDelComments(Integer page, Integer limit, String title, String username, String content, String contentSize, String startTime, String endTime) {
+    public Map<String, Object> getDelComments(Integer page, Integer limit, String title, String username, String content, String startTime, String endTime) {
         return getCommentMap(true, page, limit, title, username, content, startTime, endTime);
     }
 
@@ -125,7 +124,7 @@ public class CommentManageController {
 
 
     /**
-     * 真实删除评论
+     * 还原评论
      *
      * @param id
      */

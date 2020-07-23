@@ -36,9 +36,6 @@
                 <div class="layui-card-body ">
                     <div class="layui-form layui-col-space5">
                         <div class="layui-inline layui-show-xs-block">
-                            <input id="sTitle" class="layui-input" autocomplete="off" placeholder="标题" name="end">
-                        </div>
-                        <div class="layui-inline layui-show-xs-block">
                             <input id="sUsername" class="layui-input" autocomplete="off" placeholder="用户" name="start">
                         </div>
                         <div class="layui-inline layui-show-xs-block">
@@ -87,23 +84,22 @@
         //第一个实例
         tableArticle = table.render({
             elem: '#article'
-            , url: '/admin/getDelComments' //数据接口
+            , url: '/admin/getDelLeaves' //数据接口
             , size: 'lg'
             , page: true //开启分页
             , cols: [[ //表头
                 {field: 'id', title: 'ID', width: 60, sort: true, fixed: 'left'}
-                , {field: 'title', title: '文章标题', width: 220, sort: true}
                 , {field: 'userName', title: '用户名称', width: 130, sort: true}
                 , {field: 'content', title: '评论内容', width: 500, edit: 'text'}
+                , {field: 'site', title: '评论地点', width: 220, sort: true}
                 , {field: 'createTime', title: '评论时间', width: 145, sort: true}
                 , {fixed: 'right', width: 170, align: 'center', toolbar: '#bar'}
             ]]
-
         });
 
         $("#search").click(function () {
             tableArticle.reload({
-                url: '/admin/getDelComments' //数据接口
+                url: '/admin/getDelLeaves' //数据接口
                 , where: {
                     title: $("#sTitle").val(),
                     username: $("#sUsername").val(),
@@ -142,16 +138,15 @@
 
             //置顶
             if (layEvent === 'restore') {
-
                 $.ajax({
                     type: 'post',
-                    url: '/admin/restoreComment',
+                    url: '/admin/restoreLeave',
                     data: data,
                     success: function (res) {
                         if (res.code === 1000) {
                             layer.msg("还原成功！");
                             tableArticle.reload({
-                                url: '/admin/getDelComments' //数据接口
+                                url: '/admin/getDelLeaves' //数据接口
                             })
                         } else {
                             layer.msg("还原失败！该评论可能还有父评论是被删除状态");
@@ -164,13 +159,13 @@
                 layer.confirm('确定要修改用户评论信息吗？', function (index) {//编辑
                     $.ajax({
                         type: 'post',
-                        url: '/admin/updateComment',
+                        url: '/admin/updateLeave',
                         data: data,
                         success: function (res) {
                             if (res.code == 1000) {
                                 layer.msg("更新成功！");
                                 tableArticle.reload({
-                                    url: '/admin/getDelComments' //数据接口
+                                    url: '/admin/getDelLeaves' //数据接口
                                 })
                             } else {
                                 layer.msg("更新失败！服务器错误！");
@@ -184,13 +179,13 @@
                     //服务器删除
                     $.ajax({
                         type: 'post',
-                        url: '/admin/deleteRealComment',
+                        url: '/admin/deleteRealLeave',
                         data: data,
                         success: function (res) {
                             if (res.code === 1000) {
                                 layer.msg("删除成功！");
                                 tableArticle.reload({
-                                    url: '/admin/getDelComments' //数据接口
+                                    url: '/admin/getDelLeaves' //数据接口
                                 })
                             } else {
                                 layer.msg("删除失败！服务器错误！");
@@ -208,3 +203,4 @@
 
 </script>
 </html>
+s

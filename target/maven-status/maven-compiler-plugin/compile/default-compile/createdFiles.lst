@@ -1,5 +1,6 @@
 com\chao\wssf\service\impl\LabelServiceImpl.class
 com\chao\wssf\entity\Admin.class
+com\chao\wssf\service\impl\LeaveServiceImpl.class
 com\chao\wssf\service\IArticleService.class
 com\chao\wssf\service\ICommentService.class
 com\chao\wssf\pojo\WriteLabel.class
@@ -12,6 +13,7 @@ com\chao\wssf\web\controller\LeaveController.class
 com\chao\wssf\mapper\ArticleLabelMapper.class
 com\chao\wssf\service\impl\DiaryServiceImpl.class
 com\chao\wssf\service\ILeaveService.class
+com\chao\wssf\pojo\AllLeave.class
 com\chao\wssf\web\admin\FileUploadController.class
 com\chao\wssf\entity\Top.class
 com\chao\wssf\entity\Comment.class
@@ -26,6 +28,7 @@ com\chao\wssf\properties\OssProperties.class
 com\chao\wssf\service\ITopService.class
 com\chao\wssf\web\controller\UserController.class
 com\chao\wssf\entity\User.class
+com\chao\wssf\web\admin\LeaveManageController.class
 com\chao\wssf\mapper\LeaveMapper.class
 com\chao\wssf\web\admin\PageController.class
 com\chao\wssf\mapper\LinkMapper.class
@@ -44,7 +47,6 @@ com\chao\wssf\entity\Leave.class
 com\chao\wssf\properties\WssfProperties.class
 com\chao\wssf\web\admin\BlogController.class
 com\chao\wssf\mapper\EmailMapper.class
-com\chao\wssf\service\impl\LeaverServiceImpl.class
 com\chao\wssf\service\IAdminService.class
 com\chao\wssf\service\impl\AdminServiceImpl.class
 com\chao\wssf\web\admin\AdminController.class

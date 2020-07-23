@@ -1,5 +1,6 @@
 package com.chao.wssf.service;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.chao.wssf.entity.Label;
 
 import java.util.List;

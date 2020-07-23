@@ -24,11 +24,11 @@ E:\IdeaCode\chao\blog\src\main\java\com\chao\wssf\web\controller\LabelController
 E:\IdeaCode\chao\blog\src\main\java\com\chao\wssf\service\impl\ArticleServiceImpl.java
 E:\IdeaCode\chao\blog\src\main\java\com\chao\wssf\entity\User.java
 E:\IdeaCode\chao\blog\src\main\java\com\chao\wssf\web\controller\IndexPageController.java
+E:\IdeaCode\chao\blog\src\main\java\com\chao\wssf\web\admin\LeaveManageController.java
 E:\IdeaCode\chao\blog\src\main\java\com\chao\wssf\entity\Top.java
 E:\IdeaCode\chao\blog\src\main\java\com\chao\wssf\web\controller\ArticleController.java
 E:\IdeaCode\chao\blog\src\main\java\com\chao\wssf\web\controller\DiaryController.java
 E:\IdeaCode\chao\blog\src\main\java\com\chao\wssf\entity\Comment.java
-E:\IdeaCode\chao\blog\src\main\java\com\chao\wssf\service\impl\LeaverServiceImpl.java
 E:\IdeaCode\chao\blog\src\main\java\com\chao\wssf\service\impl\CommentServiceImpl.java
 E:\IdeaCode\chao\blog\src\main\java\com\chao\wssf\mapper\ArticleMapper.java
 E:\IdeaCode\chao\blog\src\main\java\com\chao\wssf\mapper\LabelMapper.java
@@ -42,6 +42,7 @@ E:\IdeaCode\chao\blog\src\main\java\com\chao\wssf\entity\About.java
 E:\IdeaCode\chao\blog\src\main\java\com\chao\wssf\entity\ArticleLabel.java
 E:\IdeaCode\chao\blog\src\main\java\com\chao\wssf\pojo\FullLeave.java
 E:\IdeaCode\chao\blog\src\main\java\com\chao\wssf\pojo\WriteLabel.java
+E:\IdeaCode\chao\blog\src\main\java\com\chao\wssf\service\impl\LeaveServiceImpl.java
 E:\IdeaCode\chao\blog\src\main\java\com\chao\wssf\web\admin\PageController.java
 E:\IdeaCode\chao\blog\src\main\java\com\chao\wssf\mapper\DiaryMapper.java
 E:\IdeaCode\chao\blog\src\main\java\com\chao\wssf\service\ILabelService.java
@@ -67,6 +68,7 @@ E:\IdeaCode\chao\blog\src\main\java\com\chao\wssf\util\ResultCode.java
 E:\IdeaCode\chao\blog\src\main\java\com\chao\wssf\mapper\OtherMapper.java
 E:\IdeaCode\chao\blog\src\main\java\com\chao\wssf\entity\Label.java
 E:\IdeaCode\chao\blog\src\main\java\com\chao\wssf\web\admin\FileUploadController.java
+E:\IdeaCode\chao\blog\src\main\java\com\chao\wssf\pojo\AllLeave.java
 E:\IdeaCode\chao\blog\src\main\java\com\chao\wssf\web\controller\LeaveController.java
 E:\IdeaCode\chao\blog\src\main\java\com\chao\wssf\mapper\CommentMapper.java
 E:\IdeaCode\chao\blog\src\main\java\com\chao\wssf\web\admin\BlogController.java

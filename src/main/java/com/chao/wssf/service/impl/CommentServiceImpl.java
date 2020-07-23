@@ -151,7 +151,8 @@ public class CommentServiceImpl implements ICommentService {
     public Page getComments(Boolean isDel, Integer page, Integer limit, String title, String username, String content, String startTime, String endTime) throws ParseException {
         QueryWrapper<Comment> commentQueryWrapper = new QueryWrapper<>();
 
-        if (isDel) {//被删除的
+        //被删除的
+        if (isDel) {
             commentQueryWrapper.ne("del", "0");
         } else {
             commentQueryWrapper.eq("del", "0");
@@ -209,8 +210,6 @@ public class CommentServiceImpl implements ICommentService {
         return selectPage;
     }
 
-    //被评论操作的条数
-    private Integer size = 0;
     //是否成功还原
     public Boolean isRestore = true;
     public String pName = "";
