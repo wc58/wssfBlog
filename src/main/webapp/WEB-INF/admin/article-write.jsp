@@ -12,17 +12,59 @@
     <meta charset="UTF-8">
     <title>发布文章</title>
     <%@ include file="staticSource.jsp" %>
-    <style type="text/css">
-        /*  .toolbar {
-              border: 1px solid #ccc;
-          }*/
-
-        /*  .text {
-              border: 1px solid #ccc;
-              height: 580px;
-          }*/
-    </style>
     <link type="text/css" href="../../css/wangEditor.css">
+    <link rel="stylesheet" href="../../highlight/styles/atelier-forest-light.css">
+    <style>
+        h1 {
+            margin: 20px 0;
+            border-left: 4px solid #89c30d;
+            min-height: 26px;
+            line-height: 30px;
+            padding: 5px 20px;
+            background-color: #f8f9f7;
+            font-size: 22px;
+            font-weight: 500;
+            color: #6b6d69;
+            text-shadow: 0 1px 0 rgba(255, 255, 255, .5);
+            clear: both;
+        }
+
+        h2 {
+            margin: 10px 0;
+            border-left: 3px solid #89c30d;
+            min-height: 26px;
+            line-height: 26px;
+            padding: 5px 20px;
+            background-color: #f8f9f7;
+            font-size: 18px;
+            font-weight: 430;
+            color: #585957;
+            text-shadow: 0 1px 0 rgba(255, 255, 255, .5);
+            clear: both;
+        }
+
+        h3 {
+            margin: 6px 0;
+            border-left: 2px solid #89c30d;
+            min-height: 10px;
+            line-height: 20px;
+            padding: 5px 20px;
+            background-color: #f8f9f7;
+            font-size: 16px;
+            font-weight: 400;
+            color: #585957;
+            text-shadow: 0 1px 0 rgba(255, 255, 255, .5);
+            clear: both;
+        }
+
+        .w-e-text blockquote {
+            background-color: #f8f8f8;
+            padding: 15px 22.5px;
+            font-size: 14px;
+            border-radius: 2px;
+            color: #999;
+        }
+    </style>
 </head>
 <body>
 
@@ -127,7 +169,6 @@
     </div>
     <div class="layui-col-md4">
         <div class="layui-form-item">
-            <button id="source" class="layui-btn layui-btn-radius layui-btn-primary">源码</button>
             <button id="newBlog" class="layui-btn layui-btn-radius layui-btn-normal">重写</button>
             <button id="save" class="layui-btn layui-btn-radius">保存</button>
         </div>
@@ -135,8 +176,16 @@
 </div>
 </div>
 
+
+<script src="${pageContext.request.contextPath}/highlight/highlight.pack.js"></script>
 <script>
 
+    document.addEventListener('keydown', function (e) {
+        if (e.keyCode == 83 && (navigator.platform.match("Mac") ? e.metaKey : e.ctrlKey)) {
+            e.preventDefault();
+            save();
+        }
+    });
 
     var E = window.wangEditor
     var editor = new E('#content')
@@ -144,9 +193,57 @@
     editor.customConfig.uploadImgMaxLength = 5
     editor.customConfig.uploadFileName = 'article'
     editor.customConfig.uploadImgServer = '/admin/uploadPictures'
+    editor.customConfig.menus = [
+        'head', // 标题
+        'bold', // 粗体 
+        'fontSize', // 字号
+        'fontName', // 字体
+        'italic', // 斜体
+        'underline', // 下划线 
+        'strikeThrough', // 删除线
+        'foreColor', // 文字颜色
+        'backColor', // 背景颜色
+        'link', // 插入链接 
+        'list', // 列表 
+        'justify', // 对齐方式
+        'quote', // 引用
+        'emoticon', // 表情
+        'image', // 插入图片 
+        'table', // 表格
+        'video', // 插入视频 
+        'code', // 插入代码 
+        // 'undo', // 撤销
+        // 'redo' // 重复
+    ]
     editor.create()
     E.fullscreen.init('#content');
+    /**
+     * @todo 查看源码
+     */
+    window.wangEditor.viewsource = {
+        init: function (editorSelector) {
+            $(editorSelector + " .w-e-toolbar").append('<div class="w-e-menu"><a class="_wangEditor_btn_viewsource" href="###" onclick="window.wangEditor.viewsource.toggleViewsource(\'' + editorSelector + '\')">源码</a></div>');
+        },
+        toggleViewsource: function (editorSelector) {
+            editorHtml = editor.txt.html();
+            if ($(editorSelector + ' ._wangEditor_btn_viewsource').text() == '源码') {
+                editorHtml = editorHtml.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/ /g, "&nbsp;");
+                $(editorSelector + ' ._wangEditor_btn_viewsource').text('返回');
+            } else {
+                editorHtml = editor.txt.text().replace(/&lt;/ig, "<").replace(/&gt;/ig, ">").replace(/&nbsp;/ig, " ");
+                $(editorSelector + ' ._wangEditor_btn_viewsource').text('源码');
+            }
+            editor.txt.html(editorHtml);
+            editor.change && editor.change();	//更新编辑器的内容
+        }
+    };
+    E.viewsource.init('#content');
 
+    $(function () {
+        $('pre code').each(function (i, block) {
+            hljs.highlightBlock(block);
+        });
+    });
 
     var unloadPageTip = function () {
         return "您编辑的文章内容还没有进行保存!";
@@ -208,6 +305,10 @@
 
     //保存设置
     $("#save").click(function () {
+        save();
+    });
+
+    function save() {
         //标题
         var title = $("#title").val();
         //描述
@@ -245,11 +346,6 @@
             return;
         }
 
-        if (content.length < 20) {
-            layer.msg("内容也忒少了把！")
-            return;
-        }
-
         $.ajax({
             type: 'post',
             url: '/admin/addArticle',
@@ -274,7 +370,7 @@
             },
             dataType: 'json'
         })
-    });
+    }
 
     //写新的文章
     $("#newBlog").click(function () {
@@ -282,24 +378,6 @@
     });
 
     var flag = 0;
-
-    /*  //查看源码
-      $("#source").click(function () {
-          if (flag === 0) {
-              var temp = editor.txt.html();
-              alert(temp)
-              editor.txt.html('')
-              editor.txt.html(temp)
-              flag = 1;
-          } else {
-              var temp = editor.txt.text();
-              alert(temp)
-              editor.txt.html('')
-              editor.txt.html(temp)
-              flag = 0;
-          }
-      });*/
-
 
     layui.use('form', function () {
 

@@ -2,8 +2,7 @@
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
         typeof define === 'function' && define.amd ? define(factory) :
             (global.wangEditor = factory());
-}(this, (function () {
-    'use strict';
+}(this, (function () { 'use strict';
 
     /*
     poly-fill
@@ -44,8 +43,7 @@
             Element.prototype.matches = Element.prototype.matchesSelector || Element.prototype.mozMatchesSelector || Element.prototype.msMatchesSelector || Element.prototype.oMatchesSelector || Element.prototype.webkitMatchesSelector || function (s) {
                 var matches = (this.document || this.ownerDocument).querySelectorAll(s),
                     i = matches.length;
-                while (--i >= 0 && matches.item(i) !== this) {
-                }
+                while (--i >= 0 && matches.item(i) !== this) {}
                 return i > -1;
             };
         }
@@ -796,7 +794,6 @@
     /*
     bold-menu
 */
-
 // 构造函数
     function Bold(editor) {
         this.editor = editor;
@@ -872,8 +869,7 @@
     /*
     droplist
 */
-    var _emptyFn = function _emptyFn() {
-    };
+    var _emptyFn = function _emptyFn() {};
 
 // 构造函数
     function DropList(menu, opt) {
@@ -1000,7 +996,6 @@
     /*
     menu - header
 */
-
 // 构造函数
     function Head(editor) {
         var _this = this;
@@ -1017,13 +1012,7 @@
             width: 100,
             $title: $('<p>设置标题</p>'),
             type: 'list', // droplist 以列表形式展示
-            list: [{$elem: $('<h1>H1</h1>'), value: '<h1>'}, {
-                $elem: $('<h2>H2</h2>'),
-                value: '<h2>'
-            }, {$elem: $('<h3>H3</h3>'), value: '<h3>'}, {
-                $elem: $('<h4>H4</h4>'),
-                value: '<h4>'
-            }, {$elem: $('<h5>H5</h5>'), value: '<h5>'}, {$elem: $('<p>正文</p>'), value: '<p>'}],
+            list: [{ $elem: $('<h1>H1</h1>'), value: '<h1>' }, { $elem: $('<h2>H2</h2>'), value: '<h2>' }, { $elem: $('<h3>H3</h3>'), value: '<h3>' }, { $elem: $('<h4>H4</h4>'), value: '<h4>' }, { $elem: $('<h5>H5</h5>'), value: '<h5>' }, { $elem: $('<p>正文</p>'), value: '<p>' }],
             onClick: function onClick(value) {
                 // 注意 this 是指向当前的 Head 对象
                 _this._command(value);
@@ -1085,19 +1074,7 @@
             width: 160,
             $title: $('<p>字号</p>'),
             type: 'list', // droplist 以列表形式展示
-            list: [{
-                $elem: $('<span style="font-size: x-small;">x-small</span>'),
-                value: '1'
-            }, {$elem: $('<span style="font-size: small;">small</span>'), value: '2'}, {
-                $elem: $('<span>normal</span>'),
-                value: '3'
-            }, {
-                $elem: $('<span style="font-size: large;">large</span>'),
-                value: '4'
-            }, {
-                $elem: $('<span style="font-size: x-large;">x-large</span>'),
-                value: '5'
-            }, {$elem: $('<span style="font-size: xx-large;">xx-large</span>'), value: '6'}],
+            list: [{ $elem: $('<span style="font-size: x-small;">x-small</span>'), value: '1' }, { $elem: $('<span style="font-size: small;">small</span>'), value: '2' }, { $elem: $('<span>normal</span>'), value: '3' }, { $elem: $('<span style="font-size: large;">large</span>'), value: '4' }, { $elem: $('<span style="font-size: x-large;">x-large</span>'), value: '5' }, { $elem: $('<span style="font-size: xx-large;">xx-large</span>'), value: '6' }],
             onClick: function onClick(value) {
                 // 注意 this 是指向当前的 FontSize 对象
                 _this._command(value);
@@ -1141,10 +1118,7 @@
             $title: $('<p>字体</p>'),
             type: 'list', // droplist 以列表形式展示
             list: fontNames.map(function (fontName) {
-                return {
-                    $elem: $('<span style="font-family: ' + fontName + ';">' + fontName + '</span>'),
-                    value: fontName
-                };
+                return { $elem: $('<span style="font-family: ' + fontName + ';">' + fontName + '</span>'), value: fontName };
             }),
             onClick: function onClick(value) {
                 // 注意 this 是指向当前的 FontName 对象
@@ -1167,8 +1141,7 @@
     panel
 */
 
-    var emptyFn = function emptyFn() {
-    };
+    var emptyFn = function emptyFn() {};
 
 // 记录已经显示 panel 的菜单
     var _isCreatedPanelMenus = [];
@@ -1360,7 +1333,6 @@
     /*
     menu - link
 */
-
 // 构造函数
     function Link(editor) {
         this.editor = editor;
@@ -1517,7 +1489,6 @@
     /*
     italic-menu
 */
-
 // 构造函数
     function Italic(editor) {
         this.editor = editor;
@@ -1571,7 +1542,6 @@
     /*
     redo-menu
 */
-
 // 构造函数
     function Redo(editor) {
         this.editor = editor;
@@ -1600,7 +1570,6 @@
     /*
     strikeThrough-menu
 */
-
 // 构造函数
     function StrikeThrough(editor) {
         this.editor = editor;
@@ -1654,7 +1623,6 @@
     /*
     underline-menu
 */
-
 // 构造函数
     function Underline(editor) {
         this.editor = editor;
@@ -1708,7 +1676,6 @@
     /*
     undo-menu
 */
-
 // 构造函数
     function Undo(editor) {
         this.editor = editor;
@@ -1737,7 +1704,6 @@
     /*
     menu - list
 */
-
 // 构造函数
     function List(editor) {
         var _this = this;
@@ -1754,10 +1720,7 @@
             width: 120,
             $title: $('<p>设置列表</p>'),
             type: 'list', // droplist 以列表形式展示
-            list: [{
-                $elem: $('<span><i class="w-e-icon-list-numbered"></i> 有序列表</span>'),
-                value: 'insertOrderedList'
-            }, {$elem: $('<span><i class="w-e-icon-list2"></i> 无序列表</span>'), value: 'insertUnorderedList'}],
+            list: [{ $elem: $('<span><i class="w-e-icon-list-numbered"></i> 有序列表</span>'), value: 'insertOrderedList' }, { $elem: $('<span><i class="w-e-icon-list2"></i> 无序列表</span>'), value: 'insertUnorderedList' }],
             onClick: function onClick(value) {
                 // 注意 this 是指向当前的 List 对象
                 _this._command(value);
@@ -1818,7 +1781,6 @@
     /*
     menu - justify
 */
-
 // 构造函数
     function Justify(editor) {
         var _this = this;
@@ -1835,13 +1797,7 @@
             width: 100,
             $title: $('<p>对齐方式</p>'),
             type: 'list', // droplist 以列表形式展示
-            list: [{
-                $elem: $('<span><i class="w-e-icon-paragraph-left"></i> 靠左</span>'),
-                value: 'justifyLeft'
-            }, {
-                $elem: $('<span><i class="w-e-icon-paragraph-center"></i> 居中</span>'),
-                value: 'justifyCenter'
-            }, {$elem: $('<span><i class="w-e-icon-paragraph-right"></i> 靠右</span>'), value: 'justifyRight'}],
+            list: [{ $elem: $('<span><i class="w-e-icon-paragraph-left"></i> 靠左</span>'), value: 'justifyLeft' }, { $elem: $('<span><i class="w-e-icon-paragraph-center"></i> 居中</span>'), value: 'justifyCenter' }, { $elem: $('<span><i class="w-e-icon-paragraph-right"></i> 靠右</span>'), value: 'justifyRight' }],
             onClick: function onClick(value) {
                 // 注意 this 是指向当前的 List 对象
                 _this._command(value);
@@ -1863,7 +1819,6 @@
     /*
     menu - Forecolor
 */
-
 // 构造函数
     function ForeColor(editor) {
         var _this = this;
@@ -1885,7 +1840,7 @@
             $title: $('<p>文字颜色</p>'),
             type: 'inline-block', // droplist 内容以 block 形式展示
             list: colors.map(function (color) {
-                return {$elem: $('<i style="color:' + color + ';" class="w-e-icon-pencil2"></i>'), value: color};
+                return { $elem: $('<i style="color:' + color + ';" class="w-e-icon-pencil2"></i>'), value: color };
             }),
             onClick: function onClick(value) {
                 // 注意 this 是指向当前的 ForeColor 对象
@@ -1908,7 +1863,6 @@
     /*
     menu - BackColor
 */
-
 // 构造函数
     function BackColor(editor) {
         var _this = this;
@@ -1930,7 +1884,7 @@
             $title: $('<p>背景色</p>'),
             type: 'inline-block', // droplist 内容以 block 形式展示
             list: colors.map(function (color) {
-                return {$elem: $('<i style="color:' + color + ';" class="w-e-icon-paint-brush"></i>'), value: color};
+                return { $elem: $('<i style="color:' + color + ';" class="w-e-icon-paint-brush"></i>'), value: color };
             }),
             onClick: function onClick(value) {
                 // 注意 this 是指向当前的 BackColor 对象
@@ -1953,7 +1907,6 @@
     /*
     menu - quote
 */
-
 // 构造函数
     function Quote(editor) {
         this.editor = editor;
@@ -2022,7 +1975,6 @@
     /*
     menu - code
 */
-
 // 构造函数
     function Code(editor) {
         this.editor = editor;
@@ -2122,7 +2074,7 @@
         // 插入代码
         _insertCode: function _insertCode(value) {
             var editor = this.editor;
-            editor.cmd.do('insertHTML', '<pre><code class="hljs">' + value + '</code></pre><p><br></p>');
+            editor.cmd.do('insertHTML', '<pre><code>' + value + '</code></pre><p><br></p>');
         },
 
         // 更新代码
@@ -2158,7 +2110,6 @@
     /*
     menu - emoticon
 */
-
 // 构造函数
     function Emoticon(editor) {
         this.editor = editor;
@@ -2266,7 +2217,6 @@
     /*
     menu - table
 */
-
 // 构造函数
     function Table(editor) {
         this.editor = editor;
@@ -2612,7 +2562,6 @@
     /*
     menu - video
 */
-
 // 构造函数
     function Video(editor) {
         this.editor = editor;
@@ -2688,7 +2637,6 @@
     /*
     menu - img
 */
-
 // 构造函数
     function Image(editor) {
         this.editor = editor;
@@ -2722,49 +2670,16 @@
             var editor = this.editor;
 
             // id
-            var width30 = getRandom('width-30');
-            var width50 = getRandom('width-50');
-            var width100 = getRandom('width-100');
+            //var width60 = getRandom('width-60');
+            //var width80 = getRandom('width-80');
+            //var width100 = getRandom('width-100');
             var delBtn = getRandom('del-btn');
 
             // tab 配置
             var tabsConfig = [{
                 title: '编辑图片',
-                tpl: '<div>\n                    <div class="w-e-button-container" style="border-bottom:1px solid #f1f1f1;padding-bottom:5px;margin-bottom:5px;">\n                        <span style="float:left;font-size:14px;margin:4px 5px 0 5px;color:#333;">\u6700\u5927\u5BBD\u5EA6\uFF1A</span>\n                        <button id="' + width30 + '" class="left">30%</button>\n                        <button id="' + width50 + '" class="left">50%</button>\n                        <button id="' + width100 + '" class="left">100%</button>\n                    </div>\n                    <div class="w-e-button-container">\n                        <button id="' + delBtn + '" class="gray left">\u5220\u9664\u56FE\u7247</button>\n                    </dv>\n                </div>',
+                tpl: '<div>\n                    <div class="w-e-button-container" style="border-bottom:1px solid #f1f1f1;padding-bottom:5px;margin-bottom:5px;">\n                    <span style="float:left;font-size:14px;margin:4px 5px 0 5px;color:#333;">\u81ea\u5b9a\u4e49\u5bbd\u5ea6</span><input id="selfSize" class="left" size="5" maxlength="3"/>\n</div>\n                    <div class="w-e-button-container">\n                        <button id="' + delBtn + '" class="gray left">\u5220\u9664\u56FE\u7247</button>\n                    </dv>\n                </div>',
                 events: [{
-                    selector: '#' + width30,
-                    type: 'click',
-                    fn: function fn() {
-                        var $img = editor._selectedImg;
-                        if ($img) {
-                            $img.css('max-width', '30%');
-                        }
-                        // 返回 true，表示该事件执行完之后，panel 要关闭。否则 panel 不会关闭
-                        return true;
-                    }
-                }, {
-                    selector: '#' + width50,
-                    type: 'click',
-                    fn: function fn() {
-                        var $img = editor._selectedImg;
-                        if ($img) {
-                            $img.css('max-width', '50%');
-                        }
-                        // 返回 true，表示该事件执行完之后，panel 要关闭。否则 panel 不会关闭
-                        return true;
-                    }
-                }, {
-                    selector: '#' + width100,
-                    type: 'click',
-                    fn: function fn() {
-                        var $img = editor._selectedImg;
-                        if ($img) {
-                            $img.css('max-width', '100%');
-                        }
-                        // 返回 true，表示该事件执行完之后，panel 要关闭。否则 panel 不会关闭
-                        return true;
-                    }
-                }, {
                     selector: '#' + delBtn,
                     type: 'click',
                     fn: function fn() {
@@ -2774,6 +2689,18 @@
                         }
                         // 返回 true，表示该事件执行完之后，panel 要关闭。否则 panel 不会关闭
                         return true;
+                    }
+                }, {// 自定义宽度
+                    selector: '#selfSize',
+                    type: 'input',
+                    fn: function fn() {
+                        var $img = editor._selectedImg;
+                        if ($img) {
+                            var size = $("#selfSize").val();
+                            $img.css('max-width', size + '%');
+                        }
+                        // 返回 true，表示该事件执行完之后，panel 要关闭。否则 panel 不会关闭
+                        //return true;
                     }
                 }]
             }];
@@ -2948,7 +2875,6 @@
     /*
     菜单集合
 */
-
 // 构造函数
     function Menus(editor) {
         this.editor = editor;
@@ -3312,7 +3238,6 @@
                 // 更新按钮 ative 状态
                 editor.menus.changeActive();
             }
-
             // 按键后保存
             $textElem.on('keyup', saveRange);
             $textElem.on('mousedown', function (e) {
@@ -3497,7 +3422,6 @@
             // 粘贴图片、文本的事件，每次只能执行一个
             // 判断该次粘贴事件是否可以执行
             var pasteTime = 0;
-
             function canDo() {
                 var now = Date.now();
                 var flag = false;
@@ -3508,7 +3432,6 @@
                 pasteTime = now;
                 return flag;
             }
-
             function resetTime() {
                 pasteTime = 0;
             }
@@ -4728,3 +4651,5 @@
     return index;
 
 })));
+
+s

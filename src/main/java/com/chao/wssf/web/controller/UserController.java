@@ -27,6 +27,8 @@ public class UserController {
         User user = userService.checkUser(thirdId, email);
         if (user != null) {
             session.setAttribute("user", user);
+            //七天的有效期
+            session.setMaxInactiveInterval(60 * 60 * 24 * 7);
             return R.OK();
         }
         return R.ERROR();

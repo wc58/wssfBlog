@@ -25,7 +25,61 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/gloable.css"/>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/blog.css"/>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/message.css"/>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/highlight/styles/monokai-sublime.css"/>
+    <%--    <link rel="stylesheet" href="${pageContext.request.contextPath}/highlight/styles/monokai-sublime.css"/>--%>
+    <%--    <link rel="stylesheet" href="${pageContext.request.contextPath}/highlight/styles/a11y-dark.css">--%>
+    <%--    <link rel="stylesheet" href="${pageContext.request.contextPath}/highlight/styles/atelier-dune-light.css">--%>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/highlight/styles/atelier-forest-light.css">
+    <style>
+        h1 {
+            margin: 20px 0;
+            border-left: 4px solid #89c30d;
+            min-height: 26px;
+            line-height: 30px;
+            padding: 5px 20px;
+            background-color: #f8f9f7;
+            font-size: 22px;
+            font-weight: 500;
+            color: #6b6d69;
+            text-shadow: 0 1px 0 rgba(255, 255, 255, .5);
+            clear: both;
+        }
+
+        h2 {
+            margin: 10px 0;
+            border-left: 3px solid #89c30d;
+            min-height: 26px;
+            line-height: 26px;
+            padding: 5px 20px;
+            background-color: #f8f9f7;
+            font-size: 18px;
+            font-weight: 430;
+            color: #585957;
+            text-shadow: 0 1px 0 rgba(255, 255, 255, .5);
+            clear: both;
+        }
+
+        h3 {
+            margin: 6px 0;
+            border-left: 2px solid #89c30d;
+            min-height: 10px;
+            line-height: 20px;
+            padding: 5px 20px;
+            background-color: #f8f9f7;
+            font-size: 16px;
+            font-weight: 400;
+            color: #585957;
+            text-shadow: 0 1px 0 rgba(255, 255, 255, .5);
+            clear: both;
+        }
+
+        .w-e-text blockquote {
+            background-color: #f8f8f8;
+            padding: 15px 22.5px;
+            font-size: 14px;
+            border-radius: 2px;
+            color: #999;
+        }
+    </style>
 </head>
 <body>
 <div class="header">

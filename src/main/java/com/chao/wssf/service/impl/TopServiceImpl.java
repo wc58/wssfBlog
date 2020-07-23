@@ -28,7 +28,7 @@ public class TopServiceImpl implements ITopService {
     public List<Top> getArticleIdByTops() {
         //查询所有的指定文章
         QueryWrapper<Top> topQueryWrapper = new QueryWrapper<>();
-        topQueryWrapper.orderByAsc("sort");
+        topQueryWrapper.orderByDesc("sort");
         return topMapper.selectList(topQueryWrapper);
     }
 
