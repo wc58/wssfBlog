@@ -27,10 +27,6 @@
                 <a>
                     <cite>导航元素</cite></a>
             </span>
-    <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right"
-       onclick="location.reload()" title="刷新">
-        <i class="layui-icon" style="line-height:30px">&#xe9aa;</i>
-    </a>
     <br/>
 </div>
 <div class="layui-fluid">
@@ -39,6 +35,11 @@
             <div class="layui-card">
                 <div class="layui-card-body ">
                     <div class="layui-form layui-col-space5">
+                        <div class="layui-inline layui-show-xs-block" style="width: 170px">
+                            <select id="label" name="label">
+                                <option value="-1">标签选择</option>
+                            </select>
+                        </div>
                         <div class="layui-inline layui-show-xs-block">
                             <input id="sTitle" class="layui-input" autocomplete="off" placeholder="标题" name="end">
                         </div>
@@ -82,6 +83,19 @@
 </script>
 <script>
 
+    //标签
+    $.ajax({
+        type: 'post',
+        url: '/label/getAllLabels',
+        dataType: 'json',
+        success: function (data) {
+            for (let x in data) {
+                var obj = document.getElementById('label');
+                obj.options.add(new Option(data[x].name, data[x].value));
+            }
+        }
+    })
+
     var $;
     var tableArticle;
     layui.use('table', function () {
@@ -117,51 +131,19 @@
             tableArticle.reload({
                 url: '/admin/getTopArticle' //数据接口
                 , where: {
+                    label: $("#label").val(),
                     title: $("#sTitle").val(),
                     author: $("#sAuthor").val(),
                     status: $("#sStatus").val(),
-                    /*    startTime: $("#startTime").val(),
-                        endTime: $("#endTime").val()*/
                 }, page: {
                     curr: 1
                 }
             })
         })
-
         $("#reset").click(function () {
-
-            var title = $("#sTitle").val('')
-            var sAuthor = $("#sAuthor").val('')
-            var sStatus = $("#sStatus").val('')
-            /* var startTime = $("#startTime").val('')
-             var endTime = $("#endTime").val('')*/
-
-            tableArticle.reload({
-                url: '/admin/getTopArticle' //数据接口
-                , where: {
-                    title: title.val(),
-                    author: sAuthor.val(),
-                    status: sStatus.val(),
-                    /*    startTime: startTime.val(),
-                        endTime: endTime.val()*/
-                }, page: {
-                    curr: 1
-                }
-            })
+            location.reload();
         })
 
-        /*   layui.use('laydate', function () {
-               var laydate = layui.laydate;
-
-               laydate.render({
-                   elem: '#startTime'
-               });
-
-               laydate.render({
-                   elem: '#endTime'
-               });
-
-           });*/
 
         //监听行双击事件
         table.on('rowDouble(articleTable)', function (obj) {

@@ -26,7 +26,7 @@ public interface IArticleService {
 
     int updateArticle(Integer id, String title, String assistant, String picture, String content, String author, String status, Boolean del, Boolean top, Integer[] labels);
 
-    Page<Article> getCommArticle(List<Integer> tops, Integer page, Integer limit, String title, String author, String status, String startTime, String endTime) throws ParseException;
+    Page<Article> getCommArticle(List<Integer> tops, Integer page, Integer limit, Integer label, String title, String author, String status, String startTime, String endTime) throws ParseException;
 
     Article getArticleById(Integer id);
 
@@ -34,7 +34,7 @@ public interface IArticleService {
 
     void deleteArticleById(Integer id);
 
-    Page<Article> getDelArticle(Integer page, Integer limit, String title, String author, String status, String startTime, String endTime) throws ParseException;
+    Page<Article> getDelArticle(Integer page, Integer limit, Integer label, String title, String author, String status, String startTime, String endTime) throws ParseException;
 
     int topArticle(Integer id);
 
@@ -43,7 +43,7 @@ public interface IArticleService {
 
     void restoreArticle(Integer id);
 
-    Page getTopArticle(List<Top> tops, Integer page, Integer limit, String title, String author, String status, String startTime, String endTime) throws ParseException;
+    Page getTopArticle(List<Top> tops, Integer page, Integer limit, Integer label, String title, String author, String status, String startTime, String endTime) throws ParseException;
 
     List<Article> getArticleByTitle(String title);
 }

@@ -236,14 +236,14 @@ public class BlogController {
      */
     @RequestMapping("getCommArticle")
     @ResponseBody
-    public Map<String, Object> getCommArticle(Integer page, Integer limit, String title, String author, String status, String startTime, String endTime) {
+    public Map<String, Object> getCommArticle(Integer page, Integer limit, Integer label, String title, String author, String status, String startTime, String endTime) {
         HashMap<String, Object> map = new HashMap<>();
         try {
             //查询出既不是置顶也不是删除的文章
             List<Integer> tops = topService.getArticleIdByTops().stream().map(Top::getArticleId).collect(Collectors.toList());
             //防止sql错误
             tops.add(-1);
-            Page<Article> articlePage = articleService.getCommArticle(tops, page, limit, title, author, status, startTime, endTime);
+            Page<Article> articlePage = articleService.getCommArticle(tops, page, limit, label, title, author, status, startTime, endTime);
             //封装数据
             map.put("code", 0);
             map.put("count", articlePage.getTotal());
@@ -265,11 +265,11 @@ public class BlogController {
      */
     @RequestMapping("getDelArticle")
     @ResponseBody
-    public Map<String, Object> getDelArticle(Integer page, Integer limit, String title, String author, String status, String startTime, String endTime) {
+    public Map<String, Object> getDelArticle(Integer page, Integer limit, Integer label, String title, String author, String status, String startTime, String endTime) {
         HashMap<String, Object> map = new HashMap<>();
         try {
             //查询出是删除的文章
-            Page<Article> articlePage = articleService.getDelArticle(page, limit, title, author, status, startTime, endTime);
+            Page<Article> articlePage = articleService.getDelArticle(page, limit, label, title, author, status, startTime, endTime);
             //封装数据
             map.put("code", 0);
             map.put("count", articlePage.getTotal());
@@ -291,12 +291,12 @@ public class BlogController {
      */
     @RequestMapping("getTopArticle")
     @ResponseBody
-    public Map<String, Object> getTopArticle(Integer page, Integer limit, String title, String author, String status, String startTime, String endTime) {
+    public Map<String, Object> getTopArticle(Integer page, Integer limit, Integer label, String title, String author, String status, String startTime, String endTime) {
         HashMap<String, Object> map = new HashMap<>();
         try {
             //查询出既不是置顶也不是删除的文章
             List<Top> tops = topService.getArticleIdByTops();
-            Page<TopArticle> articlePage = articleService.getTopArticle(tops, page, limit, title, author, status, startTime, endTime);
+            Page<TopArticle> articlePage = articleService.getTopArticle(tops, page, limit, label, title, author, status, startTime, endTime);
             //封装数据
             map.put("code", 0);
             map.put("count", articlePage.getTotal());

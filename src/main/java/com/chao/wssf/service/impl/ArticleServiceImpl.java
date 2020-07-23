@@ -274,15 +274,16 @@ public class ArticleServiceImpl implements IArticleService {
      * 既不是置顶也没有被删除
      *
      * @param tops
+     * @param label
      * @return
      */
     @Override
-    public Page<Article> getCommArticle(List<Integer> tops, Integer page, Integer limit, String title, String author, String status, String startTime, String endTime) throws ParseException {
+    public Page<Article> getCommArticle(List<Integer> tops, Integer page, Integer limit, Integer label, String title, String author, String status, String startTime, String endTime) throws ParseException {
         QueryWrapper<Article> articleQueryWrapper = new QueryWrapper<>();
         //必备条件
         articleQueryWrapper.notIn("id", tops).eq("del", "0").orderByDesc("create_time");
         //可选条件
-        condition(title, author, status, startTime, endTime, articleQueryWrapper);
+        condition(label, title, author, status, startTime, endTime, articleQueryWrapper);
         Page<Article> articlePage = new Page<>(page, limit);
         return articleMapper.selectPage(articlePage, articleQueryWrapper);
     }
@@ -294,7 +295,7 @@ public class ArticleServiceImpl implements IArticleService {
      * @return
      */
     @Override
-    public Page getTopArticle(List<Top> tops, Integer page, Integer limit, String title, String author, String status, String startTime, String endTime) throws ParseException {
+    public Page getTopArticle(List<Top> tops, Integer page, Integer limit, Integer label, String title, String author, String status, String startTime, String endTime) throws ParseException {
         QueryWrapper<Article> articleQueryWrapper = new QueryWrapper<>();
         //必备条件
         List<Integer> ids = tops.stream().map(Top::getArticleId).collect(Collectors.toList());
@@ -302,7 +303,7 @@ public class ArticleServiceImpl implements IArticleService {
         ids.add(-1);
         articleQueryWrapper.in("id", ids);
         //可选条件
-        condition(title, author, status, startTime, endTime, articleQueryWrapper);
+        condition(label, title, author, status, startTime, endTime, articleQueryWrapper);
         Page<Article> articlePage = new Page<>(page, limit);
         Page selectPage = articleMapper.selectPage(articlePage, articleQueryWrapper);
         //偷梁换柱，因为涉及多张表，而前端响应格式限定，所有只能这样来改变数据=======================================
@@ -385,12 +386,12 @@ public class ArticleServiceImpl implements IArticleService {
      * @return
      */
     @Override
-    public Page<Article> getDelArticle(Integer page, Integer limit, String title, String author, String status, String startTime, String endTime) throws ParseException {
+    public Page<Article> getDelArticle(Integer page, Integer limit, Integer label, String title, String author, String status, String startTime, String endTime) throws ParseException {
         QueryWrapper<Article> articleQueryWrapper = new QueryWrapper<>();
         //必备条件
         articleQueryWrapper.ne("del", "0").orderByDesc("create_time");
         //可选条件
-        condition(title, author, status, startTime, endTime, articleQueryWrapper);
+        condition(label, title, author, status, startTime, endTime, articleQueryWrapper);
         Page<Article> articlePage = new Page<>(page, limit);
         return articleMapper.selectPage(articlePage, articleQueryWrapper);
     }
@@ -439,6 +440,7 @@ public class ArticleServiceImpl implements IArticleService {
     /**
      * 非必要的条件
      *
+     * @param label
      * @param title
      * @param author
      * @param status
@@ -447,7 +449,11 @@ public class ArticleServiceImpl implements IArticleService {
      * @param articleQueryWrapper
      * @throws ParseException
      */
-    private void condition(String title, String author, String status, String startTime, String endTime, QueryWrapper<Article> articleQueryWrapper) throws ParseException {
+    private void condition(Integer label, String title, String author, String status, String startTime, String endTime, QueryWrapper<Article> articleQueryWrapper) throws ParseException {
+        if (!StringUtils.isEmpty(label) && !label.equals(-1)) {
+            List<Integer> articleIds = labelService.getArticleIdsByLabelId(label);
+            articleQueryWrapper.in("id", articleIds);
+        }
         if (!StringUtils.isEmpty(title)) {
             articleQueryWrapper.like("title", title);
         }

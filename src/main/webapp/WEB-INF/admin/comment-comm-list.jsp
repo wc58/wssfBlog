@@ -27,10 +27,6 @@
                 <a>
                     <cite>导航元素</cite></a>
             </span>
-    <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right"
-       onclick="location.reload()" title="刷新">
-        <i class="layui-icon" style="line-height:30px">&#xe9aa;</i>
-    </a>
     <br/>
 </div>
 <div class="layui-fluid">
@@ -120,26 +116,9 @@
         })
 
         $("#reset").click(function () {
-
-            var stitle = $("#sTitle").val('')
-            var sUsername = $("#sUsername").val('')
-            var sContent = $("#sContent").val('')
-            var startTime = $("#startTime").val('')
-            var endTime = $("#endTime").val('')
-
-            tableArticle.reload({
-                url: '/admin/getComments' //数据接口
-                , where: {
-                    title: stitle.val(),
-                    username: sUsername.val(),
-                    content: sContent.val(),
-                    startTime: startTime.val(),
-                    endTime: endTime.val()
-                }, page: {
-                    curr: 1
-                }
-            })
+            location.reload();
         })
+
 
         layui.use('laydate', function () {
             var laydate = layui.laydate;

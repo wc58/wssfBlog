@@ -217,6 +217,11 @@
     ]
     editor.create()
     E.fullscreen.init('#content');
+    $(function () {
+        $('pre code').each(function (i, block) {
+            hljs.highlightBlock(block);
+        });
+    });
     /**
      * @todo 查看源码
      */
@@ -239,11 +244,6 @@
     };
     E.viewsource.init('#content');
 
-    $(function () {
-        $('pre code').each(function (i, block) {
-            hljs.highlightBlock(block);
-        });
-    });
 
     var unloadPageTip = function () {
         return "您编辑的文章内容还没有进行保存!";
@@ -286,6 +286,7 @@
         }
         //状态
         $("#status").val(status);
+
         //标签
         $.ajax({
             type: 'post',
