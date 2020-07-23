@@ -16,6 +16,7 @@ import com.chao.wssf.service.IUserService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import java.text.ParseException;
@@ -26,6 +27,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@Transactional
 public class CommentServiceImpl implements ICommentService {
 
 
@@ -108,6 +110,18 @@ public class CommentServiceImpl implements ICommentService {
     @Override
     public int getAllCommentSize() {
         return commentMapper.selectCount(new QueryWrapper<>());
+    }
+
+    /**
+     * 获取所有评论数
+     *
+     * @return
+     */
+    @Override
+    public int getCommentSizeByArticleId(Integer articleId) {
+        QueryWrapper<Comment> commentQueryWrapper = new QueryWrapper<>();
+        commentQueryWrapper.eq("article_id", articleId).eq("del", "0");
+        return commentMapper.selectCount(commentQueryWrapper);
     }
 
     /**
@@ -210,7 +224,6 @@ public class CommentServiceImpl implements ICommentService {
     @Override
     public void deleteRealById(Integer id) {
         deleteRecursion(id, 0);
-        updateCommentSize(id, true);
     }
 
     /**
@@ -221,7 +234,7 @@ public class CommentServiceImpl implements ICommentService {
     @Override
     public void deleteById(Integer id) {
         deleteRecursion(id, 1);
-        updateCommentSize(id, true);
+        updateCommentSize(id);
     }
 
     /**
@@ -232,26 +245,18 @@ public class CommentServiceImpl implements ICommentService {
     @Override
     public void restoreCommentById(Integer id) {
         deleteRecursion(id, 2);
-        updateCommentSize(id, false);
+        updateCommentSize(id);
     }
 
     /**
      * 更新总评论数
      *
-     * @param id
-     * @param isDel
+     * @param commentId
      */
-    public void updateCommentSize(Integer id, boolean isDel) {
-        Integer articleId = getCommentById(id).getArticleId();
-        int currentSize = 0;
-        if (isDel) {
-            currentSize = otherService.getOtherByArticleId(articleId).getCommentSize() - size;
-        } else {
-            currentSize = otherService.getOtherByArticleId(articleId).getCommentSize() + size;
-        }
-        otherService.updateCommentSizeByArticleId(articleId, currentSize);
-        //防止脏数据
-        size = 0;
+    public void updateCommentSize(Integer commentId) {
+        Integer articleId = getCommentById(commentId).getArticleId();
+        int commentSize = getCommentSizeByArticleId(articleId);
+        otherService.updateCommentSizeByArticleId(articleId, commentSize);
     }
 
 
@@ -279,12 +284,14 @@ public class CommentServiceImpl implements ICommentService {
         //真实删除
         if (type == 0) {
             commentMapper.deleteById(pid);
-            size++;
         } else if (type == 1) {
+            //说明子评论已经被删除
+            if (getCommentById(pid).getDel().equals("1")) {
+                return;
+            }
             //逻辑
             com.setDel("1");
             commentMapper.updateById(com);
-            size++;
         } else if (type == 2) {
             //获取当前评论的父评论，判断是否被删除，如果被删除则不能还原子评论
             Integer pidDel = getCommentById(pid).getPid();
@@ -299,7 +306,6 @@ public class CommentServiceImpl implements ICommentService {
             //还原
             com.setDel("0");
             commentMapper.updateById(com);
-            size++;
         }
         //递归的条件出口
         if (comments.size() <= 0) {

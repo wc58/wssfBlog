@@ -9,6 +9,8 @@ import java.util.List;
 
 public interface ICommentService {
 
+    public int getCommentSizeByArticleId(Integer articleId);
+
     List<FullComment> getCommentsByArticleId(Integer id);
 
     void addReply(Comment comment);

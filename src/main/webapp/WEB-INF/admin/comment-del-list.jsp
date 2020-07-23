@@ -169,10 +169,9 @@
                         success: function (res) {
                             if (res.code == 1000) {
                                 layer.msg("更新成功！");
-                                var temp = res.map.article
-                                obj.update({
-                                    temp
-                                });
+                                tableArticle.reload({
+                                    url: '/admin/getDelComments' //数据接口
+                                })
                             } else {
                                 layer.msg("更新失败！服务器错误！");
                             }
@@ -190,8 +189,9 @@
                         success: function (res) {
                             if (res.code === 1000) {
                                 layer.msg("删除成功！");
-                                obj.del();
-                                layer.close(index);
+                                tableArticle.reload({
+                                    url: '/admin/getDelComments' //数据接口
+                                })
                             } else {
                                 layer.msg("删除失败！服务器错误！");
                             }
