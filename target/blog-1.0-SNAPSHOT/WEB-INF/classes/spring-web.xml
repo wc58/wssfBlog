@@ -70,6 +70,7 @@
 
     <!--处理直接请求-->
     <mvc:view-controller path="about" view-name="about"/>
+    <mvc:view-controller path="linkForm" view-name="linkForm"/>
 
     <mvc:view-controller path="admin" view-name="admin/login"/>
     <mvc:view-controller path="admin/articleCommList" view-name="admin/article-comm-list"/>

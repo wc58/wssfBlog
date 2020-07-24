@@ -45,7 +45,7 @@
         </div>
     </div>
 </header>
-<div class="doc-container" id="doc-container">
+<div id="doc-container">
     <div class="about-banner" id="container">
         <header class="l-top hasAnim arrow-holder">
             <a data-path-hover="M31.3184948,33.1943359 C36.3357454,28.0664371 44.4728686,28.0690462 49.572124,33.2807584 C54.6360745,38.4563871 54.6061839,46.8782889 49.6566817,51.9369454 L31.318494,69.5197703 L49.6566817,89.71735 C54.6739322,94.8452488 54.6713794,103.161825 49.572124,108.373537 C44.5081735,113.549166 36.267997,113.518616 31.3184948,108.459959 L3.8112137,78.891075 C-1.25273677,73.7154463 -1.2880417,65.3601778 3.8112137,60.1484655 L31.3184948,33.1943359 Z">
@@ -89,6 +89,7 @@
                     <p>
                         申请提交后若无其它原因将在24小时内审核，如超过时间还未通过，请私信我。经常光顾本站，友链可以靠前哦
                     </p>
+                    <button id="apply" class="layui-btn layui-btn-radius layui-btn-normal">申请</button>
                 </section>
             </article>
             <ul class="link-list">
@@ -112,7 +113,35 @@
 <script src="${pageContext.request.contextPath}/js/yss/gloable.js"></script>
 <script src="${pageContext.request.contextPath}/js/plugins/nprogress.js"></script>
 <script>NProgress.start();</script>
-<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
 <script src="../js/plugins/blogbenoitboucart.min.js"></script>
+<script>
+
+    layui.use('layer', function () {
+        $("#apply").click(function () {
+            var userId = '${sessionScope.user.id}';
+            var isApply = '${sessionScope.isApply==null?'0':'1'}';
+            if (userId === '') {
+                layer.msg("请先登录", {
+                    offset: ['300px']
+                })
+                return;
+            }
+            if (isApply === '1') {
+                layer.msg("该账户已经申请过", {
+                    offset: ['300px']
+                })
+                return;
+            }
+            layer.open({
+                type: 2,
+                anim: 1,
+                title: '申请友链',
+                content: '/linkForm',
+                offset: ['200px'],
+                area: ['350px', '350px'],
+            });
+        })
+    })
+</script>
 </body>
 </html>

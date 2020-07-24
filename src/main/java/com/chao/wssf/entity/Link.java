@@ -23,6 +23,7 @@ public class Link implements Serializable {
     private String url;
     private String des;
     private String del;
+    private Integer userId;
     private Date createTime;
     private Date updateTime;
 

@@ -1,6 +1,8 @@
 package com.chao.wssf.web.controller;
 
+import com.chao.wssf.entity.Link;
 import com.chao.wssf.entity.User;
+import com.chao.wssf.service.ILinkService;
 import com.chao.wssf.service.IUserService;
 import com.chao.wssf.util.R;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,11 @@ import javax.servlet.http.HttpSession;
 @RequestMapping("user")
 public class UserController {
 
+
+    @Autowired
+    private ILinkService linkService;
+
+
     /**
      * 用于测试
      *
@@ -27,6 +34,9 @@ public class UserController {
         User user = userService.checkUser(thirdId, email);
         if (user != null) {
             session.setAttribute("user", user);
+            //判断该账号是否申请过友链
+            Link link = linkService.getLinkByUserId(user.getId());
+            session.setAttribute("isApply", link);
             //七天的有效期
             session.setMaxInactiveInterval(60 * 60 * 24 * 7);
             return R.OK();
