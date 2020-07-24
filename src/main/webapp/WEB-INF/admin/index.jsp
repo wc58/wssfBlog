@@ -139,19 +139,19 @@
             </li>
             <li>
                 <a href="javascript:;">
-                    <i class="iconfont left-nav-li" lay-tips="系统统计">&#xe723;</i>
-                    <cite>系统统计</cite>
+                    <i class="iconfont left-nav-li" lay-tips="其他管理">&#xe723;</i>
+                    <cite>其他管理</cite>
                     <i class="iconfont nav_right">&#xe697;</i></a>
                 <ul class="sub-menu">
                     <li>
-                        <a onclick="xadmin.add_tab('系统统计','blog-info.html')">
+                        <a onclick="xadmin.add_tab('标签管理','/admin/labelList')">
                             <i class="iconfont">&#xe6a7;</i>
-                            <cite>博客统计</cite></a>
+                            <cite>标签管理</cite></a>
                     </li>
                     <li>
-                        <a onclick="xadmin.add_tab('系统统计','system-info.html')">
+                        <a onclick="xadmin.add_tab('友链管理','system-info.html')">
                             <i class="iconfont">&#xe6a7;</i>
-                            <cite>系统信息</cite></a>
+                            <cite>友链管理</cite></a>
                     </li>
                 </ul>
             </li>

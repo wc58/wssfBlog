@@ -9,10 +9,11 @@
 <link rel="stylesheet" href="../../css/font.css">
 <link rel="stylesheet" href="../../css/login.css">
 <link rel="stylesheet" href="../../css/xadmin.css">
+<link rel="stylesheet" href="../../css/theme3990.min.css">
 <script src="../../layui/layui.js" charset="utf-8"></script>
 
 <%--desk页面--%>
-<link rel="stylesheet" href="../../css/xadmin.css">
+
 <script type="text/javascript" src="../../js/xadmin.js"></script>
 
 <%--write-blog页面--%>

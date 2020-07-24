@@ -141,12 +141,12 @@ public class LeaveServiceImpl implements ILeaveService {
         commentQueryWrapper.orderByDesc("create_time");
 
         //条件判断
-        if (username != null && !username.equals("")) {
+        if (!StringUtils.isEmpty(username)) {
             List<Integer> ids = userService.getUserByUsername(username).stream().map(User::getId).collect(Collectors.toList());
             ids.add(-1);
             commentQueryWrapper.in("user_id", ids);
         }
-        if (content != null && !content.equals("")) {
+        if (!StringUtils.isEmpty(content)) {
             commentQueryWrapper.like("content", content);
         }
 
