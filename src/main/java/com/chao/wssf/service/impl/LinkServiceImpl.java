@@ -119,6 +119,8 @@ public class LinkServiceImpl implements ILinkService {
             Date date = simpleDateFormat.parse(endTime);
             linkQueryWrapper.le("create_time", date);
         }
+        linkQueryWrapper.orderByDesc("del").orderByDesc("sort");
+
         Page linkPage = new Page<>(page, limit);
         Page selectPage = linkMapper.selectPage(linkPage, linkQueryWrapper);
         ArrayList<AllLink> allLinks = new ArrayList<>();
@@ -132,5 +134,38 @@ public class LinkServiceImpl implements ILinkService {
         }
         linkPage.setRecords(allLinks);
         return selectPage;
+    }
+
+    /**
+     * id删除链接
+     *
+     * @param id
+     */
+    @Override
+    public void deleteLinkById(Integer id) {
+        linkMapper.deleteById(id);
+    }
+
+    /**
+     * id  更新
+     *
+     * @param id
+     * @param title
+     * @param icon
+     * @param url
+     * @param des
+     * @param del
+     */
+    @Override
+    public void updateLinkById(Integer id, String title, String icon, String url, Integer sort, String des, String del) {
+        Link link = new Link();
+        link.setId(id);
+        link.setTitle(title);
+        link.setIcon(icon);
+        link.setDes(des);
+        link.setSort(sort);
+        link.setDel(del);
+        link.setUpdateTime(new Date());
+        linkMapper.updateById(link);
     }
 }

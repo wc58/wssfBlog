@@ -1,6 +1,7 @@
 package com.chao.wssf.web.admin;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.chao.wssf.entity.Link;
 import com.chao.wssf.service.ILeaveService;
 import com.chao.wssf.service.ILinkService;
 import com.chao.wssf.service.impl.LeaveServiceImpl;
@@ -49,100 +50,28 @@ public class LinkManageController {
         }
     }
 
-    /* *//**
-     * 查询删除评论
-     *
-     * @param page
-     * @param limit
-     * @param username
-     * @param content
-     * @param contentSize
-     * @param startTime
-     * @param endTime
-     * @return
-     *//*
-    @RequestMapping("getDelLeaves")
+    @RequestMapping("deleteLink")
     @ResponseBody
-    public Map<String, Object> getDelLeaves(Integer page, Integer limit, String username, String content, String contentSize, String startTime, String endTime) {
-        return getLeaveMap(true, page, limit, username, content, startTime, endTime);
-    }
-
-    *//**
-     * 逻辑删除评论
-     *
-     * @param id
-     *//*
-    @RequestMapping("deleteLeave")
-    @ResponseBody
-    public R deleteLeave(Integer id) {
+    public R deleteLink(Integer id) {
         try {
-            leaveService.deleteById(id);
-            return R.OK();
+            linkService.deleteLinkById(id);
         } catch (Exception e) {
             e.printStackTrace();
             return R.ERROR();
         }
+        return R.OK();
     }
 
-    *//**
-     * 真实删除评论
-     *
-     * @param id
-     *//*
-    @RequestMapping("deleteRealLeave")
+    @RequestMapping("updateLink")
     @ResponseBody
-    public R deleteRealLeave(Integer id) {
+    public R updateLink(Integer id, String title, String icon, String url, Integer sort, String des, String del) {
         try {
-            leaveService.deleteRealById(id);
-            return R.OK();
+            linkService.updateLinkById(id, title, icon, url, sort, des, del);
         } catch (Exception e) {
             e.printStackTrace();
             return R.ERROR();
         }
+        return R.OK();
     }
 
-
-    *//**
-     * 还原评论
-     *
-     * @param id
-     *//*
-    @RequestMapping("restoreLeave")
-    @ResponseBody
-    public R restoreLeave(Integer id) {
-        try {
-            LeaveServiceImpl leaveServiceImpl = (LeaveServiceImpl) this.leaveService;
-            leaveService.restoreCommentById(id);
-            if (leaveServiceImpl.isRestore) {
-                return R.OK();
-            }
-            R ok = R.ERROR().data("pName", leaveServiceImpl.pName);
-            //重置数据
-            leaveServiceImpl.isRestore = true;
-            leaveServiceImpl.pName = "";
-            return ok;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return R.ERROR();
-        }
-    }
-
-
-    *//**
-     * 逻辑删除评论
-     *
-     * @param id
-     *//*
-    @RequestMapping("updateLeave")
-    @ResponseBody
-    public R updateLeave(Integer id, String content) {
-        try {
-            leaveService.updateLeave(id, content);
-            return R.OK();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return R.ERROR();
-        }
-    }
-*/
 }

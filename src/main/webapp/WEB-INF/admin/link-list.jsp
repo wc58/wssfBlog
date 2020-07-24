@@ -69,7 +69,6 @@
 </body>
 <script type="text/html" id="bar">
     <div class="layui-btn-container">
-        <a class="layui-btn layui-btn-xs  layui-btn-primary" lay-event="restore"><i class="layui-icon">&#xe666;</i></a>
         <a class="layui-btn layui-btn-xs" lay-event="edit"> <i class="layui-icon">&#xe605;</i></a>
         <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="delete"><i class="layui-icon">&#xe640;</i></a>
     </div>
@@ -89,7 +88,7 @@
             , page: true //开启分页
             , cols: [[ //表头
                 {field: 'id', title: 'ID', width: 60, sort: true, fixed: 'left'}
-                , {field: 'userName', title: '用户名称', width: 100, sort: true}
+                , {field: 'userName', title: '用户名称', width: 100}
                 , {field: 'title', title: '网站名称', width: 150, edit: 'text'}
                 , {
                     field: 'icon',
@@ -98,12 +97,12 @@
                     templet: '<div><img src="{{ d.icon }}" style="width:150px; height:150px;"></div>',
                     edit: 'text'
                 }
-                , {field: 'des', title: '网站描述', width: 200, sort: true}
-                , {field: 'sort', title: '排序', width: 70, sort: true}
-                , {field: 'del', title: '删除', width: 70, sort: true}
+                , {field: 'des', title: '网站描述', width: 240, edit: 'text'}
+                , {field: 'sort', title: '排序', width: 70, sort: true, edit: 'text'}
+                , {field: 'del', title: '删除', width: 70, sort: true, edit: 'text'}
                 , {field: 'createTime', title: '创建时间', width: 142, sort: true}
                 , {field: 'updateTime', title: '最近修改', width: 142, sort: true}
-                , {fixed: 'right', width: 170, align: 'center', toolbar: '#bar'}
+                , {fixed: 'right', width: 130, align: 'center', toolbar: '#bar'}
             ]]
         });
 
@@ -126,20 +125,15 @@
             location.reload();
         })
 
-
         layui.use('laydate', function () {
             var laydate = layui.laydate;
-
             laydate.render({
                 elem: '#startTime'
             });
-
             laydate.render({
                 elem: '#endTime'
             });
-
         });
-
 
         //监听事件
         table.on('tool(articleTable)', function (obj) {
@@ -147,49 +141,12 @@
             var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
 
             //置顶
-            if (layEvent === 'restore') {
-                $.ajax({
-                    type: 'post',
-                    url: '/admin/restoreLeave',
-                    data: data,
-                    success: function (res) {
-                        if (res.code === 1000) {
-                            layer.msg("还原成功！");
-                            tableArticle.reload({
-                                url: '/admin/getLinks' //数据接口
-                            })
-                        } else {
-                            layer.msg("还原失败！该评论可能还有父评论是被删除状态");
-                            $("#sName").val(res.map.pName)
-                        }
-                    },
-                    dataType: 'json'
-                });
-            } else if (layEvent === 'edit') { //编辑
-                layer.confirm('确定要修改用户评论信息吗？', function (index) {//编辑
-                    $.ajax({
-                        type: 'post',
-                        url: '/admin/updateLeave',
-                        data: data,
-                        success: function (res) {
-                            if (res.code == 1000) {
-                                layer.msg("更新成功！");
-                                tableArticle.reload({
-                                    url: '/admin/getLinks' //数据接口
-                                })
-                            } else {
-                                layer.msg("更新失败！服务器错误！");
-                            }
-                        },
-                        dataType: 'json'
-                    })
-                });
-            } else if (layEvent === 'delete') {//删除
+            if (layEvent === 'delete') {
                 layer.confirm('一旦删除则彻底消失不见！', function (index) {
                     //服务器删除
                     $.ajax({
                         type: 'post',
-                        url: '/admin/deleteRealLeave',
+                        url: '/admin/deleteLink',
                         data: data,
                         success: function (res) {
                             if (res.code === 1000) {
@@ -204,12 +161,27 @@
                         dataType: 'json'
                     })
                 });
+            } else if (layEvent === 'edit') { //编辑
+                layer.confirm('确定要修改用户评论信息吗？', function (index) {//编辑
+                    $.ajax({
+                        type: 'post',
+                        url: '/admin/updateLink',
+                        data: data,
+                        success: function (res) {
+                            if (res.code == 1000) {
+                                layer.msg("更新成功！");
+                                tableArticle.reload({
+                                    url: '/admin/getLinks' //数据接口
+                                })
+                            } else {
+                                layer.msg("更新失败！服务器错误！");
+                            }
+                        },
+                        dataType: 'json'
+                    })
+                });
             }
         });
-
-
     });
-
-
 </script>
 </html>

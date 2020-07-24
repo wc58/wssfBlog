@@ -59,11 +59,15 @@
                 layer.msg("上述内容不能为空")
                 return;
             }
-            if (title.length > 6) {
+            if (icon.length < 6 || url.length < 6) {
+                layer.msg("地址不正确")
+                return;
+            }
+            if (title.length > 10) {
                 layer.msg("名称过长")
                 return;
             }
-            if (desc.length > 18) {
+            if (desc.length > 30) {
                 layer.msg("描述过长")
                 return;
             }

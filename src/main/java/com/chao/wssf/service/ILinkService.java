@@ -17,4 +17,8 @@ public interface ILinkService {
     void addLink(String title, String icon, String url, String desc, Integer id);
 
     Page getLinks(Integer page, Integer limit, String username, String name, String startTime, String endTime) throws ParseException;
+
+    void deleteLinkById(Integer id);
+
+    void updateLinkById(Integer id, String title, String icon, String url, Integer sort, String des, String del);
 }
