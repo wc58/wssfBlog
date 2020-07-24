@@ -17,10 +17,10 @@ import javax.servlet.http.HttpSession;
 @RequestMapping("user")
 public class UserController {
 
-
     @Autowired
     private ILinkService linkService;
-
+    @Autowired
+    private IUserService userService;
 
     /**
      * 用于测试
@@ -44,7 +44,5 @@ public class UserController {
         return R.ERROR();
     }
 
-    @Autowired
-    private IUserService userService;
 
 }

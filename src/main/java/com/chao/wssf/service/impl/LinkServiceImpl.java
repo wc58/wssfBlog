@@ -168,4 +168,14 @@ public class LinkServiceImpl implements ILinkService {
         link.setUpdateTime(new Date());
         linkMapper.updateById(link);
     }
+
+    /**
+     * 根据用户删除对应的友链
+     *
+     * @param id
+     */
+    @Override
+    public void deleteLinkByUserId(Integer id) {
+        linkMapper.delete(new QueryWrapper<Link>().eq("user_id", id));
+    }
 }

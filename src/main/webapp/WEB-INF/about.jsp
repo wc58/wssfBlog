@@ -90,7 +90,6 @@
                 </span>
                     <ul>
                         <li>邮 箱 ：<a href="javascript:;">2258354832@qq.com</a></li>
-                        <li>微 信 ：<a href="javascript:;">whr_chao</a></li>
                         <li>github：<a href="javascript:;">https://github.com/wc58</a></li>
                     </ul>
 

@@ -21,4 +21,6 @@ public interface ILinkService {
     void deleteLinkById(Integer id);
 
     void updateLinkById(Integer id, String title, String icon, String url, Integer sort, String des, String del);
+
+    void deleteLinkByUserId(Integer id);
 }
