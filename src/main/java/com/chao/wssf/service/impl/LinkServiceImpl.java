@@ -1,14 +1,24 @@
 package com.chao.wssf.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.chao.wssf.entity.Link;
+import com.chao.wssf.entity.User;
 import com.chao.wssf.mapper.LinkMapper;
+import com.chao.wssf.pojo.AllLink;
 import com.chao.wssf.service.ILinkService;
+import com.chao.wssf.service.IUserService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class LinkServiceImpl implements ILinkService {
@@ -16,8 +26,11 @@ public class LinkServiceImpl implements ILinkService {
     @Autowired
     private LinkMapper linkMapper;
 
+    @Autowired
+    private IUserService userService;
+
     /**
-     * 所有友链
+     * 所有正常友链
      *
      * @return
      */
@@ -72,5 +85,52 @@ public class LinkServiceImpl implements ILinkService {
         link.setUpdateTime(date);
         link.setCreateTime(date);
         linkMapper.insert(link);
+    }
+
+    /**
+     * 获取所有的友链
+     *
+     * @param page
+     * @param limit
+     * @param username
+     * @param name
+     * @param startTime
+     * @param endTime
+     * @return
+     */
+    @Override
+    public Page getLinks(Integer page, Integer limit, String username, String name, String startTime, String endTime) throws ParseException {
+        QueryWrapper<Link> linkQueryWrapper = new QueryWrapper<>();
+        if (!StringUtils.isEmpty(username)) {
+            List<Integer> ids = userService.getUserByUsername(username).stream().map(User::getId).collect(Collectors.toList());
+            ids.add(-1);
+            linkQueryWrapper.in("user_id", ids);
+        }
+        if (!StringUtils.isEmpty(name)) {
+            linkQueryWrapper.like("title", name);
+        }
+        //对日期进行转换
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        if (!StringUtils.isEmpty(startTime)) {
+            Date date = simpleDateFormat.parse(startTime);
+            linkQueryWrapper.ge("create_time", date);
+        }
+        if (!StringUtils.isEmpty(endTime)) {
+            Date date = simpleDateFormat.parse(endTime);
+            linkQueryWrapper.le("create_time", date);
+        }
+        Page linkPage = new Page<>(page, limit);
+        Page selectPage = linkMapper.selectPage(linkPage, linkQueryWrapper);
+        ArrayList<AllLink> allLinks = new ArrayList<>();
+        for (Object record : selectPage.getRecords()) {
+            Link link = (Link) record;
+            AllLink allLink = new AllLink();
+            Integer userId = link.getUserId();
+            allLink.setUserName(userService.getUserById(userId).getName());
+            BeanUtils.copyProperties(link, allLink);
+            allLinks.add(allLink);
+        }
+        linkPage.setRecords(allLinks);
+        return selectPage;
     }
 }

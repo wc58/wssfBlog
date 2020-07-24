@@ -113,9 +113,9 @@
 <script src="${pageContext.request.contextPath}/js/yss/gloable.js"></script>
 <script src="${pageContext.request.contextPath}/js/plugins/nprogress.js"></script>
 <script>NProgress.start();</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
 <script src="../js/plugins/blogbenoitboucart.min.js"></script>
 <script>
-
     layui.use('layer', function () {
         $("#apply").click(function () {
             var userId = '${sessionScope.user.id}';

@@ -149,7 +149,7 @@
                             <cite>标签管理</cite></a>
                     </li>
                     <li>
-                        <a onclick="xadmin.add_tab('友链管理','system-info.html')">
+                        <a onclick="xadmin.add_tab('友链管理','/admin/linkList')">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>友链管理</cite></a>
                     </li>

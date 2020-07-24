@@ -84,6 +84,6 @@
     <mvc:view-controller path="admin/leaveDelList" view-name="admin/leave-del-list"/>
 
     <mvc:view-controller path="admin/labelList" view-name="admin/label-list"/>
-    <!--    <mvc:view-controller path="admin/leaveDelList" view-name="admin/leave-del-list"/>-->
+    <mvc:view-controller path="admin/linkList" view-name="admin/link-list"/>
 
 </beans>
