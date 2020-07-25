@@ -36,18 +36,6 @@
         <div class="header-inner">
             <a href="/blog/list" class="header-logo" id="logo">Chao.Sir</a>
             <%@ include file="include-bar.jsp" %>
-            <%-- <a href="/User/QQLogin" class="blog-user layui-anim-scale">
-                 <i class="fa fa-qq"></i>
-             </a>--%>
-            <c:if test="${sessionScope.user !=null}">
-                <img class="blog-user layui-anim-scale" src="${sessionScope.user.icon}" style="height: 50px">
-            </c:if>
-            <c:if test="${sessionScope.user ==null}">
-                <a id="login" href="#" class="blog-user layui-anim-scale">
-                    登录
-                </a>
-            </c:if>
-
 
             <a class="phone-menu ">
                 <i></i>

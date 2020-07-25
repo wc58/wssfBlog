@@ -16,3 +16,12 @@
         <li><a href="/about">关于</a></li>
     </ul>
 </nav>
+<%--登录位置--%>
+<a href="#" onclick="login()" class="blog-user">
+    <i class="fa fa-qq"></i>
+</a>
+<script>
+    function login() {
+        alert("由于网站在进行备案中，暂时不能支持登录")
+    }
+</script>
