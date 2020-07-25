@@ -118,7 +118,7 @@
             layer.open({
                 type: 2,
                 anim: 1,
-                title: '修改日志',
+                title: '修改日记',
                 content: '/admin/writeDiary?id=' + obj.data.id,
                 area: ['1100px', '700px'],
                 end: function () {

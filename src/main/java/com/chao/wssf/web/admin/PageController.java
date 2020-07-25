@@ -104,7 +104,7 @@ public class PageController {
     }
 
     /**
-     * 写日志页面
+     * 写日记页面
      *
      * @return
      */

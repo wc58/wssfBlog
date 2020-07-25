@@ -19,7 +19,7 @@
     <%@ include file="staticSource.jsp" %>
     <script>
         // 是否开启刷新记忆tab功能
-        var is_remember = false;
+        var is_remember = true;
     </script>
 </head>
 <body class="index">
@@ -30,34 +30,12 @@
     <div class="left_open">
         <a><i title="展开左侧栏" class="iconfont">&#xe699;</i></a>
     </div>
-    <ul class="layui-nav left fast-add" lay-filter="">
-        <!--<li class="layui-nav-item">
-            <a href="javascript:;">+新增</a>
-
-            <dl class="layui-nav-child">
-                &lt;!&ndash; 二级菜单 &ndash;&gt;
-                <dd>
-                    <a onclick="xadmin.open('最大化','http://www.baidu.com','','',true)">
-                        <i class="iconfont">&#xe6a2;</i>弹出最大化</a></dd>
-                <dd>
-                    <a onclick="xadmin.open('弹出自动宽高','http://www.baidu.com')">
-                        <i class="iconfont">&#xe6a8;</i>弹出自动宽高</a></dd>
-                <dd>
-                    <a onclick="xadmin.open('弹出指定宽高','http://www.baidu.com',500,300)">
-                        <i class="iconfont">&#xe6a8;</i>弹出指定宽高</a></dd>
-                <dd>
-                    <a onclick="xadmin.add_tab('在tab打开','member-list.html')">
-                        <i class="iconfont">&#xe6b8;</i>在tab打开</a></dd>
-                <dd>
-                    <a onclick="xadmin.add_tab('在tab打开刷新','member-del.html',true)">
-                        <i class="iconfont">&#xe6b8;</i>在tab打开刷新</a></dd>
-            </dl>
-        </li>-->
+    <ul class="layui-nav left fast-add">
         <li class="layui-nav-item">
             <a href="javascript:;" onclick="xadmin.open('发布文章','writeBlog.html')">发布文章</a>
         </li>
         <li class="layui-nav-item">
-            <a href="javascript:;" onclick="xadmin.open('最大化','http://localhost:8080/',1100,600)">写写日记</a>
+            <a href="javascript:;" onclick="xadmin.open('写写日记','/admin/writeDiary',1100,600)">写写日记</a>
         </li>
     </ul>
     <ul class="layui-nav right" lay-filter="">
@@ -139,19 +117,19 @@
             </li>
             <li>
                 <a href="javascript:;">
-                    <i class="iconfont left-nav-li" lay-tips="日志管理">&#xe723;</i>
-                    <cite>日志管理</cite>
+                    <i class="iconfont left-nav-li" lay-tips="日记管理">&#xe723;</i>
+                    <cite>日记管理</cite>
                     <i class="iconfont nav_right">&#xe697;</i></a>
                 <ul class="sub-menu">
                     <li>
                         <a onclick="xadmin.add_tab('添加日记','/admin/writeDiary')">
                             <i class="iconfont">&#xe6a7;</i>
-                            <cite>添加日志</cite></a>
+                            <cite>添加日记</cite></a>
                     </li>
                     <li>
                         <a onclick="xadmin.add_tab('友链管理','/admin/diaryList',true)">
                             <i class="iconfont">&#xe6a7;</i>
-                            <cite>日志列表</cite></a>
+                            <cite>日记列表</cite></a>
                     </li>
                 </ul>
             </li>

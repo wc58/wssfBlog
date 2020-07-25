@@ -30,7 +30,9 @@
                 </div>
             </div>
         </div>
+
         <div></div>
+        <a href="javascript:;" onclick="location.reload()">刷新</a>
         <div class="layui-col-md12">
             <div class="layui-card">
                 <div class="layui-card-header">数据统计</div>
@@ -149,9 +151,9 @@
                         </div>
                     </div>
                 </div>
+            </div>
         </div>
     </div>
-</div>
 </div>
 <script src="../../js/echarts.min.js"></script>
 <script type="text/javascript">

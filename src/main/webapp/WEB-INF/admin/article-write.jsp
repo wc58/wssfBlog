@@ -152,10 +152,6 @@
     <div class="layui-row">
         <br/>
         <br/>
-        <%--  <div id="tools" class="toolbar">
-          </div>--%>
-        <%--  <div style="padding: 5px 0; color: #ccc">
-          </div>--%>
         <div id="content" class="text">
             <p>${article.content}</p>
         </div>
@@ -179,7 +175,7 @@
 
 <script src="${pageContext.request.contextPath}/highlight/highlight.pack.js"></script>
 <script>
-
+    /*双击事件*/
     document.addEventListener('keydown', function (e) {
         if (e.keyCode == 83 && (navigator.platform.match("Mac") ? e.metaKey : e.ctrlKey)) {
             e.preventDefault();
@@ -187,6 +183,7 @@
         }
     });
 
+    /*富文本编辑器*/
     var E = window.wangEditor
     var editor = new E('#content')
     editor.customConfig.uploadImgMaxSize = 10 * 1024 * 1024
@@ -212,19 +209,18 @@
         'table', // 表格
         'video', // 插入视频 
         'code', // 插入代码 
-        // 'undo', // 撤销
-        // 'redo' // 重复
     ]
     editor.create()
     E.fullscreen.init('#content');
+
+    /*代码高亮*/
     $(function () {
         $('pre code').each(function (i, block) {
             hljs.highlightBlock(block);
         });
     });
-    /**
-     * @todo 查看源码
-     */
+
+    /*查看源码扩展*/
     window.wangEditor.viewsource = {
         init: function (editorSelector) {
             $(editorSelector + " .w-e-toolbar").append('<div class="w-e-menu"><a class="_wangEditor_btn_viewsource" href="###" onclick="window.wangEditor.viewsource.toggleViewsource(\'' + editorSelector + '\')">源码</a></div>');
@@ -245,6 +241,7 @@
     E.viewsource.init('#content');
 
 
+    /*关闭事件，防止内容丢失*/
     var unloadPageTip = function () {
         return "您编辑的文章内容还没有进行保存!";
     };
@@ -373,15 +370,12 @@
         })
     }
 
-    //写新的文章
+    /*重写文章*/
     $("#newBlog").click(function () {
         location.reload();
     });
 
-    var flag = 0;
-
     layui.use('form', function () {
-
     });
 
 

@@ -12,7 +12,7 @@
         <li><a href="/blog/list">博客</a></li>
         <li><a href="/leave/leavePage">吐槽</a></li>
         <li><a href="/link/page">友链</a></li>
-        <li><a href="/diary/page">日志</a></li>
+        <li><a href="/diary/page">日记</a></li>
         <li><a href="/about">关于</a></li>
     </ul>
 </nav>

@@ -2,15 +2,9 @@ package com.chao.wssf.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.chao.wssf.entity.Link;
 import com.chao.wssf.entity.User;
 import com.chao.wssf.mapper.UserMapper;
-import com.chao.wssf.pojo.AllLink;
-import com.chao.wssf.service.ICommentService;
-import com.chao.wssf.service.ILeaveService;
-import com.chao.wssf.service.ILinkService;
 import com.chao.wssf.service.IUserService;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,10 +12,8 @@ import org.springframework.util.StringUtils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -29,19 +21,11 @@ public class UserServiceImpl implements IUserService {
 
     @Autowired
     private UserMapper userMapper;
-    @Autowired
-    private ILinkService linkService;
-
-    @Autowired
-    private ILeaveService leaveService;
-
-    @Autowired
-    private ICommentService commentService;
 
     @Override
     public User checkUser(String thirdId, String email) {
         QueryWrapper<User> userQueryWrapper = new QueryWrapper<>();
-        userQueryWrapper.eq("third_id", thirdId).eq("email", email).eq("del", "0");
+        userQueryWrapper.eq("third_id", thirdId).eq("email", email);
         return userMapper.selectOne(userQueryWrapper);
     }
 

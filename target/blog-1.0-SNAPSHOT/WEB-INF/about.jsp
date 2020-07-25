@@ -98,14 +98,14 @@
                     <h1>关于本站</h1>
                     <p>
                         前台开发周期：2020年7月9号 ~ 2020年7月15号完成<br/>
-                        后台开发周期：2020年7月16号 ~ 2020年7月22号完成<br/>
-                        项目正式上线：2020年7月23号
+                        后台开发周期：2020年7月16号 ~ 2020年7月25号完成<br/>
+                        项目正式上线：2020年7月25号
                     </p>
                     <span>
                     本站结构：
                 </span>
                     <ul>
-                        <li>前 端 ：<code>Layui</code>+<code>jquery</code>+<code>燕十三模板</code></li>
+                        <li>前 端 ：<code>Layui</code>+<code>jquery</code>+<code>燕十三模板</code>+<code>X-Admin</code></li>
                         <li>后 端 ：<code>SSM</code>+<code>Mybatis-plus</code></li>
                         <li>数据库：<code>Mysql</code></li>
                         <li>存 储 ：<code>阿里轻量级服务器</code>+<code>OSS</code></li>
