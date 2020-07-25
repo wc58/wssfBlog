@@ -8,7 +8,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="f" uri="http://java.sun.com/jsp/jstl/fmt" %>
-s
 <!DOCTYPE html>
 <html>
 <head>
@@ -35,9 +34,9 @@ s
         <div class="header-inner">
             <a href="/blog/list" class="header-logo" id="logo">Chao.Sir</a>
             <%@ include file="include-bar.jsp" %>
-           <%-- <a href="#" class="blog-user">
+            <a href="#" class="blog-user">
                 <i class="fa fa-qq"></i>
-            </a>--%>
+            </a>
             <a class="phone-menu">
                 <i></i>
                 <i></i>

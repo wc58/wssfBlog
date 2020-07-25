@@ -5,7 +5,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.chao.wssf.entity.*;
 import com.chao.wssf.mapper.LeaveMapper;
 import com.chao.wssf.mapper.UserMapper;
-import com.chao.wssf.pojo.AllComment;
 import com.chao.wssf.pojo.AllLeave;
 import com.chao.wssf.pojo.FullLeave;
 import com.chao.wssf.service.ILeaveService;
@@ -279,6 +278,5 @@ public class LeaveServiceImpl implements ILeaveService {
         leave.setContent(content);
         leaveMapper.updateById(leave);
     }
-
 
 }

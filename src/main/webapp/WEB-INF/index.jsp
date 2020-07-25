@@ -46,7 +46,6 @@
         <li><a href="/index">首页</a></li>
         <li><a href="/blog/list">博客</a></li>
         <li><a href="/leave/leavePage">吐槽</a></li>
-        <li><a id="toDiary" href="javascript:;">日记</a></li>
     </ul>
     <div class="logo"><a>Chao.Sir</a></div>
 </div>
@@ -86,11 +85,11 @@
                              style="padding: 0 10px">
                             <div class="single-news">
                                 <c:if test="${article.picture != ''}">
-                                <div class="news-head">
-                                        <%--图片--%>
-                                    <img class="imgCa" src="${article.picture}"/>
-                                    <a href="/blog/read/${article.id}" class="link"><i class="fa fa-link"></i></a>
-                                </div>
+                                    <div class="news-head">
+                                            <%--图片--%>
+                                        <img class="imgCa" src="${article.picture}"/>
+                                        <a href="/blog/read/${article.id}" class="link"><i class="fa fa-link"></i></a>
+                                    </div>
                                 </c:if>
                                 <div class="news-content">
                                     <h4>
@@ -252,49 +251,5 @@
 <script src="${pageContext.request.contextPath}/layui/layui.js"></script>
 <script src="${pageContext.request.contextPath}/js/wow.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/index.js"></script>
-<script>
-    layui.use('layer', function () {
-        var $ = layui.$;
-        $("#toDiary").click(function () {
-            layer.open({
-                type: 1,
-                area: ['330px', '180px'],
-                title: '请输入密钥'
-                , content: $("#keyForm"),
-                shade: 0,
-                btn: ['提交', '取消']
-                , btn1: function () {
-                    let key = $("#key").val();
-                    $.ajax({
-                        type: 'post',
-                        url: "/diary/key",
-                        data: {
-                            "key": key,
-                        },
-                        success: function (data) {
-                            if (data.code === 1000) {
-                                //跳转页面也传入key，防止使用特殊技术绕过js
-                                location.href = "${pageContext.request.contextPath}/diary/page"
-                                return true;
-                            } else {
-                                layer.msg("密钥错误");
-                            }
-                            return false;
-                        },
-                        dataType: "json"
-                    })
-                },
-                btn2: function (index, layero) {
-                    $("#key").val("");
-                    return true;
-                },
-                cancel: function (layero, index) {
-                    layer.closeAll();
-                }
-
-            })
-        })
-    })
-</script>
 </body>
 </html>

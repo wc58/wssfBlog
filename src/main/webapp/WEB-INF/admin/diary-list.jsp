@@ -35,21 +35,6 @@
             <div class="layui-card">
                 <div class="layui-card-body ">
                     <div class="layui-form layui-col-space5">
-                        <div class="layui-inline layui-show-xs-block" style="width: 170px">
-                            <select id="label" name="label">
-                                <option value="-1">标签选择</option>
-                            </select>
-                        </div>
-                        <div class="layui-inline layui-show-xs-block">
-                            <input id="sTitle" class="layui-input" autocomplete="off" placeholder="标题" name="end">
-                        </div>
-                        <div class="layui-inline layui-show-xs-block">
-                            <input id="sAuthor" class="layui-input" autocomplete="off" placeholder="作者" name="start">
-                        </div>
-                        <div class="layui-inline layui-show-xs-block">
-                            <input id="sStatus" type="text" name="username" placeholder="状态" autocomplete="off"
-                                   class="layui-input">
-                        </div>
                         <div class="layui-inline layui-show-xs-block">
                             <input type="text" class="layui-input" placeholder="开始时间" id="startTime">
                         </div>
@@ -77,26 +62,10 @@
 </body>
 <script type="text/html" id="bar">
     <div class="layui-btn-container">
-        <a class="layui-btn layui-btn-xs  layui-btn-normal" lay-event="top"><i class="layui-icon">&#xe62f;</i></a>
-        <a class="layui-btn layui-btn-xs" lay-event="edit"> <i class="layui-icon">&#xe605;</i></a>
-        <a class="layui-btn layui-btn-warm layui-btn-xs" lay-event="delete"><i class="layui-icon">&#xe640;</i></a>
+        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="delete"><i class="layui-icon">&#xe640;</i></a>
     </div>
 </script>
 <script>
-
-
-    //标签
-    $.ajax({
-        type: 'post',
-        url: '/label/getAllLabels',
-        dataType: 'json',
-        success: function (data) {
-            for (let x in data) {
-                var obj = document.getElementById('label');
-                obj.options.add(new Option(data[x].name, data[x].value));
-            }
-        }
-    })
 
     var $;
     var tableArticle;
@@ -106,37 +75,22 @@
         //第一个实例
         tableArticle = table.render({
             elem: '#article'
-            , url: '/admin/getCommArticle' //数据接口
+            , url: '/admin/getDiary' //数据接口
             , size: 'lg'
             , page: true //开启分页
             , cols: [[ //表头
                 {field: 'id', title: 'ID', width: 60, sort: true, fixed: 'left'}
-                , {field: 'title', title: '标题', width: 173, edit: 'text'}
-                , {field: 'assistant', title: '描述', width: 110, edit: 'text'}
-                , {
-                    field: 'picture',
-                    title: '封面',
-                    width: 90,
-                    templet: '<div><img src="{{ d.picture }}" style="width:350px; height:150px;"></div>', edit: 'text'
-                }
-                , {field: 'content', title: '内容', width: 149}
-                , {field: 'author', title: '作者', width: 78, sort: true, edit: 'text'}
-                , {field: 'status', title: '状态', width: 69, sort: true, edit: 'text'}
+                , {field: 'content', title: '内容', width: 805}
                 , {field: 'createTime', title: '创建时间', width: 142, sort: true}
                 , {field: 'updateTime', title: '最近修改', width: 142, sort: true}
-                , {fixed: 'right', width: 170, align: 'center', toolbar: '#bar'}
+                , {fixed: 'right', width: 80, align: 'center', toolbar: '#bar'}
             ]]
-
         });
 
         $("#search").click(function () {
             tableArticle.reload({
-                url: '/admin/getCommArticle' //数据接口
+                url: '/admin/getDiary' //数据接口
                 , where: {
-                    label: $("#label").val(),
-                    title: $("#sTitle").val(),
-                    author: $("#sAuthor").val(),
-                    status: $("#sStatus").val(),
                     startTime: $("#startTime").val(),
                     endTime: $("#endTime").val()
                 }, page: {
@@ -151,15 +105,12 @@
 
         layui.use('laydate', function () {
             var laydate = layui.laydate;
-
             laydate.render({
                 elem: '#startTime'
             });
-
             laydate.render({
                 elem: '#endTime'
             });
-
         });
 
         //监听行双击事件
@@ -167,13 +118,13 @@
             layer.open({
                 type: 2,
                 anim: 1,
-                title: '修改文章',
+                title: '修改日志',
                 content: '/admin/writeDiary?id=' + obj.data.id,
                 area: ['1100px', '700px'],
                 end: function () {
                     layer.msg("更新数据")
                     tableArticle.reload({
-                        url: '/admin/getCommArticle' //数据接口
+                        url: '/admin/getDiary' //数据接口
                     })
                 }
             });
@@ -185,53 +136,19 @@
             var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
 
             //置顶
-            if (layEvent === 'top') {
-                $.ajax({
-                    type: 'post',
-                    url: '/admin/topArticle',
-                    data: data,
-                    success: function (res) {
-                        if (res.code === 1000) {
-                            layer.msg("置顶成功！");
-                            obj.del();
-                            layer.close(index);
-                        } else {
-                            layer.msg("置顶失败！可能置顶数量超限了！");
-                        }
-                    },
-                    dataType: 'json'
-                })
-            } else if (layEvent === 'edit') { //编辑
-                $.ajax({
-                    type: 'post',
-                    url: '/admin/updateArticle',
-                    data: data,
-                    success: function (res) {
-                        if (res.code == 1000) {
-                            layer.msg("更新成功！");
-                            var temp = res.map.article
-                            obj.update({
-                                temp
-                            });
-                        } else {
-                            layer.msg("更新失败！服务器错误！");
-                        }
-                    },
-                    dataType: 'json'
-                })
-
-            } else if (layEvent === 'delete') {//删除
-                layer.confirm('真的删除行么？', function (index) {
+            if (layEvent === 'delete') {
+                layer.confirm('一旦删除则彻底消失不见！', function (index) {
                     //服务器删除
                     $.ajax({
                         type: 'post',
-                        url: '/admin/deleteArticle',
+                        url: '/admin/deleteDiary',
                         data: data,
                         success: function (res) {
                             if (res.code === 1000) {
                                 layer.msg("删除成功！");
-                                obj.del();
-                                layer.close(index);
+                                tableArticle.reload({
+                                    url: '/admin/getDiary' //数据接口
+                                })
                             } else {
                                 layer.msg("删除失败！服务器错误！");
                             }
@@ -241,10 +158,6 @@
                 });
             }
         });
-
-
     });
-
-
 </script>
 </html>

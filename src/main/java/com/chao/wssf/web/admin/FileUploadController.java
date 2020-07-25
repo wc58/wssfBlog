@@ -30,6 +30,38 @@ public class FileUploadController {
 
 
     /**
+     * 文章图片
+     *
+     * @param files
+     * @return
+     */
+    @PostMapping("uploadDiary")
+    @ResponseBody
+    public Map<String, Object> uploadDiary(@RequestParam("diary") MultipartFile[] files) {
+        String bucketName = ossProperties.getBucketName();
+        String endpoint = ossProperties.getEndpoint();
+        OSS oss = getOss();
+        HashMap<String, Object> map = new HashMap<>();
+        ArrayList<String> paths = new ArrayList<>();
+        try {
+            for (MultipartFile file : files) {
+                //文件路径加名称
+                String filename = "diary" + "/" + new DateTime().toString("yyyy/MM/dd") + "/" + UUID.randomUUID().toString() + file.getOriginalFilename();//设置日期格式
+                InputStream inputStream = file.getInputStream();
+                oss.putObject(bucketName, filename, inputStream);
+                String filePath = "https://" + bucketName + "." + endpoint + "/" + filename;
+                paths.add(filePath);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            map.put("errno", 1);
+        }
+        map.put("errno", 0);
+        map.put("data", paths);
+        return map;
+    }
+
+    /**
      * 封面上传
      *
      * @param file

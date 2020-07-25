@@ -18,7 +18,6 @@ public class Diary implements Serializable {
     @TableId(type = IdType.AUTO)
     private Integer id;
     private String content;
-    private String del;
     private Date createTime;
     private Date updateTime;
 

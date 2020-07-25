@@ -139,40 +139,46 @@
             </li>
             <li>
                 <a href="javascript:;">
-                    <i class="iconfont left-nav-li" lay-tips="其他管理">&#xe723;</i>
-                    <cite>其他管理</cite>
+                    <i class="iconfont left-nav-li" lay-tips="日志管理">&#xe723;</i>
+                    <cite>日志管理</cite>
                     <i class="iconfont nav_right">&#xe697;</i></a>
                 <ul class="sub-menu">
                     <li>
-                        <a onclick="xadmin.add_tab('标签管理','/admin/labelList')">
+                        <a onclick="xadmin.add_tab('添加日记','/admin/writeDiary')">
                             <i class="iconfont">&#xe6a7;</i>
-                            <cite>标签管理</cite></a>
+                            <cite>添加日志</cite></a>
                     </li>
                     <li>
-                        <a onclick="xadmin.add_tab('友链管理','/admin/linkList')">
+                        <a onclick="xadmin.add_tab('友链管理','/admin/diaryList',true)">
                             <i class="iconfont">&#xe6a7;</i>
-                            <cite>友链管理</cite></a>
+                            <cite>日志列表</cite></a>
                     </li>
                 </ul>
             </li>
             <li>
                 <a href="javascript:;">
                     <i class="iconfont left-nav-li" lay-tips="其他管理">&#xe723;</i>
-                    <cite>人员管理</cite>
+                    <cite>其他管理</cite>
                     <i class="iconfont nav_right">&#xe697;</i></a>
                 <ul class="sub-menu">
                     <li>
-                        <a onclick="xadmin.add_tab('标签管理','/admin/userList')">
+                        <a onclick="xadmin.add_tab('标签管理','/admin/labelList',true)">
                             <i class="iconfont">&#xe6a7;</i>
-                            <cite>普通用户管理</cite></a>
+                            <cite>标签管理</cite></a>
                     </li>
                     <li>
-                        <a onclick="xadmin.add_tab('友链管理','/admin/linkList')">
+                        <a onclick="xadmin.add_tab('友链管理','/admin/linkList',true)">
                             <i class="iconfont">&#xe6a7;</i>
-                            <cite>管理员管理</cite></a>
+                            <cite>友链管理</cite></a>
+                    </li>
+                    <li>
+                        <a onclick="xadmin.add_tab('标签管理','/admin/userList',true)">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>用户管理</cite></a>
                     </li>
                 </ul>
             </li>
+
         </ul>
     </div>
 </div>

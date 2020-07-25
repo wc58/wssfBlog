@@ -66,7 +66,6 @@
 <script type="text/html" id="bar">
     <div class="layui-btn-container">
         <a class="layui-btn layui-btn-xs" lay-event="edit"> <i class="layui-icon">&#xe605;</i></a>
-        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="delete"><i class="layui-icon">&#xe640;</i></a>
     </div>
 </script>
 <script>
@@ -136,27 +135,7 @@
             var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
 
             //置顶
-            if (layEvent === 'delete') {
-                layer.confirm('一旦删除则彻底消失不见！', function (index) {
-                    //服务器删除
-                    $.ajax({
-                        type: 'post',
-                        url: '/admin/deleteUser',
-                        data: data,
-                        success: function (res) {
-                            if (res.code === 1000) {
-                                layer.msg("删除成功！");
-                                tableArticle.reload({
-                                    url: '/admin/getUsers' //数据接口
-                                })
-                            } else {
-                                layer.msg("删除失败！服务器错误！");
-                            }
-                        },
-                        dataType: 'json'
-                    })
-                });
-            } else if (layEvent === 'edit') { //编辑
+            if (layEvent === 'edit') {
                 layer.confirm('确定要修改用户评论信息吗？', function (index) {//编辑
                     $.ajax({
                         type: 'post',

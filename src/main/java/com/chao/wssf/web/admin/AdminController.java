@@ -29,7 +29,6 @@ public class AdminController {
     @ResponseBody
     public R login(String username, String password, HttpSession session) {
         try {
-
             Admin sessionAdmin = (Admin) session.getAttribute("admin");
             //再次登录且不是同一用户，则把之前session给清空
             if (sessionAdmin != null && sessionAdmin.getUsername().equals(username)) {

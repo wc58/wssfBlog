@@ -88,4 +88,6 @@
 
     <mvc:view-controller path="admin/userList" view-name="admin/user-list"/>
 
+    <mvc:view-controller path="admin/diaryList" view-name="admin/diary-list"/>
+
 </beans>

@@ -24,4 +24,5 @@ public interface ILeaveService {
     void deleteRealById(Integer id);
 
     void updateLeave(Integer id, String content);
+
 }

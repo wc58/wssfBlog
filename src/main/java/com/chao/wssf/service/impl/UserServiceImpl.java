@@ -6,6 +6,8 @@ import com.chao.wssf.entity.Link;
 import com.chao.wssf.entity.User;
 import com.chao.wssf.mapper.UserMapper;
 import com.chao.wssf.pojo.AllLink;
+import com.chao.wssf.service.ICommentService;
+import com.chao.wssf.service.ILeaveService;
 import com.chao.wssf.service.ILinkService;
 import com.chao.wssf.service.IUserService;
 import org.springframework.beans.BeanUtils;
@@ -29,6 +31,12 @@ public class UserServiceImpl implements IUserService {
     private UserMapper userMapper;
     @Autowired
     private ILinkService linkService;
+
+    @Autowired
+    private ILeaveService leaveService;
+
+    @Autowired
+    private ICommentService commentService;
 
     @Override
     public User checkUser(String thirdId, String email) {
@@ -114,9 +122,13 @@ public class UserServiceImpl implements IUserService {
         userMapper.updateById(user);
     }
 
+    /**
+     * 删除用户
+     *
+     * @param id
+     */
     @Override
     public void deleteUserById(Integer id) {
-        linkService.deleteLinkByUserId(id);
         userMapper.deleteById(id);
     }
 

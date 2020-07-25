@@ -1,6 +1,7 @@
 package com.chao.wssf.web.admin;
 
 import com.chao.wssf.entity.Article;
+import com.chao.wssf.entity.Diary;
 import com.chao.wssf.entity.Top;
 import com.chao.wssf.properties.WssfProperties;
 import com.chao.wssf.service.*;
@@ -100,5 +101,17 @@ public class PageController {
         //是否可以置顶
         model.addAttribute("topSize", topSize < wssfProperties.getQuerySize());
         return "admin/article-write";
+    }
+
+    /**
+     * 写日志页面
+     *
+     * @return
+     */
+    @RequestMapping("writeDiary")
+    public String writeDiary(@RequestParam(required = false) Integer id, Model model) {
+        Diary diary = diaryService.getDiaryById(id);
+        model.addAttribute("dairy", diary);
+        return "admin/diary-write";
     }
 }
