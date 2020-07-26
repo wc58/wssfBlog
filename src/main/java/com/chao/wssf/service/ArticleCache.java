@@ -186,7 +186,11 @@ public class ArticleCache implements InitializingBean {
         ArrayList<Article> randomArticles = new ArrayList<>();
         List<Article> topAndArticle = getAllOrSortArticle(1, getAllArticleTotal(), false, false);
         Random random = new Random();
-        for (int i = 0; i < 3; i++) {
+        int maxSize = 3;
+        if (topAndArticle.size() <= 3) {
+            maxSize = topAndArticle.size() - 1;
+        }
+        for (int i = 0; i < maxSize; i++) {
             int ran = random.nextInt(topAndArticle.size());
             //排除现读的文章
             if (topAndArticle.get(ran).getId().equals(id)) {
