@@ -72,7 +72,7 @@ public class ArticleCache implements InitializingBean {
      */
     private void addOrUpdateData() {
         //查询所有数据
-        allArticles = articleMapper.selectList(new QueryWrapper<>());
+        allArticles = articleMapper.selectList(new QueryWrapper<Article>().select());
         //置顶文章的id顺序
         topIds = topService.getArticleIdByTops().stream().map(Top::getArticleId).collect(Collectors.toList());
         for (Article a : allArticles) {

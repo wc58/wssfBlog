@@ -32,7 +32,7 @@ public class AdminController {
             Admin sessionAdmin = (Admin) session.getAttribute("admin");
             //再次登录且不是同一用户，则把之前session给清空
             if (sessionAdmin != null && sessionAdmin.getUsername().equals(username)) {
-                session.invalidate();
+                session.removeAttribute("admin");
             }
             //验证
             Admin admin = adminService.checkAdmin(username, password);
