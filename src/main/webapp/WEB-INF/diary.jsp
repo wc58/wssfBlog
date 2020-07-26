@@ -59,7 +59,7 @@
                                     <li>
                                         <div class="h4 animated fadeInLeft">
                                             <p class="date"><f:formatDate value="${dia.createTime}"
-                                                                          pattern="MM月dd日 hh:mm"/></p>
+                                                                          pattern="MM月dd日 HH:mm"/></p>
                                         </div>
                                         <p class="dot-circle animated "><i class="fa fa-dot-circle-o"></i></p>
                                         <div class="content animated fadeInRight">${dia.content}</div>

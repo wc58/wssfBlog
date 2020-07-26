@@ -23,7 +23,6 @@ public class DiaryController {
      * 跳转到日记页
      *
      * @param model
-     * @param key
      * @return
      */
     @RequestMapping("page")
