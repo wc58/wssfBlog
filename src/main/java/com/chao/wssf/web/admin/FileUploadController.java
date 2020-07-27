@@ -41,7 +41,6 @@ public class FileUploadController {
     @ResponseBody
     public Map<String, Object> uploadDiary(@RequestParam("diary") MultipartFile[] files) {
         String bucketName = ossProperties.getBucketName();
-        String endpoint = ossProperties.getEndpoint();
         OSS oss = getOss();
         HashMap<String, Object> map = new HashMap<>();
         ArrayList<String> paths = new ArrayList<>();
@@ -51,7 +50,7 @@ public class FileUploadController {
                 String filename = "diary" + "/" + new DateTime().toString("yyyy/MM/dd") + "/" + UUID.randomUUID().toString() + file.getOriginalFilename();//设置日期格式
                 InputStream inputStream = file.getInputStream();
                 oss.putObject(bucketName, filename, inputStream);
-                String filePath = "https://" + bucketName + "." + endpoint + "/" + filename;
+                String filePath = "http://39.105.72.1:666/" + filename;
                 paths.add(filePath);
             }
         } catch (IOException e) {
@@ -73,14 +72,13 @@ public class FileUploadController {
     @ResponseBody
     public R uploadCover(@RequestParam("cover") MultipartFile file) {
         String bucketName = ossProperties.getBucketName();
-        String endpoint = ossProperties.getEndpoint();
         OSS oss = getOss();
         //文件路径加名称
         String filename = "cover" + "/" + new DateTime().toString("yyyy/MM/dd") + "/" + UUID.randomUUID().toString() + file.getOriginalFilename();//设置日期格式
         try {
             InputStream inputStream = file.getInputStream();
             oss.putObject(bucketName, filename, inputStream);
-            return R.OK().data("imageUrl", "https://" + bucketName + "." + endpoint + "/" + filename);
+            return R.OK().data("imageUrl", "http://39.105.72.1:666/" + filename);
         } catch (IOException e) {
             e.printStackTrace();
             return R.ERROR();
@@ -98,7 +96,6 @@ public class FileUploadController {
     @ResponseBody
     public Map<String, Object> uploadPictures(@RequestParam("article") MultipartFile[] files) {
         String bucketName = ossProperties.getBucketName();
-        String endpoint = ossProperties.getEndpoint();
         OSS oss = getOss();
         HashMap<String, Object> map = new HashMap<>();
         ArrayList<String> paths = new ArrayList<>();
@@ -110,7 +107,7 @@ public class FileUploadController {
                 //文件路径加名称
                 String filename = "article" + "/" + new DateTime().toString("yyyy/MM/dd") + "/" + UUID.randomUUID().toString() + suffix;//设置日期格式
                 oss.putObject(bucketName, filename, f);
-                String filePath = "https://" + bucketName + "." + endpoint + "/" + filename;
+                String filePath = "http://39.105.72.1:666/" + filename;
                 paths.add(filePath);
                 f.delete();
             }
