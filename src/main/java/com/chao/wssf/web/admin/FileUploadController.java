@@ -107,6 +107,8 @@ public class FileUploadController {
                 //文件路径加名称
                 String filename = "article" + "/" + new DateTime().toString("yyyy/MM/dd") + "/" + UUID.randomUUID().toString() + suffix;//设置日期格式
                 oss.putObject(bucketName, filename, f);
+
+                //http://39.105.72.1:66/cover/2020/07/26/fb2d99a9-3008-439f-b7c3-0cc1e20070d5abstract-blackboard-bulb-chalk-355948.jpg
                 String filePath = "http://39.105.72.1:666/" + filename;
                 paths.add(filePath);
                 f.delete();
@@ -154,7 +156,7 @@ public class FileUploadController {
     public R delCover(@RequestParam String filePath) {
         try {
             String bucketName = ossProperties.getBucketName();
-            filePath = filePath.replace("https://wssf.oss-cn-beijing.aliyuncs.com/", "");
+            filePath = filePath.replace("http://39.105.72.1:666/", "");
             OSS oss = getOss();
             oss.deleteObject(bucketName, filePath);
         } catch (OSSException e) {
