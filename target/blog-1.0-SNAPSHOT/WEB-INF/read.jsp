@@ -72,7 +72,7 @@
             clear: both;
         }
 
-        .w-e-text blockquote {
+        blockquote {
             background-color: #f8f8f8;
             padding: 15px 22.5px;
             font-size: 14px;
