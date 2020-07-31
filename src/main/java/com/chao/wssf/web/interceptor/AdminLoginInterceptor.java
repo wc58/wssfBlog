@@ -5,6 +5,9 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * 管理员拦截器
+ */
 public class AdminLoginInterceptor implements HandlerInterceptor {
 
     @Override

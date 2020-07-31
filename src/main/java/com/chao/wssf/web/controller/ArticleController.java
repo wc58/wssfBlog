@@ -42,6 +42,9 @@ public class ArticleController {
     @Autowired
     private WssfProperties wssfProperties;
 
+    /**
+     * 可以手动刷新缓存中的值
+     */
     @RequestMapping("update")
     public void update() {
         articleCache.updateData();

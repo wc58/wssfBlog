@@ -147,7 +147,7 @@
                                 </p>
                                 <p class="f-toe">
                                     本文网址：
-                                    <a href="#">http://chao58.top:8080/blog/read/${article.id}</a>
+                                    <a href="#">http://chao58.top/blog/read/${article.id}</a>
                                 </p>
                             </div>
                             <div id="aplayer" style="margin:5px 0"></div>
@@ -161,19 +161,6 @@
                                 </c:forEach>
                             </ol>
                         </div>
-                        <%--  <div class="bdsharebuttonbox share" data-tag="share_1">
-                              <ul>
-                                  <li class="f-praise"><span><a class="s-praise"></a></span></li>
-                                  <li class="f-weinxi"><a class="s-weinxi" data-cmd="weixin"></a></li>
-                                  <li class="f-sina"><a class="s-sina" data-cmd="tsina"></a></li>
-                                  <li class="f-qq" href="#"><i class="fa fa-qq"></i></li>
-                                  <li class="f-qzone"><a class="s-qzone" data-cmd="qzone"></a></li>
-                              </ul>
-                          </div>--%>
-                        <%--                        <div class="f-cb"></div>--%>
-                        <%--  <div class="mt20 f-fwn fs-24 fc-grey comment"
-                               style="border-top: 1px solid #e1e2e0; padding-top: 20px;">
-                          </div>--%>
                         <fieldset class="layui-elem-field layui-field-title">
                             <legend>发表评论</legend>
                             <div class="textarea-wrap message" id="textarea-wrap">
@@ -281,7 +268,6 @@
                                     </c:forEach>
                                     <div class="replycontainer layui-hide">
                                         <div class="layui-form">
-                                                <%--                                <input type="hidden" name="remarkId" value="1">--%>
                                             <input id="pid" type="hidden" name="targetUserId" value="0">
                                             <div class="layui-form-item">
                                 <textarea id="aaa" name="replyContent" lay-verify="replyContent" placeholder="请输入回复内容"
