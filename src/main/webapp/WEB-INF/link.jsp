@@ -23,8 +23,12 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/layui/css/layui.css"/>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/master.css"/>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/gloable.css"/>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/gloable.css"/>
-    <link rel="stylesheet" href="../css/about.css"/>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/about.css"/>
+    <style>
+        .blog-user {
+            margin-top: 17.5px;
+        }
+    </style>
 </head>
 <body>
 <div class="header">

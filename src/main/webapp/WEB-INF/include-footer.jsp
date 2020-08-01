@@ -11,7 +11,8 @@
         <div class="copyright">
             <div class="info">
                 <p class="mt05">
-                    Copyright &copy; 2018-2018 往事随风 All Rights Reserved V.1.0.0 蜀ICP备18008600号
+                    Copyright &copy; 2018-2018 往事随风 All Rights Reserved V.1.0.0 <a
+                        href="http://www.beian.miit.gov.cn"><i style="color: gray">豫ICP备20023302号-1</i></a>
                 </p>
             </div>
         </div>

@@ -17,17 +17,8 @@
     </ul>
 </nav>
 <%--登录位置--%>
-<a href="#" id="qq" onclick="login()" class="blog-user">
-    <i class="fa fa-qq"></i>
-</a>
-<script type="text/javascript" src="http://qzonestyle.gtimg.cn/qzone/openapi/qc_loader.js" data-appid="101896248"
-        data-redirecturi="http://127.0.0.1/user/qqLogn" charset="utf-8"></script>
-<script>
-    function login() {
-        // alert("由于网站在进行备案中，暂时不能支持登录")
-        QC.Login({
-            btnId: "qq"    //插入按钮的节点id
-        });
-    }
-
-</script>
+<div>
+    <a href="#" id="qq" class="blog-user">
+        <i class="fa fa-qq"></i>
+    </a>
+</div>
