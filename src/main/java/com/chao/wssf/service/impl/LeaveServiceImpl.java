@@ -7,6 +7,7 @@ import com.chao.wssf.mapper.LeaveMapper;
 import com.chao.wssf.mapper.UserMapper;
 import com.chao.wssf.pojo.AllLeave;
 import com.chao.wssf.pojo.FullLeave;
+import com.chao.wssf.query.LeaveQuery;
 import com.chao.wssf.service.ILeaveService;
 import com.chao.wssf.service.IUserService;
 import org.springframework.beans.BeanUtils;
@@ -116,22 +117,10 @@ public class LeaveServiceImpl implements ILeaveService {
 
     /**
      * 查询吐槽评论
-     *
-     * @param isDel
-     * @param page
-     * @param limit
-     * @param username
-     * @param content
-     * @param startTime
-     * @param endTime
-     * @return
      */
     @Override
-    public Page getComments(Boolean isDel, Integer page, Integer limit, String username, String content, String startTime, String endTime) throws ParseException {
-
-
+    public Page getComments(Boolean isDel, LeaveQuery leaveQuery) {
         QueryWrapper<Leave> commentQueryWrapper = new QueryWrapper<>();
-
         if (isDel) {//被删除的
             commentQueryWrapper.ne("del", "0");
         } else {
@@ -139,6 +128,10 @@ public class LeaveServiceImpl implements ILeaveService {
         }
         commentQueryWrapper.orderByDesc("create_time");
 
+        String username = leaveQuery.getUsername();
+        String content = leaveQuery.getContent();
+        Date startTime = leaveQuery.getStartTime();
+        Date endTime = leaveQuery.getEndTime();
         //条件判断
         if (!StringUtils.isEmpty(username)) {
             List<Integer> ids = userService.getUserByUsername(username).stream().map(User::getId).collect(Collectors.toList());
@@ -149,18 +142,14 @@ public class LeaveServiceImpl implements ILeaveService {
             commentQueryWrapper.like("content", content);
         }
 
-        //对日期进行转换
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         if (!StringUtils.isEmpty(startTime)) {
-            Date date = simpleDateFormat.parse(startTime);
-            commentQueryWrapper.ge("create_time", date);
+            commentQueryWrapper.ge("create_time", startTime);
         }
         if (!StringUtils.isEmpty(endTime)) {
-            Date date = simpleDateFormat.parse(endTime);
-            commentQueryWrapper.le("create_time", date);
+            commentQueryWrapper.le("create_time", endTime);
         }
 
-        Page<Leave> leavePage = new Page<>(page, limit);
+        Page<Leave> leavePage = new Page<>(leaveQuery.getPage(), leaveQuery.getLimit());
         Page selectPage = leaveMapper.selectPage(leavePage, commentQueryWrapper);
 
         List records = selectPage.getRecords();

@@ -21,7 +21,7 @@ public class LabelManageController {
     private ILabelService labelService;
 
     /**
-     * 查询所有评论
+     * 查询所有标签
      *
      * @return
      */

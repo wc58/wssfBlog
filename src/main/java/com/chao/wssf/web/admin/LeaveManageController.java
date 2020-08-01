@@ -1,6 +1,7 @@
 package com.chao.wssf.web.admin;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.chao.wssf.query.LeaveQuery;
 import com.chao.wssf.service.ICommentService;
 import com.chao.wssf.service.ILeaveService;
 import com.chao.wssf.service.impl.LeaveServiceImpl;
@@ -23,53 +24,32 @@ public class LeaveManageController {
     /**
      * 查询所有评论
      *
-     * @param page
-     * @param limit
-     * @param username
-     * @param content
-     * @param startTime
-     * @param endTime
      * @return
      */
     @RequestMapping("getLeaves")
     @ResponseBody
-    public Map<String, Object> getLeaves(Integer page, Integer limit, String username, String content, String startTime, String endTime) {
-        return getLeaveMap(false, page, limit, username, content, startTime, endTime);
+    public Map<String, Object> getLeaves(LeaveQuery leaveQuery) {
+        return getLeaveMap(false, leaveQuery);
     }
 
     /**
      * 查询删除评论
      *
-     * @param page
-     * @param limit
-     * @param username
-     * @param content
-     * @param contentSize
-     * @param startTime
-     * @param endTime
      * @return
      */
     @RequestMapping("getDelLeaves")
     @ResponseBody
-    public Map<String, Object> getDelLeaves(Integer page, Integer limit, String username, String content, String contentSize, String startTime, String endTime) {
-        return getLeaveMap(true, page, limit, username, content, startTime, endTime);
+    public Map<String, Object> getDelLeaves(LeaveQuery leaveQuery) {
+        return getLeaveMap(true, leaveQuery);
     }
 
     /**
      * 查询评论的核心方法
-     *
-     * @param page
-     * @param limit
-     * @param username
-     * @param content
-     * @param startTime
-     * @param endTime
-     * @return
      */
-    private Map<String, Object> getLeaveMap(Boolean isDel, Integer page, Integer limit, String username, String content, String startTime, String endTime) {
+    private Map<String, Object> getLeaveMap(Boolean isDel, LeaveQuery leaveQuery) {
         HashMap<String, Object> map = new HashMap<>();
         try {
-            Page commentPage = leaveService.getComments(isDel, page, limit, username, content, startTime, endTime);
+            Page commentPage = leaveService.getComments(isDel, leaveQuery);
             //封装数据
             map.put("code", 0);
             map.put("count", commentPage.getTotal());
