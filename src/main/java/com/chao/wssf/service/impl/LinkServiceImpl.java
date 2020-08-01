@@ -6,6 +6,7 @@ import com.chao.wssf.entity.Link;
 import com.chao.wssf.entity.User;
 import com.chao.wssf.mapper.LinkMapper;
 import com.chao.wssf.pojo.AllLink;
+import com.chao.wssf.query.LinkQuery;
 import com.chao.wssf.service.ILinkService;
 import com.chao.wssf.service.IUserService;
 import org.springframework.beans.BeanUtils;
@@ -89,18 +90,14 @@ public class LinkServiceImpl implements ILinkService {
 
     /**
      * 获取所有的友链
-     *
-     * @param page
-     * @param limit
-     * @param username
-     * @param name
-     * @param startTime
-     * @param endTime
-     * @return
      */
     @Override
-    public Page getLinks(Integer page, Integer limit, String username, String name, String startTime, String endTime) throws ParseException {
+    public Page getLinks(LinkQuery linkQuery) {
         QueryWrapper<Link> linkQueryWrapper = new QueryWrapper<>();
+        String username = linkQuery.getUsername();
+        String name = linkQuery.getName();
+        Date startTime = linkQuery.getStartTime();
+        Date endTime = linkQuery.getEndTime();
         if (!StringUtils.isEmpty(username)) {
             List<Integer> ids = userService.getUserByUsername(username).stream().map(User::getId).collect(Collectors.toList());
             ids.add(-1);
@@ -109,19 +106,15 @@ public class LinkServiceImpl implements ILinkService {
         if (!StringUtils.isEmpty(name)) {
             linkQueryWrapper.like("title", name);
         }
-        //对日期进行转换
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         if (!StringUtils.isEmpty(startTime)) {
-            Date date = simpleDateFormat.parse(startTime);
-            linkQueryWrapper.ge("create_time", date);
+            linkQueryWrapper.ge("create_time", startTime);
         }
         if (!StringUtils.isEmpty(endTime)) {
-            Date date = simpleDateFormat.parse(endTime);
-            linkQueryWrapper.le("create_time", date);
+            linkQueryWrapper.le("create_time", endTime);
         }
         linkQueryWrapper.orderByDesc("del").orderByDesc("sort");
 
-        Page linkPage = new Page<>(page, limit);
+        Page linkPage = new Page<>(linkQuery.getPage(), linkQuery.getLimit());
         Page selectPage = linkMapper.selectPage(linkPage, linkQueryWrapper);
         ArrayList<AllLink> allLinks = new ArrayList<>();
         for (Object record : selectPage.getRecords()) {
@@ -169,13 +162,4 @@ public class LinkServiceImpl implements ILinkService {
         linkMapper.updateById(link);
     }
 
-    /**
-     * 根据用户删除对应的友链
-     *
-     * @param id
-     */
-    @Override
-    public void deleteLinkByUserId(Integer id) {
-        linkMapper.delete(new QueryWrapper<Link>().eq("user_id", id));
-    }
 }

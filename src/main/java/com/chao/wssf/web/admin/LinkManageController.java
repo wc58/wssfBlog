@@ -2,6 +2,7 @@ package com.chao.wssf.web.admin;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.chao.wssf.entity.Link;
+import com.chao.wssf.query.LinkQuery;
 import com.chao.wssf.service.ILeaveService;
 import com.chao.wssf.service.ILinkService;
 import com.chao.wssf.service.impl.LeaveServiceImpl;
@@ -23,21 +24,13 @@ public class LinkManageController {
 
     /**
      * 查询所有评论
-     *
-     * @param page
-     * @param limit
-     * @param username
-     * @param name
-     * @param startTime
-     * @param endTime
-     * @return
      */
     @RequestMapping("getLinks")
     @ResponseBody
-    public Map<String, Object> getLinks(Integer page, Integer limit, String username, String name, String startTime, String endTime) {
+    public Map<String, Object> getLinks(LinkQuery linkQuery) {
         HashMap<String, Object> map = new HashMap<>();
         try {
-            Page commentPage = linkService.getLinks(page, limit, username, name, startTime, endTime);
+            Page commentPage = linkService.getLinks(linkQuery);
             //封装数据
             map.put("code", 0);
             map.put("count", commentPage.getTotal());
