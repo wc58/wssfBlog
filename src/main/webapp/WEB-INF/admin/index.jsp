@@ -48,7 +48,7 @@
             </dl>
         </li>
         <li class="layui-nav-item to-index">
-            <a href="javascript:;" onclick="xadmin.open('最大化','http://localhost:8080/')">前台首页</a></li>
+            <a href="javascript:;" onclick="xadmin.open('最大化','http://chao58.top')">前台首页</a></li>
     </ul>
 </div>
 <!-- 顶部结束 -->
@@ -59,99 +59,99 @@
         <ul id="nav">
             <li>
                 <a href="javascript:;">
-                    <i class="iconfont left-nav-li" lay-tips="文章管理">&#xe6b8;</i>
+                    <i class="iconfont left-nav-li" lay-tips="文章管理">&#xe744;</i>
                     <cite>文章管理</cite>
                     <i class="iconfont nav_right">&#xe697;</i></a>
                 <ul class="sub-menu">
                     <li>
                         <a onclick="xadmin.add_tab('添加文章','/admin/writeBlog')">
-                            <i class="iconfont">&#xe6a7;</i>
+                            <i class="iconfont">&#xe6b9;</i>
                             <cite>添加文章</cite></a>
                     </li>
 
                     <li>
                         <a onclick="xadmin.add_tab('普通文章','/admin/articleCommList',true)">
-                            <i class="iconfont">&#xe6a7;</i>
+                            <i class="iconfont">&#xe699;</i>
                             <cite>普通文章</cite></a>
                     </li>
                     <li>
                         <a onclick="xadmin.add_tab('置顶文章','/admin/articleTopList',true)">
-                            <i class="iconfont">&#xe6a7;</i>
+                            <i class="iconfont">&#xe71d;</i>
                             <cite>置顶文章</cite></a>
                     </li>
                     <li>
                         <a onclick="xadmin.add_tab('删除文章','/admin/articleDelList',true)">
-                            <i class="iconfont">&#xe6a7;</i>
+                            <i class="iconfont">&#xe69d;</i>
                             <cite>删除文章</cite></a>
                     </li>
                 </ul>
             </li>
             <li>
                 <a href="javascript:;">
-                    <i class="iconfont left-nav-li" lay-tips="评论管理">&#xe723;</i>
+                    <i class="iconfont left-nav-li" lay-tips="评论管理">&#xe69b;</i>
                     <cite>评论管理</cite>
                     <i class="iconfont nav_right">&#xe697;</i></a>
                 <ul class="sub-menu">
                     <li>
                         <a onclick="xadmin.add_tab('普通评论','/admin/commentCommList',true)">
-                            <i class="iconfont">&#xe6a7;</i>
+                            <i class="iconfont">&#xe699;</i>
                             <cite>普通评论</cite></a>
                     </li>
 
                     <li>
                         <a onclick="xadmin.add_tab('删除评论','/admin/commentDelList',true)">
-                            <i class="iconfont">&#xe6a7;</i>
+                            <i class="iconfont">&#xe69d;</i>
                             <cite>删除评论</cite></a>
                     </li>
                     <li>
                         <a onclick="xadmin.add_tab('普通吐槽','/admin/leaveCommList',true)">
-                            <i class="iconfont">&#xe6a7;</i>
+                            <i class="iconfont">&#xe699;</i>
                             <cite>普通吐槽</cite></a>
                     </li>
                     <li>
                         <a onclick="xadmin.add_tab('删除吐槽','/admin/leaveDelList',true)">
-                            <i class="iconfont">&#xe6a7;</i>
+                            <i class="iconfont">&#xe69d;</i>
                             <cite>删除吐槽</cite></a>
                     </li>
                 </ul>
             </li>
             <li>
                 <a href="javascript:;">
-                    <i class="iconfont left-nav-li" lay-tips="日记管理">&#xe723;</i>
+                    <i class="iconfont left-nav-li" lay-tips="日记管理">&#xe74e;</i>
                     <cite>日记管理</cite>
                     <i class="iconfont nav_right">&#xe697;</i></a>
                 <ul class="sub-menu">
                     <li>
                         <a onclick="xadmin.add_tab('添加日记','/admin/writeDiary')">
-                            <i class="iconfont">&#xe6a7;</i>
+                            <i class="iconfont">&#xe6b9;</i>
                             <cite>添加日记</cite></a>
                     </li>
                     <li>
                         <a onclick="xadmin.add_tab('友链管理','/admin/diaryList',true)">
-                            <i class="iconfont">&#xe6a7;</i>
+                            <i class="iconfont">&#xe699;</i>
                             <cite>日记列表</cite></a>
                     </li>
                 </ul>
             </li>
             <li>
                 <a href="javascript:;">
-                    <i class="iconfont left-nav-li" lay-tips="其他管理">&#xe723;</i>
+                    <i class="iconfont left-nav-li" lay-tips="其他管理">&#xe696;</i>
                     <cite>其他管理</cite>
                     <i class="iconfont nav_right">&#xe697;</i></a>
                 <ul class="sub-menu">
                     <li>
                         <a onclick="xadmin.add_tab('标签管理','/admin/labelList',true)">
-                            <i class="iconfont">&#xe6a7;</i>
+                            <i class="iconfont">&#xe699;</i>
                             <cite>标签管理</cite></a>
                     </li>
                     <li>
                         <a onclick="xadmin.add_tab('友链管理','/admin/linkList',true)">
-                            <i class="iconfont">&#xe6a7;</i>
+                            <i class="iconfont">&#xe699;</i>
                             <cite>友链管理</cite></a>
                     </li>
                     <li>
                         <a onclick="xadmin.add_tab('标签管理','/admin/userList',true)">
-                            <i class="iconfont">&#xe6a7;</i>
+                            <i class="iconfont">&#xe699;</i>
                             <cite>用户管理</cite></a>
                     </li>
                 </ul>
