@@ -12,6 +12,7 @@ import com.chao.wssf.mapper.OtherMapper;
 import com.chao.wssf.mapper.TopMapper;
 import com.chao.wssf.pojo.TopArticle;
 import com.chao.wssf.properties.WssfProperties;
+import com.chao.wssf.query.ArticleQuery;
 import com.chao.wssf.service.*;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -128,107 +129,57 @@ public class ArticleServiceImpl implements IArticleService {
         return articleMapper.selectCount(new QueryWrapper<>());
     }
 
-    /**
-     * 添加文章
-     *
-     * @param title
-     * @param assistant
-     * @param picture
-     * @param content
-     * @param status
-     * @param del
-     * @param top
-     * @param labels
-     */
-    @Override
-    @Transactional
-    public int addArticle(String title, String assistant, String picture, String content, String author, String status, Boolean del, Boolean top, Integer[] labels) {
-        //添加文章表
-        int articleId = insertOrUpdateArticle(null, title, assistant, picture, content, author, status, del);
-        //其他表
-        Other other = new Other();
-        other.setArticleId(articleId);
-        other.setFlow(0);
-        other.setCommentSize(0);
-        otherMapper.insert(other);
-        //设置标签
-        setLabels(articleId, labels);
-        //设置置顶状态
-        setTop(articleId, top);
-        articleCache.updateData();
-        return articleId;
-    }
-
-    /**
-     * 更新操作
-     *
-     * @param id
-     * @param title
-     * @param assistant
-     * @param picture
-     * @param content
-     * @param author
-     * @param status
-     * @param del
-     * @param top
-     * @param labels
-     * @return
-     */
-    @Override
-    @Transactional
-    public int updateArticle(Integer id, String title, String assistant, String picture, String content, String author, String status, Boolean del, Boolean top, Integer[] labels) {
-
-        //更新文章表
-        int articleId = insertOrUpdateArticle(id, title, assistant, picture, content, author, status, del);
-
-        //删除旧的重新添加
-        labelService.deleteLabelsByArticleId(articleId);
-        //设置标签
-        setLabels(articleId, labels);
-
-        //置顶表
-        QueryWrapper<Top> topQueryWrapper = new QueryWrapper<>();
-        topQueryWrapper.eq("article_id", articleId);
-        //设置置顶状态
-        setTop(articleId, top);
-        articleCache.updateData();
-        return articleId;
-    }
-
 
     /**
      * 更新或者添加文章
      *
-     * @param id
-     * @param title
-     * @param assistant
-     * @param picture
-     * @param content
-     * @param author
-     * @param status
-     * @param del
      * @return
      */
-    private int insertOrUpdateArticle(Integer id, String title, String assistant, String picture, String content, String author, String status, Boolean del) {
+    @Transactional
+    @Override
+    public int insertOrUpdateArticle(ArticleQuery articleQuery) {
         Article article = new Article();
-        article.setTitle(title);
-        article.setAssistant(assistant);
-        article.setPicture(picture);
-        article.setContent(content);
-        article.setAuthor(author);
-        article.setStatus(status);
-        if (del) {
+        article.setTitle(articleQuery.getTitle());
+        article.setAssistant(articleQuery.getAssistant());
+        article.setPicture(articleQuery.getPicture());
+        article.setContent(articleQuery.getContent());
+        article.setAuthor(articleQuery.getAuthor());
+        article.setStatus(articleQuery.getStatus());
+        if (articleQuery.getDel()) {
             article.setDel("0");
         } else {
             article.setDel("1");
         }
         article.setUpdateTime(new Date());
-        if (id != null) {
-            article.setId(id);
+        Integer articleId = articleQuery.getClientId();
+        //id存在说明更新
+        if (articleId != null) {
+            article.setId(articleId);
             articleMapper.updateById(article);
-        } else {
+            //删除旧的重新添加
+            labelService.deleteLabelsByArticleId(articleId);
+            //设置标签
+            setLabels(articleId, articleQuery.getLabels());
+            //置顶表
+            QueryWrapper<Top> topQueryWrapper = new QueryWrapper<>();
+            topQueryWrapper.eq("article_id", articleId);
+            //设置置顶状态
+            setTop(articleId, articleQuery.getTop());
+            articleCache.updateData();
+        } else {//添加
             article.setCreateTime(new Date());
             articleMapper.insert(article);
+            //其他表
+            Other other = new Other();
+            other.setArticleId(articleId);
+            other.setFlow(0);
+            other.setCommentSize(0);
+            otherMapper.insert(other);
+            //设置标签
+            setLabels(articleId, articleQuery.getLabels());
+            //设置置顶状态
+            setTop(articleId, articleQuery.getTop());
+            articleCache.updateData();
         }
         return article.getId();
     }

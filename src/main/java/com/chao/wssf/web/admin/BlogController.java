@@ -5,6 +5,7 @@ import com.chao.wssf.entity.Admin;
 import com.chao.wssf.entity.Article;
 import com.chao.wssf.entity.Top;
 import com.chao.wssf.pojo.TopArticle;
+import com.chao.wssf.query.ArticleQuery;
 import com.chao.wssf.service.ArticleCache;
 import com.chao.wssf.service.IArticleService;
 import com.chao.wssf.service.ITopService;
@@ -38,31 +39,16 @@ public class BlogController {
     /**
      * 提交博客内容
      *
-     * @param clientId
-     * @param title
-     * @param assistant
-     * @param picture
-     * @param content
-     * @param status
-     * @param del
-     * @param top
-     * @param labels
-     * @param session
      * @return
      */
     @PostMapping("addArticle")
     @ResponseBody
-    public R addArticle(Integer clientId, String title, String assistant, String picture, String content, String status, Boolean del, Boolean top, Integer[] labels, HttpSession session) {
-        int daoId = -1;
-        //添加
+    public R addArticle(ArticleQuery articleQuery, HttpSession session) {
+        int daoId;
         Admin admin = (Admin) session.getAttribute("admin");
-        String author = admin.getName();
-        if (clientId == null) {
-            daoId = articleService.addArticle(title, assistant, picture, content, author, status, del, top, labels);
-        } else {
-            //修改
-            daoId = articleService.updateArticle(clientId, title, assistant, picture, content, author, status, del, top, labels);
-        }
+        //设置作者名
+        articleQuery.setAuthor(admin.getName());
+        daoId = articleService.insertOrUpdateArticle(articleQuery);
         //刷新缓存
         articleCache.updateData();
         return R.OK().data("id", daoId);

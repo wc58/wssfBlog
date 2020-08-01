@@ -3,6 +3,7 @@ package com.chao.wssf.service;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.chao.wssf.entity.Article;
 import com.chao.wssf.entity.Top;
+import com.chao.wssf.query.ArticleQuery;
 
 import java.text.ParseException;
 import java.util.List;
@@ -22,10 +23,6 @@ public interface IArticleService {
 
     int getAllArticleSize();
 
-    int addArticle(String title, String assistant, String picture, String content, String author, String status, Boolean del, Boolean top, Integer[] labels);
-
-    int updateArticle(Integer id, String title, String assistant, String picture, String content, String author, String status, Boolean del, Boolean top, Integer[] labels);
-
     Page<Article> getCommArticle(List<Integer> tops, Integer page, Integer limit, Integer label, String title, String author, String status, String startTime, String endTime) throws ParseException;
 
     Article getArticleById(Integer id);
@@ -40,6 +37,7 @@ public interface IArticleService {
 
     void deleteRealArticleById(Integer id);
 
+    int insertOrUpdateArticle(ArticleQuery articleQuery);
 
     void restoreArticle(Integer id);
 
