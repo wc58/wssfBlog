@@ -3,6 +3,7 @@ package com.chao.wssf.service;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.chao.wssf.entity.Comment;
 import com.chao.wssf.pojo.FullComment;
+import com.chao.wssf.query.CommentQuery;
 
 import java.text.ParseException;
 import java.util.List;
@@ -19,7 +20,7 @@ public interface ICommentService {
 
     void deleteRealCommentByArticleId(Integer id);
 
-    Page getComments(Boolean isDel, Integer page, Integer limit, String title, String username, String content, String startTime, String endTime) throws ParseException;
+    Page getComments(Boolean isDel, CommentQuery commonQuery) throws ParseException;
 
     void deleteById(Integer id);
 

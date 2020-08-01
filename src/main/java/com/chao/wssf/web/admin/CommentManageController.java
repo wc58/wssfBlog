@@ -1,8 +1,7 @@
 package com.chao.wssf.web.admin;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.chao.wssf.entity.Top;
-import com.chao.wssf.pojo.TopArticle;
+import com.chao.wssf.query.CommentQuery;
 import com.chao.wssf.service.ICommentService;
 import com.chao.wssf.service.impl.CommentServiceImpl;
 import com.chao.wssf.util.R;
@@ -11,9 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.text.ParseException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -26,56 +23,34 @@ public class CommentManageController {
     /**
      * 查询所有评论
      *
-     * @param page
-     * @param limit
-     * @param title
-     * @param username
-     * @param content
-     * @param contentSize
-     * @param startTime
-     * @param endTime
      * @return
      */
     @RequestMapping("getComments")
     @ResponseBody
-    public Map<String, Object> getComments(Integer page, Integer limit, String title, String username, String content, String contentSize, String startTime, String endTime) {
-        return getCommentMap(false, page, limit, title, username, content, startTime, endTime);
+    public Map<String, Object> getComments(CommentQuery commonQuery) {
+        return getCommentMap(false, commonQuery);
     }
 
     /**
      * 查询删除评论
      *
-     * @param page
-     * @param limit
-     * @param title
-     * @param username
-     * @param content
-     * @param startTime
-     * @param endTime
      * @return
      */
     @RequestMapping("getDelComments")
     @ResponseBody
-    public Map<String, Object> getDelComments(Integer page, Integer limit, String title, String username, String content, String startTime, String endTime) {
-        return getCommentMap(true, page, limit, title, username, content, startTime, endTime);
+    public Map<String, Object> getDelComments(CommentQuery commonQuery) {
+        return getCommentMap(true, commonQuery);
     }
 
     /**
      * 查询评论的核心方法
      *
-     * @param page
-     * @param limit
-     * @param title
-     * @param username
-     * @param content
-     * @param startTime
-     * @param endTime
      * @return
      */
-    private Map<String, Object> getCommentMap(Boolean isDel, Integer page, Integer limit, String title, String username, String content, String startTime, String endTime) {
+    private Map<String, Object> getCommentMap(Boolean isDel, CommentQuery commonQuery) {
         HashMap<String, Object> map = new HashMap<>();
         try {
-            Page commentPage = commentService.getComments(isDel, page, limit, title, username, content, startTime, endTime);
+            Page commentPage = commentService.getComments(isDel, commonQuery);
             //封装数据
             map.put("code", 0);
             map.put("count", commentPage.getTotal());

@@ -9,6 +9,7 @@ import com.chao.wssf.mapper.CommentMapper;
 import com.chao.wssf.mapper.UserMapper;
 import com.chao.wssf.pojo.AllComment;
 import com.chao.wssf.pojo.FullComment;
+import com.chao.wssf.query.CommentQuery;
 import com.chao.wssf.service.IArticleService;
 import com.chao.wssf.service.ICommentService;
 import com.chao.wssf.service.IOtherService;
@@ -138,17 +139,10 @@ public class CommentServiceImpl implements ICommentService {
      * 分页获取评论内容
      *
      * @param isDel
-     * @param page
-     * @param limit
-     * @param title
-     * @param username
-     * @param content
-     * @param startTime
-     * @param endTime
      * @return
      */
     @Override
-    public Page getComments(Boolean isDel, Integer page, Integer limit, String title, String username, String content, String startTime, String endTime) throws ParseException {
+    public Page getComments(Boolean isDel, CommentQuery commentQuery) {
         QueryWrapper<Comment> commentQueryWrapper = new QueryWrapper<>();
 
         //被删除的
@@ -157,37 +151,35 @@ public class CommentServiceImpl implements ICommentService {
         } else {
             commentQueryWrapper.eq("del", "0");
         }
-
-
         commentQueryWrapper.orderByDesc("create_time");
 
-
-        if (title != null && !title.equals("")) {
+        String title = commentQuery.getTitle();
+        String username = commentQuery.getUsername();
+        String content = commentQuery.getContent();
+        Date startTime = commentQuery.getStartTime();
+        Date endTime = commentQuery.getEndTime();
+        if (!StringUtils.isEmpty(title)) {
             List<Integer> ids = articleService.getArticleByTitle(title).stream().map(Article::getId).collect(Collectors.toList());
             ids.add(-1);
             commentQueryWrapper.in("article_id", ids);
         }
-        if (username != null && !username.equals("")) {
+        if (!StringUtils.isEmpty(username)) {
             List<Integer> ids = userService.getUserByUsername(username).stream().map(User::getId).collect(Collectors.toList());
             ids.add(-1);
             commentQueryWrapper.in("user_id", ids);
         }
-        if (content != null && !content.equals("")) {
+        if (!StringUtils.isEmpty(content)) {
             commentQueryWrapper.like("content", content);
         }
 
-        //对日期进行转换
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         if (!StringUtils.isEmpty(startTime)) {
-            Date date = simpleDateFormat.parse(startTime);
-            commentQueryWrapper.ge("create_time", date);
+            commentQueryWrapper.ge("create_time", startTime);
         }
         if (!StringUtils.isEmpty(endTime)) {
-            Date date = simpleDateFormat.parse(endTime);
-            commentQueryWrapper.le("create_time", date);
+            commentQueryWrapper.le("create_time", endTime);
         }
 
-        Page<Comment> commentPage = new Page<>(page, limit);
+        Page<Comment> commentPage = new Page<>(commentQuery.getPage(), commentQuery.getLimit());
         Page selectPage = commentMapper.selectPage(commentPage, commentQueryWrapper);
 
         List records = selectPage.getRecords();
