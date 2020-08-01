@@ -2,6 +2,7 @@ package com.chao.wssf.service;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.chao.wssf.entity.Diary;
+import com.chao.wssf.query.CommonQuery;
 
 import java.text.ParseException;
 import java.util.HashMap;
@@ -16,7 +17,7 @@ public interface IDiaryService {
 
     Integer addDiary(Integer id, String content);
 
-    Page getDiary(Integer page, Integer limit, String startTime, String endTime) throws ParseException;
+    Page getDiary(CommonQuery commonQuery);
 
     void deleteDiaryById(Integer id);
 

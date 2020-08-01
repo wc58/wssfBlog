@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.chao.wssf.entity.Diary;
 import com.chao.wssf.mapper.DiaryMapper;
+import com.chao.wssf.query.CommonQuery;
 import com.chao.wssf.service.IDiaryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -76,19 +77,17 @@ public class DiaryServiceImpl implements IDiaryService {
     }
 
     @Override
-    public Page getDiary(Integer page, Integer limit, String startTime, String endTime) throws ParseException {
+    public Page getDiary(CommonQuery commonQuery) {
         QueryWrapper<Diary> diaryQueryWrapper = new QueryWrapper<>();
-        //对日期进行转换
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date startTime = commonQuery.getStartTime();
+        Date endTime = commonQuery.getEndTime();
         if (!StringUtils.isEmpty(startTime)) {
-            Date date = simpleDateFormat.parse(startTime);
-            diaryQueryWrapper.ge("create_time", date);
+            diaryQueryWrapper.ge("create_time", startTime);
         }
         if (!StringUtils.isEmpty(endTime)) {
-            Date date = simpleDateFormat.parse(endTime);
-            diaryQueryWrapper.le("create_time", date);
+            diaryQueryWrapper.le("create_time", endTime);
         }
-        Page<Diary> diaryPage = new Page<>(page, limit);
+        Page<Diary> diaryPage = new Page<>(commonQuery.getPage(), commonQuery.getLimit());
         return diaryMapper.selectPage(diaryPage, diaryQueryWrapper);
     }
 

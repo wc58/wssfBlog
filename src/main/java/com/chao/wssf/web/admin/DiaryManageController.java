@@ -1,6 +1,7 @@
 package com.chao.wssf.web.admin;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.chao.wssf.query.CommonQuery;
 import com.chao.wssf.service.IDiaryService;
 import com.chao.wssf.service.ILinkService;
 import com.chao.wssf.util.R;
@@ -22,19 +23,15 @@ public class DiaryManageController {
     /**
      * 查询所有评论
      *
-     * @param page
-     * @param limit
-     * @param startTime
-     * @param endTime
      * @return
      */
 
     @RequestMapping("getDiary")
     @ResponseBody
-    public Map<String, Object> getDiary(Integer page, Integer limit, String startTime, String endTime) {
+    public Map<String, Object> getDiary(CommonQuery commonQuery) {
         HashMap<String, Object> map = new HashMap<>();
         try {
-            Page commentPage = diaryService.getDiary(page, limit, startTime, endTime);
+            Page commentPage = diaryService.getDiary(commonQuery);
             //封装数据
             map.put("code", 0);
             map.put("count", commentPage.getTotal());
