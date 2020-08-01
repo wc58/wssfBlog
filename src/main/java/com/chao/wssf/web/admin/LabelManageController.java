@@ -2,6 +2,7 @@ package com.chao.wssf.web.admin;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.chao.wssf.entity.Label;
+import com.chao.wssf.query.LabelQuery;
 import com.chao.wssf.service.ILabelService;
 import com.chao.wssf.util.R;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,19 +23,14 @@ public class LabelManageController {
     /**
      * 查询所有评论
      *
-     * @param page
-     * @param limit
-     * @param labelName
-     * @param startTime
-     * @param endTime
      * @return
      */
     @RequestMapping("getLabels")
     @ResponseBody
-    public Map<String, Object> getLabels(Integer page, Integer limit, String labelName, String startTime, String endTime) {
+    public Map<String, Object> getLabels(LabelQuery labelQuery) {
         HashMap<String, Object> map = new HashMap<>();
         try {
-            Page<Label> commentPage = labelService.getLabels(page, limit, labelName, startTime, endTime);
+            Page<Label> commentPage = labelService.getLabels(labelQuery);
             //封装数据
             map.put("code", 0);
             map.put("count", commentPage.getTotal());

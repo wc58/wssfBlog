@@ -2,6 +2,7 @@ package com.chao.wssf.service;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.chao.wssf.entity.Label;
+import com.chao.wssf.query.LabelQuery;
 
 import java.text.ParseException;
 import java.util.List;
@@ -20,7 +21,7 @@ public interface ILabelService {
 
     void deleteLabelsByArticleId(int articleId);
 
-    Page<Label> getLabels(Integer page, Integer limit, String labelName, String startTime, String endTime) throws ParseException;
+    Page<Label> getLabels(LabelQuery labelQuery) throws ParseException;
 
     void deleteLabelsById(Integer id);
 

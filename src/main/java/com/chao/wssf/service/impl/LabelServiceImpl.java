@@ -6,6 +6,7 @@ import com.chao.wssf.entity.ArticleLabel;
 import com.chao.wssf.entity.Label;
 import com.chao.wssf.mapper.ArticleLabelMapper;
 import com.chao.wssf.mapper.LabelMapper;
+import com.chao.wssf.query.LabelQuery;
 import com.chao.wssf.service.ILabelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -110,31 +111,27 @@ public class LabelServiceImpl implements ILabelService {
     /**
      * 获取所有标签信息
      *
-     * @param page
-     * @param limit
-     * @param labelName
-     * @param startTime
-     * @param endTime
      * @return
      */
     @Override
-    public Page<Label> getLabels(Integer page, Integer limit, String labelName, String startTime, String endTime) throws ParseException {
+    public Page<Label> getLabels(LabelQuery labelQuery) {
 
         QueryWrapper<Label> labelQueryWrapper = new QueryWrapper<>();
-        Page<Label> labelPage = new Page<>(page, limit);
+        Page<Label> labelPage = new Page<>(labelQuery.getPage(), labelQuery.getLimit());
         labelQueryWrapper.orderByDesc("sort");
+
+        String labelName = labelQuery.getLabelName();
+        Date startTime = labelQuery.getStartTime();
+        Date endTime = labelQuery.getEndTime();
+
         if (!StringUtils.isEmpty(labelName)) {
             labelQueryWrapper.eq("name", labelName);
         }
-        //对日期进行转换
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         if (!StringUtils.isEmpty(startTime)) {
-            Date date = simpleDateFormat.parse(startTime);
-            labelQueryWrapper.ge("create_time", date);
+            labelQueryWrapper.ge("create_time", startTime);
         }
         if (!StringUtils.isEmpty(endTime)) {
-            Date date = simpleDateFormat.parse(endTime);
-            labelQueryWrapper.le("create_time", date);
+            labelQueryWrapper.le("create_time", endTime);
         }
         Page<Label> selectPage = labelMapper.selectPage(labelPage, labelQueryWrapper);
         for (Label record : selectPage.getRecords()) {
