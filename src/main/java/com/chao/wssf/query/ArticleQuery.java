@@ -16,4 +16,5 @@ public class ArticleQuery extends CommonQuery {
     private Boolean del;
     private Boolean top;
     private Integer[] labels;
+    private Integer label;
 }

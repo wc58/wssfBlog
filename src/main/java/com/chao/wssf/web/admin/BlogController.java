@@ -216,20 +216,18 @@ public class BlogController {
     /**
      * 查出普通的文章
      *
-     * @param page
-     * @param limit
      * @return
      */
     @RequestMapping("getCommArticle")
     @ResponseBody
-    public Map<String, Object> getCommArticle(Integer page, Integer limit, Integer label, String title, String author, String status, String startTime, String endTime) {
+    public Map<String, Object> getCommArticle(ArticleQuery articleQuery) {
         HashMap<String, Object> map = new HashMap<>();
         try {
             //查询出既不是置顶也不是删除的文章
             List<Integer> tops = topService.getArticleIdByTops().stream().map(Top::getArticleId).collect(Collectors.toList());
             //防止sql错误
             tops.add(-1);
-            Page<Article> articlePage = articleService.getCommArticle(tops, page, limit, label, title, author, status, startTime, endTime);
+            Page<Article> articlePage = articleService.getCommArticle(tops, articleQuery);
             //封装数据
             map.put("code", 0);
             map.put("count", articlePage.getTotal());
@@ -244,24 +242,20 @@ public class BlogController {
 
     /**
      * 查出删除的文章
-     *
-     * @param page
-     * @param limit
-     * @return
      */
     @RequestMapping("getDelArticle")
     @ResponseBody
-    public Map<String, Object> getDelArticle(Integer page, Integer limit, Integer label, String title, String author, String status, String startTime, String endTime) {
+    public Map<String, Object> getDelArticle(ArticleQuery articleQuery) {
         HashMap<String, Object> map = new HashMap<>();
         try {
             //查询出是删除的文章
-            Page<Article> articlePage = articleService.getDelArticle(page, limit, label, title, author, status, startTime, endTime);
+            Page<Article> articlePage = articleService.getDelArticle(articleQuery);
             //封装数据
             map.put("code", 0);
             map.put("count", articlePage.getTotal());
             map.put("data", articlePage.getRecords());
             return map;
-        } catch (ParseException e) {
+        } catch (Exception e) {
             e.printStackTrace();
             map.put("code", 1);
             return map;
@@ -270,25 +264,21 @@ public class BlogController {
 
     /**
      * 查出置顶的文章
-     *
-     * @param page
-     * @param limit
-     * @return
      */
     @RequestMapping("getTopArticle")
     @ResponseBody
-    public Map<String, Object> getTopArticle(Integer page, Integer limit, Integer label, String title, String author, String status, String startTime, String endTime) {
+    public Map<String, Object> getTopArticle(ArticleQuery articleQuery) {
         HashMap<String, Object> map = new HashMap<>();
         try {
             //查询出既不是置顶也不是删除的文章
             List<Top> tops = topService.getArticleIdByTops();
-            Page<TopArticle> articlePage = articleService.getTopArticle(tops, page, limit, label, title, author, status, startTime, endTime);
+            Page<TopArticle> articlePage = articleService.getTopArticle(tops, articleQuery);
             //封装数据
             map.put("code", 0);
             map.put("count", articlePage.getTotal());
             map.put("data", articlePage.getRecords());
             return map;
-        } catch (ParseException e) {
+        } catch (Exception e) {
             e.printStackTrace();
             map.put("code", 1);
             return map;

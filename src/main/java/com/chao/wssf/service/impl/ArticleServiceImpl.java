@@ -21,7 +21,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -225,17 +224,16 @@ public class ArticleServiceImpl implements IArticleService {
      * 既不是置顶也没有被删除
      *
      * @param tops
-     * @param label
      * @return
      */
     @Override
-    public Page<Article> getCommArticle(List<Integer> tops, Integer page, Integer limit, Integer label, String title, String author, String status, String startTime, String endTime) throws ParseException {
+    public Page<Article> getCommArticle(List<Integer> tops, ArticleQuery articleQuery) throws ParseException {
         QueryWrapper<Article> articleQueryWrapper = new QueryWrapper<>();
         //必备条件
         articleQueryWrapper.notIn("id", tops).eq("del", "0").orderByDesc("create_time");
         //可选条件
-        condition(label, title, author, status, startTime, endTime, articleQueryWrapper);
-        Page<Article> articlePage = new Page<>(page, limit);
+        condition(articleQuery, articleQueryWrapper);
+        Page<Article> articlePage = new Page<>(articleQuery.getPage(), articleQuery.getLimit());
         return articleMapper.selectPage(articlePage, articleQueryWrapper);
     }
 
@@ -246,7 +244,7 @@ public class ArticleServiceImpl implements IArticleService {
      * @return
      */
     @Override
-    public Page getTopArticle(List<Top> tops, Integer page, Integer limit, Integer label, String title, String author, String status, String startTime, String endTime) throws ParseException {
+    public Page getTopArticle(List<Top> tops, ArticleQuery articleQuery) {
         QueryWrapper<Article> articleQueryWrapper = new QueryWrapper<>();
         //必备条件
         List<Integer> ids = tops.stream().map(Top::getArticleId).collect(Collectors.toList());
@@ -254,8 +252,8 @@ public class ArticleServiceImpl implements IArticleService {
         ids.add(-1);
         articleQueryWrapper.in("id", ids);
         //可选条件
-        condition(label, title, author, status, startTime, endTime, articleQueryWrapper);
-        Page<Article> articlePage = new Page<>(page, limit);
+        condition(articleQuery, articleQueryWrapper);
+        Page<Article> articlePage = new Page<>(articleQuery.getPage(), articleQuery.getLimit());
         Page selectPage = articleMapper.selectPage(articlePage, articleQueryWrapper);
         //偷梁换柱，因为涉及多张表，而前端响应格式限定，所有只能这样来改变数据=======================================
         List records = selectPage.getRecords();
@@ -326,24 +324,15 @@ public class ArticleServiceImpl implements IArticleService {
 
     /**
      * 被逻辑删除的文章
-     *
-     * @param page
-     * @param limit
-     * @param title
-     * @param author
-     * @param status
-     * @param startTime
-     * @param endTime
-     * @return
      */
     @Override
-    public Page<Article> getDelArticle(Integer page, Integer limit, Integer label, String title, String author, String status, String startTime, String endTime) throws ParseException {
+    public Page<Article> getDelArticle(ArticleQuery articleQuery) {
         QueryWrapper<Article> articleQueryWrapper = new QueryWrapper<>();
         //必备条件
         articleQueryWrapper.ne("del", "0").orderByDesc("create_time");
         //可选条件
-        condition(label, title, author, status, startTime, endTime, articleQueryWrapper);
-        Page<Article> articlePage = new Page<>(page, limit);
+        condition(articleQuery, articleQueryWrapper);
+        Page<Article> articlePage = new Page<>(articleQuery.getPage(), articleQuery.getLimit());
         return articleMapper.selectPage(articlePage, articleQueryWrapper);
     }
 
@@ -390,17 +379,15 @@ public class ArticleServiceImpl implements IArticleService {
 
     /**
      * 非必要的条件
-     *
-     * @param label
-     * @param title
-     * @param author
-     * @param status
-     * @param startTime
-     * @param endTime
-     * @param articleQueryWrapper
-     * @throws ParseException
      */
-    private void condition(Integer label, String title, String author, String status, String startTime, String endTime, QueryWrapper<Article> articleQueryWrapper) throws ParseException {
+    private void condition(ArticleQuery articleQuery, QueryWrapper<Article> articleQueryWrapper) {
+        Integer label = articleQuery.getLabel();
+        String title = articleQuery.getTitle();
+        String author = articleQuery.getAuthor();
+        String status = articleQuery.getStatus();
+        Date startTime = articleQuery.getStartTime();
+        Date endTime = articleQuery.getEndTime();
+
         if (!StringUtils.isEmpty(label) && !label.equals(-1)) {
             List<Integer> articleIds = labelService.getArticleIdsByLabelId(label);
             articleQueryWrapper.in("id", articleIds);
@@ -414,15 +401,11 @@ public class ArticleServiceImpl implements IArticleService {
         if (!StringUtils.isEmpty(status)) {
             articleQueryWrapper.like("status", status);
         }
-        //对日期进行转换
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         if (!StringUtils.isEmpty(startTime)) {
-            Date date = simpleDateFormat.parse(startTime);
-            articleQueryWrapper.ge("create_time", date);
+            articleQueryWrapper.ge("create_time", startTime);
         }
         if (!StringUtils.isEmpty(endTime)) {
-            Date date = simpleDateFormat.parse(endTime);
-            articleQueryWrapper.le("create_time", date);
+            articleQueryWrapper.le("create_time", endTime);
         }
     }
 
