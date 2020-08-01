@@ -75,7 +75,7 @@ public class ArticleController {
         List<FullComment> fullComments = commentService.getCommentsByArticleId(id);
 
         //处理日期
-        Date lately = article.getUpdateTime();
+        Date lately = article.getCreateTime();
         SimpleDateFormat dayFormat = new SimpleDateFormat("dd");
         String day = dayFormat.format(lately);
         day = ArticleTemplate.wipeZero(day);//截取零
@@ -173,7 +173,7 @@ public class ArticleController {
             System.out.println(other.getFlow() - other.getCommentSize());
             articleTemplate.setFlow(other.getFlow());
             articleTemplate.setLabels(labels);
-            articleTemplate.setLately(article.getUpdateTime());
+            articleTemplate.setLately(article.getCreateTime());
             //设置链接地址
             articleTemplate.setLink("/blog/read/" + article.getId());
             articleTemplate.setPicture(article.getPicture());

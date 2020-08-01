@@ -44,5 +44,10 @@ public class UserController {
         return R.ERROR();
     }
 
+    @RequestMapping("qqLogin")
+    public String qqLogin() {
+        System.out.println("=====================================");
+        return "index";
+    }
 
 }

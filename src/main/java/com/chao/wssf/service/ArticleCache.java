@@ -116,10 +116,10 @@ public class ArticleCache implements InitializingBean {
      */
     private void insertSort(List<Article> arrs) {
         for (int i = 1; i < arrs.size(); i++) {
-            Comparable insertVal = arrs.get(i).getUpdateTime();
+            Comparable insertVal = arrs.get(i).getCreateTime();
             Article temp = arrs.get(i);
             int insertIndex = i - 1;
-            while (insertIndex >= 0 && less(arrs.get(insertIndex).getUpdateTime(), insertVal)) {
+            while (insertIndex >= 0 && less(arrs.get(insertIndex).getCreateTime(), insertVal)) {
                 arrs.set(insertIndex + 1, arrs.get(insertIndex));
                 insertIndex--;
             }
