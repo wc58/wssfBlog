@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.chao.wssf.entity.User;
 import com.chao.wssf.mapper.UserMapper;
+import com.chao.wssf.query.UserQuery;
 import com.chao.wssf.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -75,23 +76,22 @@ public class UserServiceImpl implements IUserService {
      * @throws ParseException
      */
     @Override
-    public Page getUsers(Integer page, Integer limit, String username, String startTime, String endTime) throws ParseException {
+    public Page getUsers(UserQuery userQuery) {
         QueryWrapper<User> linkQueryWrapper = new QueryWrapper<>();
+        String username = userQuery.getUsername();
+        Date startTime = userQuery.getStartTime();
+        Date endTime = userQuery.getEndTime();
         if (!StringUtils.isEmpty(username)) {
             linkQueryWrapper.like("name", username);
         }
-        //对日期进行转换
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         if (!StringUtils.isEmpty(startTime)) {
-            Date date = simpleDateFormat.parse(startTime);
-            linkQueryWrapper.ge("create_time", date);
+            linkQueryWrapper.ge("create_time", startTime);
         }
         if (!StringUtils.isEmpty(endTime)) {
-            Date date = simpleDateFormat.parse(endTime);
-            linkQueryWrapper.le("create_time", date);
+            linkQueryWrapper.le("create_time", endTime);
         }
 
-        Page<User> linkPage = new Page<>(page, limit);
+        Page<User> linkPage = new Page<>(userQuery.getPage(), userQuery.getLimit());
         return userMapper.selectPage(linkPage, linkQueryWrapper);
     }
 

@@ -47,7 +47,7 @@ public class UserController {
     @RequestMapping("qqLogin")
     public String qqLogin() {
         System.out.println("=====================================");
-        return "index";
+        return "forward:/blog/list";
     }
 
 }

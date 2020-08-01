@@ -2,6 +2,7 @@ package com.chao.wssf.web.admin;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.chao.wssf.entity.User;
+import com.chao.wssf.query.UserQuery;
 import com.chao.wssf.service.ILinkService;
 import com.chao.wssf.service.IUserService;
 import com.chao.wssf.util.R;
@@ -22,20 +23,13 @@ public class UserManageController {
 
     /**
      * 查询所有评论
-     *
-     * @param page
-     * @param limit
-     * @param username
-     * @param startTime
-     * @param endTime
-     * @return
      */
     @RequestMapping("getUsers")
     @ResponseBody
-    public Map<String, Object> getLinks(Integer page, Integer limit, String username, String startTime, String endTime) {
+    public Map<String, Object> getLinks(UserQuery userQuery) {
         HashMap<String, Object> map = new HashMap<>();
         try {
-            Page commentPage = userService.getUsers(page, limit, username, startTime, endTime);
+            Page commentPage = userService.getUsers(userQuery);
             //封装数据
             map.put("code", 0);
             map.put("count", commentPage.getTotal());
