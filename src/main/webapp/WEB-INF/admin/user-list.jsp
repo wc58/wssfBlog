@@ -92,9 +92,9 @@
                     templet: '<div><img src="{{ d.icon }}" style="width:150px; height:150px;"></div>',
                     edit: 'text'
                 }
-                , {field: 'thirdId', title: '三方ID', width: 180, edit: 'text'}
+                , {field: 'thirdId', title: '三方ID', width: 180}
                 , {field: 'email', title: '邮箱', width: 240, edit: 'text'}
-                , {field: 'banned', title: '禁止', width: 70, sort: true, edit: 'text'}
+                , {field: 'banned', title: '禁言', width: 70, sort: true, edit: 'text'}
                 , {field: 'createTime', title: '创建时间', width: 142, sort: true}
                 , {field: 'updateTime', title: '最近修改', width: 142, sort: true}
                 , {fixed: 'right', width: 130, align: 'center', toolbar: '#bar'}

@@ -150,34 +150,35 @@ public class ArticleServiceImpl implements IArticleService {
             article.setDel("1");
         }
         article.setUpdateTime(new Date());
-        Integer articleId = articleQuery.getClientId();
+        Integer clientId = articleQuery.getClientId();
         //id存在说明更新
-        if (articleId != null) {
-            article.setId(articleId);
+        if (clientId != null) {
+            article.setId(clientId);
             articleMapper.updateById(article);
             //删除旧的重新添加
-            labelService.deleteLabelsByArticleId(articleId);
+            labelService.deleteLabelsByArticleId(clientId);
             //设置标签
-            setLabels(articleId, articleQuery.getLabels());
+            setLabels(clientId, articleQuery.getLabels());
             //置顶表
             QueryWrapper<Top> topQueryWrapper = new QueryWrapper<>();
-            topQueryWrapper.eq("article_id", articleId);
+            topQueryWrapper.eq("article_id", clientId);
             //设置置顶状态
-            setTop(articleId, articleQuery.getTop());
+            setTop(clientId, articleQuery.getTop());
             articleCache.updateData();
         } else {//添加
             article.setCreateTime(new Date());
             articleMapper.insert(article);
+            Integer daoId = article.getId();
             //其他表
             Other other = new Other();
-            other.setArticleId(articleId);
+            other.setArticleId(daoId);
             other.setFlow(0);
             other.setCommentSize(0);
             otherMapper.insert(other);
             //设置标签
-            setLabels(articleId, articleQuery.getLabels());
+            setLabels(daoId, articleQuery.getLabels());
             //设置置顶状态
-            setTop(articleId, articleQuery.getTop());
+            setTop(daoId, articleQuery.getTop());
             articleCache.updateData();
         }
         return article.getId();

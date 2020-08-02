@@ -199,54 +199,7 @@
         NProgress.done();
     };
 
-    layui.use('layer', function () {
-        var layer = layui.layer;
-        var $ = layui.$
 
-        $("#login").click(function () {
-            layer.open({
-                type: 1,
-                area: ['400px', '300px'],
-                title: '登录'
-                , content: $("#test"),
-                shade: 0,
-                btn: ['提交', '重置']
-                , btn1: function (index, layero) {
-                    let username = $("#username").val();
-                    let password = $("#password").val();
-                    $.ajax({
-                        type: 'post',
-                        url: "/user/testLogin",
-                        data: {
-                            "thirdId": username,
-                            "email": password
-                        },
-                        success: function (data) {
-                            if (data.code === 1000) {
-                                layer.msg("登录成功");
-                                location.reload();
-                                return true;
-                            } else {
-                                layer.msg("登录失败");
-                            }
-                            return false;
-                        },
-                        dataType: "json"
-                    })
-                },
-                btn2: function (index, layero) {
-                    $("#username").val("");
-                    $("#password").val("");
-                    return false;
-                },
-                cancel: function (layero, index) {
-                    layer.closeAll();
-                }
-
-            });
-        })
-
-    });
 
     layui.use('element', function () {
         var $ = layui.$

@@ -127,7 +127,7 @@
                 })
                 return;
             }
-            if (isApply === '1') {
+            if (isApply == '1') {
                 layer.msg("该账户已经申请过", {
                     offset: ['300px']
                 })

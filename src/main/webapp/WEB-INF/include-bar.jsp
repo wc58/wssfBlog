@@ -18,7 +18,39 @@
 </nav>
 <%--登录位置--%>
 <div>
-    <a href="#" id="qq" class="blog-user">
-        <i class="fa fa-qq"></i>
-    </a>
+    <c:if test="${user == null}">
+        <a onclick="login()" href="javascript:;" id="qq" class="blog-user">
+            <i class="fa fa-qq"></i>
+        </a>
+    </c:if>
+    <c:if test="${user != null}">
+        <a onclick="logout()" href="javascript:;" class="blog-user">
+            <img src="${user.icon}"
+                 alt="${user.name}"
+                 title="${user.name}"/>
+        </a>
+    </c:if>
 </div>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script>
+    function login() {
+        location.href = '/user/loginByQQ?url=' + location.pathname
+    }
+
+    function logout() {
+        $.ajax({
+            type: 'get',
+            url: '/user/logout',
+            dataType: 'json',
+            success: function (data) {
+                if (data.code === 1000) {
+                    layer.msg("退出成功")
+                    location.reload();
+                } else {
+                    layer.msg("退出失败")
+                }
+            }
+        })
+    }
+
+</script>

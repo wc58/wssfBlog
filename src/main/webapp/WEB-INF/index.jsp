@@ -55,6 +55,11 @@
             <div class="nav wow zoomIn" data-wow-duration="2s">
                 <h1>往事随风</h1>
                 <p>人生如棋，漫漫长路，爱恨情愁几时休...</p>
+                <div>
+                    <a href="/user/loginByQQ" id="qq" class="blog-user" style="color: green;font-size: 60px">
+                        <i class="fa fa-qq"></i>
+                    </a>
+                </div>
                 <a class="layui-btn " style="margin-top: 20px;background-color:transparent;"
                    href="${pageContext.request.contextPath}/blog/list">GO TO
                     BLOGS&nbsp;&nbsp;<i

@@ -35,7 +35,6 @@ public class LinkController {
     @RequestMapping("applyLink")
     @ResponseBody
     public R applyLink(String title, String icon, String url, String desc, HttpSession session) {
-
         User user = (User) session.getAttribute("user");
         Integer id = user.getId();
         Link link = linkService.getLinkByUserId(id);
@@ -45,7 +44,7 @@ public class LinkController {
         } else {
             try {
                 linkService.addLink(title, icon, url, desc, id);
-                session.setAttribute("isApply", title);
+                session.setAttribute("isApply", "1");
             } catch (Exception e) {
                 e.printStackTrace();
                 return R.ERROR();

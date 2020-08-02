@@ -30,6 +30,13 @@ public class UserServiceImpl implements IUserService {
         return userMapper.selectOne(userQueryWrapper);
     }
 
+    public void addUser(User user) {
+        Date date = new Date();
+        user.setBanned("0");
+        user.setUpdateTime(date);
+        user.setCreateTime(date);
+        userMapper.insert(user);
+    }
     //==========================================================================================================
 
     /**
@@ -66,14 +73,6 @@ public class UserServiceImpl implements IUserService {
 
     /**
      * 查询所有用户信息
-     *
-     * @param page
-     * @param limit
-     * @param username
-     * @param startTime
-     * @param endTime
-     * @return
-     * @throws ParseException
      */
     @Override
     public Page getUsers(UserQuery userQuery) {
@@ -114,6 +113,17 @@ public class UserServiceImpl implements IUserService {
     @Override
     public void deleteUserById(Integer id) {
         userMapper.deleteById(id);
+    }
+
+    /**
+     * 根据第三方id进行查询
+     *
+     * @param openID
+     * @return
+     */
+    @Override
+    public User getUserByThirdId(String openID) {
+        return userMapper.selectOne(new QueryWrapper<User>().eq("third_id", openID));
     }
 
 

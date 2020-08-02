@@ -32,10 +32,11 @@
             <version>${spring-version}</version>
         </dependency>
 
+        <!--qq登陆jdk-->
         <dependency>
-            <groupId>com.qq</groupId>
-            <artifactId>Sdk4J</artifactId>
-            <version>2</version>
+            <groupId>cn.kiwipeach</groupId>
+            <artifactId>qq-sdk4j</artifactId>
+            <version>1.0.0</version>
         </dependency>
 
         <!--文件上传-->
