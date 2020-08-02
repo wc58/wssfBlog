@@ -75,7 +75,7 @@
                             <div class="info">
                                     <%--昵称--%>
                                 <span class="username">${leave.user.name}</span>
-                                <c:if test="${leave.user.thirdId=='2258354832'}">
+                                <c:if test="${leave.user.thirdId=='8E1544B0D015EC98612B39DD5D5B90B0'}">
                                     <span class="layui-badge">博主</span>
                                     &nbsp;
                                 </c:if>
@@ -117,7 +117,7 @@
                                             <%--回复人--%>
                                         <div>
                                             <span class="username" style="color: #2E2D3C">${childLeave.user.name}</span>
-                                            <c:if test="${childLeave.user.thirdId=='2258354832'}">
+                                            <c:if test="${childLeave.user.thirdId=='8E1544B0D015EC98612B39DD5D5B90B0'}">
                                                 <span class="layui-badge" style="height: 16px;font-size: 9px;">博主</span>
                                                 &nbsp;
                                             </c:if>

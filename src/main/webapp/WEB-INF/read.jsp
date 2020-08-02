@@ -191,7 +191,7 @@
                                         <div class="info">
                                                 <%--昵称--%>
                                             <span class="username">${comment.user.name}</span>
-                                            <c:if test="${comment.user.thirdId=='2258354832'}">
+                                            <c:if test="${comment.user.thirdId=='8E1544B0D015EC98612B39DD5D5B90B0'}">
                                                 <span class="layui-badge">博主</span>
                                                 &nbsp;
                                             </c:if>
@@ -235,7 +235,7 @@
                                                     <div>
                                                             <span class="username"
                                                                   style="color: #2E2D3C">${childComment.user.name}</span>
-                                                        <c:if test="${childComment.user.thirdId=='2258354832'}">
+                                                        <c:if test="${childComment.user.thirdId=='8E1544B0D015EC98612B39DD5D5B90B0'}">
                                                             <span class="layui-badge"
                                                                   style="height: 16px;font-size: 9px;">博主</span>
                                                             &nbsp;
