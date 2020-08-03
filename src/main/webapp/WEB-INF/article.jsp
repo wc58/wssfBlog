@@ -132,28 +132,6 @@
 
 <%@ include file="include-footer.jsp" %>
 
-
-<form class="layui-form" id="test" style="display:none">
-    <br/>
-    <br/>
-    <div class="layui-form-item">
-        <label class="layui-form-label">用户名</label>
-        <div class="layui-input-inline">
-            <input id="username" type="text" name="title" required lay-verify="required" placeholder="用户名"
-                   autocomplete="off"
-                   class="layui-input">
-        </div>
-    </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label">密码框</label>
-        <div class="layui-input-inline">
-            <input id="password" type="password" name="password" required lay-verify="required" placeholder="请输入密码"
-                   autocomplete="off"
-                   class="layui-input">
-        </div>
-    </div>
-</form>
-
 <script src="${pageContext.request.contextPath}/layui/layui.js"></script>
 <script src="${pageContext.request.contextPath}/js/yss/gloable.js"></script>
 <script src="${pageContext.request.contextPath}/js/plugins/nprogress.js"></script>

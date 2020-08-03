@@ -15,8 +15,8 @@ body,html{background-color:rgba(255,255,255,.5);font:14px/1.5 "Helvetica neue",H
 .nav li a{display:block;line-height:32px;padding:4px 28px;color:#212220;font-weight:400;font-size:15px;text-shadow:0 1px 0 rgba(255,255,255,.2);-webkit-transition:all .2s;transition:all .2s}
 .nav .current:before{width:100%;left:0}
 .nav .current a{color:#6bc30d}
-.blog-user{position:absolute;line-height:60px;font-size:24px}
-.blog-user>img{border-radius:50%;width:40px;height:40px}
+.blog-user{position:absolute;line-height:61px;font-size:30px}
+.blog-user>img{border-radius:50%;width:39px;height:39px}
 .phone-menu{width:50px;height:50px;display:inline-block;position:absolute;cursor:pointer;right:0;top:5px}
 .phone-menu i{background:#787977;display:inline-block;width:22px;height:2px;position:absolute;left:14px}
 .phone-menu i:nth-of-type(1){top:18px}

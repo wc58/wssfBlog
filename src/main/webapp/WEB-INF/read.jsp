@@ -121,7 +121,7 @@
                                         class="readcount">${other.flow}</i></small>
                                 <%--更新时间--%>
                                 <small class="ml10">更新于 <label><f:formatDate value="${article.updateTime}"
-                                                                             pattern="yyyy-MM-dd hh:mm:ss"/></label>
+                                                                             pattern="yyyy-MM-dd HH:mm:ss"/></label>
                                 </small>
                             </p>
                         </aside>
@@ -204,7 +204,7 @@
                                                 <%--日期--%>
                                             <span class="comment-time" style="color: gray"><f:formatDate
                                                     value="${comment.comment.createTime}"
-                                                    pattern="yyyy-MM-dd hh:mm:ss"/></span>
+                                                    pattern="yyyy-MM-dd HH:mm:ss"/></span>
                                             <a href="javascript:;" class="btn-reply"
                                                data-targetid="${comment.comment.id}"
                                                data-targetname="${comment.user.name}">回复</a>
@@ -252,7 +252,7 @@
                                                 <p class="info">
                                     <span class="comment-time" style="color: gray"><f:formatDate
                                             value="${childComment.comment.createTime}"
-                                            pattern="yyyy-MM-dd hh:mm:ss"/></span>
+                                            pattern="yyyy-MM-dd HH:mm:ss"/></span>
                                                         <%--只有是当前子评论最后一个时才加回复，要不然回复列表会乱序，如果你不喜欢，可以把if判断去掉即可--%>
                                                         <%--                                        <c:if test="${leave.fullLeaves.get(num.index+1).user.name eq 'ERROR20020508'}">--%>
                                                         <%--被回复人的id--%>

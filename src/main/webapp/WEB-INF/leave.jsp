@@ -88,7 +88,7 @@
                                     <%--日期--%>
                                 <span class="comment-time" style="color: gray"><f:formatDate
                                         value="${leave.leave.createTime}"
-                                        pattern="yyyy-MM-dd hh:mm:ss"/></span>
+                                        pattern="yyyy-MM-dd HH:mm:ss"/></span>
                                 <a href="javascript:;" class="btn-reply" data-targetid="${leave.leave.id}"
                                    data-targetname="${leave.user.name}">回复</a>
                             </p>
@@ -134,7 +134,7 @@
                                     <p class="info">
                                     <span class="comment-time" style="color: gray"><f:formatDate
                                             value="${childLeave.leave.createTime}"
-                                            pattern="yyyy-MM-dd hh:mm:ss"/></span>
+                                            pattern="yyyy-MM-dd HH:mm:ss"/></span>
                                             <%--只有是当前子评论最后一个时才加回复，要不然回复列表会乱序，如果你不喜欢，可以把if判断去掉即可--%>
                                             <%--                                        <c:if test="${leave.fullLeaves.get(num.index+1).user.name eq 'ERROR20020508'}">--%>
                                             <%--被回复人的id--%>

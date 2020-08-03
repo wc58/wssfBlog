@@ -65,13 +65,13 @@
                 <ul class="sub-menu">
                     <li>
                         <a onclick="xadmin.add_tab('添加文章','/admin/writeBlog')">
-                            <i class="iconfont">&#xe6b9;</i>
+                            <i class="iconfont">&#xe74e;</i>
                             <cite>添加文章</cite></a>
                     </li>
 
                     <li>
                         <a onclick="xadmin.add_tab('普通文章','/admin/articleCommList',true)">
-                            <i class="iconfont">&#xe699;</i>
+                            <i class="iconfont">&#xe74a;</i>
                             <cite>普通文章</cite></a>
                     </li>
                     <li>
@@ -117,7 +117,7 @@
             </li>
             <li>
                 <a href="javascript:;">
-                    <i class="iconfont left-nav-li" lay-tips="日记管理">&#xe74e;</i>
+                    <i class="iconfont left-nav-li" lay-tips="日记管理">&#xe75e;</i>
                     <cite>日记管理</cite>
                     <i class="iconfont nav_right">&#xe697;</i></a>
                 <ul class="sub-menu">
@@ -141,18 +141,42 @@
                 <ul class="sub-menu">
                     <li>
                         <a onclick="xadmin.add_tab('标签管理','/admin/labelList',true)">
-                            <i class="iconfont">&#xe699;</i>
+                            <i class="iconfont">&#xe6c5;</i>
                             <cite>标签管理</cite></a>
                     </li>
                     <li>
                         <a onclick="xadmin.add_tab('友链管理','/admin/linkList',true)">
-                            <i class="iconfont">&#xe699;</i>
+                            <i class="iconfont">&#xe6f7;</i>
                             <cite>友链管理</cite></a>
                     </li>
                     <li>
                         <a onclick="xadmin.add_tab('标签管理','/admin/userList',true)">
-                            <i class="iconfont">&#xe699;</i>
+                            <i class="iconfont">&#xe726;</i>
                             <cite>用户管理</cite></a>
+                    </li>
+                </ul>
+            </li>
+
+            <li>
+                <a href="javascript:;">
+                    <i class="iconfont left-nav-li" lay-tips="系统管理">&#xe6ae;</i>
+                    <cite>系统管理</cite>
+                    <i class="iconfont nav_right">&#xe697;</i></a>
+                <ul class="sub-menu">
+                    <li>
+                        <a onclick="xadmin.add_tab('系统配置','/admin/labelList',true)">
+                            <i class="iconfont">&#xe6b5;</i>
+                            <cite>系统配置</cite></a>
+                    </li>
+                    <li>
+                        <a onclick="xadmin.add_tab('系统问题','/admin/linkList',true)">
+                            <i class="iconfont">&#xe6b2;</i>
+                            <cite>系统问题</cite></a>
+                    </li>
+                    <li>
+                        <a onclick="xadmin.add_tab('数据可视化','/admin/userList',true)">
+                            <i class="iconfont">&#xe6e6;</i>
+                            <cite>数据可视化</cite></a>
                     </li>
                 </ul>
             </li>

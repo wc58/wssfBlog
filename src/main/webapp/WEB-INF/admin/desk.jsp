@@ -40,6 +40,20 @@
                     <ul class="layui-row layui-col-space10 layui-this x-admin-carousel x-admin-backlog">
                         <li class="layui-col-md2 layui-col-xs6">
                             <a href="javascript:;" class="x-admin-backlog-body">
+                                <h3>建站时间</h3>
+                                <p>
+                                    <cite>9</cite></p>
+                            </a>
+                        </li>
+                        <li class="layui-col-md2 layui-col-xs6">
+                            <a href="javascript:;" class="x-admin-backlog-body">
+                                <h3>实现倒计时</h3>
+                                <p>
+                                    <cite>332</cite></p>
+                            </a>
+                        </li>
+                        <li class="layui-col-md2 layui-col-xs6">
+                            <a href="javascript:;" class="x-admin-backlog-body">
                                 <h3>文章数量</h3>
                                 <p>
                                     <cite>${articleSize}</cite></p>
@@ -116,9 +130,9 @@
             <div class="layui-row layui-col-space15">
                 <div class="layui-col-sm12 layui-col-md6">
                     <div class="layui-card">
-                        <div class="layui-card-header">新增用户量</div>
+                        <div class="layui-card-header">首页访问量</div>
                         <div class="layui-card-body" style="min-height: 280px;">
-                            <div id="main1" class="layui-col-sm12" style="height: 300px;"></div>
+                            <div id="indexFlow" class="layui-col-sm12" style="height: 300px;"></div>
 
                         </div>
                     </div>
@@ -127,26 +141,26 @@
                     <div class="layui-card">
                         <div class="layui-card-header">文章点击量</div>
                         <div class="layui-card-body" style="min-height: 280px;">
-                            <div id="main2" class="layui-col-sm12" style="height: 300px;"></div>
+                            <div id="articleFlow" class="layui-col-sm12" style="height: 300px;"></div>
 
                         </div>
                     </div>
                 </div>
 
-                <div class="layui-col-sm12 layui-col-md6">
-                    <div class="layui-card">
-                        <div class="layui-card-header">吐槽量</div>
-                        <div class="layui-card-body" style="min-height: 280px;">
-                            <div id="main4" class="layui-col-sm12" style="height: 300px;"></div>
-
-                        </div>
-                    </div>
-                </div>
                 <div class="layui-col-sm12 layui-col-md6">
                     <div class="layui-card">
                         <div class="layui-card-header">文章回复量</div>
                         <div class="layui-card-body" style="min-height: 280px;">
-                            <div id="main3" class="layui-col-sm12" style="height: 300px;"></div>
+                            <div id="eleaveSize" class="layui-col-sm12" style="height: 300px;"></div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-col-sm12 layui-col-md6">
+                    <div class="layui-card">
+                        <div class="layui-card-header">吐槽量</div>
+                        <div class="layui-card-body" style="min-height: 280px;">
+                            <div id="earticleSize" class="layui-col-sm12" style="height: 300px;"></div>
 
                         </div>
                     </div>
@@ -158,7 +172,7 @@
 <script src="../../js/echarts.min.js"></script>
 <script type="text/javascript">
     // 基于准备好的dom，初始化echarts实例
-    var myChart = echarts.init(document.getElementById('main1'));
+    var myChart = echarts.init(document.getElementById('indexFlow'));
 
     // 指定图表的配置项和数据
     var option = {
@@ -192,7 +206,7 @@
     myChart.setOption(option);
 
     // 基于准备好的dom，初始化echarts实例
-    var myChart = echarts.init(document.getElementById('main2'));
+    var myChart = echarts.init(document.getElementById('articleFlow'));
 
     // 指定图表的配置项和数据
     var option = {
@@ -226,7 +240,7 @@
 
 
     // 基于准备好的dom，初始化echarts实例
-    var myChart = echarts.init(document.getElementById('main3'));
+    var myChart = echarts.init(document.getElementById('earticleSize'));
 
     // 指定图表的配置项和数据
     var option = {
@@ -260,7 +274,7 @@
     myChart.setOption(option);
 
     // 基于准备好的dom，初始化echarts实例
-    var myChart = echarts.init(document.getElementById('main4'));
+    var myChart = echarts.init(document.getElementById('eleaveSize'));
 
     // 指定图表的配置项和数据
     var option = {

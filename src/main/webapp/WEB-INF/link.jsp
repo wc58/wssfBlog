@@ -26,7 +26,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/about.css"/>
     <style>
         .blog-user {
-            margin-top: 17.5px;
+            margin-top: 14px;
         }
     </style>
 </head>
