@@ -297,6 +297,7 @@
 <script src="${pageContext.request.contextPath}/js/pagecomment.js"></script>
 <script src="${pageContext.request.contextPath}/highlight/highlight.pack.js"></script>
 <script>NProgress.start();</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
 <script>
     hljs.initHighlightingOnLoad();
     window.onload = function () {

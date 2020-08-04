@@ -137,6 +137,7 @@
 <script src="${pageContext.request.contextPath}/js/plugins/nprogress.js"></script>
 <script>NProgress.start();</script>
 <script src="${pageContext.request.contextPath}/js/yss/article.js"></script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
 <script>
 
     /*加载文章*/

@@ -39,6 +39,7 @@ public class AdminController {
             if (admin != null) {
                 admin.setPassword(null);
                 session.setAttribute("admin", admin);
+                session.setMaxInactiveInterval(60 * 60 * 24);
                 return R.OK();
             }
 

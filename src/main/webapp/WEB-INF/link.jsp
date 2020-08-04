@@ -7,7 +7,6 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<html>
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,18 +16,15 @@
     <meta name="viewport" content="width=device-width"/>
     <meta name="author" content="www.yanshisan.cn"/>
     <meta name="robots" content="all"/>
-    <title>友链</title>
+    <title>友情链接</title>
     <link rel="icon" href="${pageContext.request.contextPath}/logo.png" type="image/x-icon"/>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/layui/css/layui.css"/>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/master.css"/>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/gloable.css"/>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/about.css"/>
-    <style>
-        .blog-user {
-            margin-top: 14px;
-        }
-    </style>
+    <link href="${pageContext.request.contextPath}/css/gloable.css"
+          rel="stylesheet"/>
+    <link href="${pageContext.request.contextPath}/css/about.css" rel="stylesheet"/>
+
+
 </head>
 <body>
 <div class="header">
@@ -46,7 +42,9 @@
         </div>
     </div>
 </header>
-<div id="doc-container">
+<div class="doc-container" id="doc-container">
+
+
     <div class="about-banner" id="container">
         <header class="l-top hasAnim arrow-holder">
             <a data-path-hover="M31.3184948,33.1943359 C36.3357454,28.0664371 44.4728686,28.0690462 49.572124,33.2807584 C54.6360745,38.4563871 54.6061839,46.8782889 49.6566817,51.9369454 L31.318494,69.5197703 L49.6566817,89.71735 C54.6739322,94.8452488 54.6713794,103.161825 49.572124,108.373537 C44.5081735,113.549166 36.267997,113.518616 31.3184948,108.459959 L3.8112137,78.891075 C-1.25273677,73.7154463 -1.2880417,65.3601778 3.8112137,60.1484655 L31.3184948,33.1943359 Z">
@@ -54,13 +52,13 @@
                     <path fill="#fff"
                           d="M58.9103319,3.8342148C63.9275825,-1.29368407,72.0647057,-1.29107495,77.1639611,3.92063726C82.2279116,9.09626594,82.198021,17.5181678,77.2485188,22.5768242C77.2485188,22.5768242,31.318494,69.5197703,31.318494,69.5197703C31.318494,69.5197703,77.2485188,116.462716,77.2485188,116.462716C82.2657693,121.590615,82.2632165,129.907191,77.1639611,135.118903C72.1000106,140.294532,63.8598341,140.263982,58.9103319,135.205326C58.9103319,135.205326,3.8112137,78.891075,3.8112137,78.891075C-1.25273677,73.7154463,-1.2880417,65.3601778,3.8112137,60.1484655C3.8112137,60.1484655,58.9103319,3.8342148,58.9103319,3.8342148C58.9103319,3.8342148,58.9103319,3.8342148,58.9103319,3.8342148"></path>
                 </svg>
-            </a>
+            </a><!--/arrow-->
             <a data-path-hover="M31.3184948,33.1943359 C36.3357454,28.0664371 44.4728686,28.0690462 49.572124,33.2807584 C54.6360745,38.4563871 54.6061839,46.8782889 49.6566817,51.9369454 L31.318494,69.5197703 L49.6566817,89.71735 C54.6739322,94.8452488 54.6713794,103.161825 49.572124,108.373537 C44.5081735,113.549166 36.267997,113.518616 31.3184948,108.459959 L3.8112137,78.891075 C-1.25273677,73.7154463 -1.2880417,65.3601778 3.8112137,60.1484655 L31.3184948,33.1943359 Z">
                 <svg width="0" height="0">
                     <path fill="#fff"
                           d="M58.9103319,3.8342148 C63.9275825,-1.29368407 72.0647057,-1.29107495 77.1639611,3.92063726 C82.2279116,9.09626594 82.198021,17.5181678 77.2485188,22.5768242 L31.318494,69.5197703 L77.2485188,116.462716 C82.2657693,121.590615 82.2632165,129.907191 77.1639611,135.118903 C72.1000106,140.294532 63.8598341,140.263982 58.9103319,135.205326 L3.8112137,78.891075 C-1.25273677,73.7154463 -1.2880417,65.3601778 3.8112137,60.1484655 L58.9103319,3.8342148 Z"></path>
                 </svg>
-            </a>
+            </a><!--/arrow-->
         </header>
         <div class="about-title">
             <h1>友情链接</h1>
@@ -143,6 +141,11 @@
             });
         })
     })
+</script>
+<script>
+    window.onload = function () {
+        NProgress.done();
+    };
 </script>
 </body>
 </html>

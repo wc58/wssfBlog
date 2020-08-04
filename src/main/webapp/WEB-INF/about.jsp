@@ -22,8 +22,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/layui/css/layui.css"/>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/master.css"/>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/gloable.css"/>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/gloable.css"/>
-    <link rel="stylesheet" href="../css/about.css"/>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/about.css"/>
 </head>
 <body>
 <div class="header">
@@ -134,7 +133,12 @@
 <script src="${pageContext.request.contextPath}/js/plugins/nprogress.js"></script>
 <script>NProgress.start();</script>
 <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
-<script src="../js/plugins/blogbenoitboucart.min.js"></script>
+<%--<script src="../js/plugins/blogbenoitboucart.min.js"></script>--%>
+<script>
+    window.onload = function () {
+        NProgress.done();
+    };
+</script>
 </body>
 </html>
 
