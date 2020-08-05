@@ -8,10 +8,7 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-import java.util.Random;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -87,11 +84,11 @@ public class ArticleCache implements InitializingBean {
             }
         }
         //时间排序
-        insertSort(articles);
+        this.articles = insertSort(this.articles);
         //置顶排序
         topSort();
         topAndArticles.addAll(topArticles);
-        topAndArticles.addAll(articles);
+        topAndArticles.addAll(this.articles);
     }
 
 
@@ -114,33 +111,11 @@ public class ArticleCache implements InitializingBean {
      * 选择排序
      * 普通文章时间属性排序
      */
-    private void insertSort(List<Article> arrs) {
-        for (int i = 1; i < arrs.size(); i++) {
-            Comparable insertVal = arrs.get(i).getCreateTime();
-            Article temp = arrs.get(i);
-            int insertIndex = i - 1;
-            while (insertIndex >= 0 && less(arrs.get(insertIndex).getCreateTime(), insertVal)) {
-                arrs.set(insertIndex + 1, arrs.get(insertIndex));
-                insertIndex--;
-            }
-            arrs.set((insertIndex + 1), temp);
-        }
+    private List<Article> insertSort(List<Article> arrs) {
+        return arrs.stream()
+                .sorted(Comparator.comparing(Article::getCreateTime).reversed())
+                .collect(Collectors.toList());
     }
-
-    /**
-     * 升序
-     */
-    private boolean more(Comparable v, Comparable m) {
-        return v.compareTo(m) > 0;
-    }
-
-    /**
-     * 降序
-     */
-    private boolean less(Comparable v, Comparable m) {
-        return v.compareTo(m) < 0;
-    }
-
 
     /**
      * 获取指定的所有文章
@@ -156,7 +131,6 @@ public class ArticleCache implements InitializingBean {
                     selectArticles.add(a);
                     break;
                 }
-
             }
         }
         return selectArticles;
@@ -253,7 +227,7 @@ public class ArticleCache implements InitializingBean {
     public void sortArticle(List<Integer> ids) {
         sortArticles = getArticleByIds(ids);
         //再进行时间排序
-        insertSort(sortArticles);
+        sortArticles = insertSort(sortArticles);
     }
 
 
