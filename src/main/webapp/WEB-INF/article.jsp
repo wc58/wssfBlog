@@ -113,7 +113,7 @@
                         </ul>
                     </div>
                 </div>
-                <div class="other-item" id="categoryandsearch">
+                <div class="other-item">
                     <h5 class="other-item-title">置顶推荐</h5>
                     <div class="inner">
                         <ul class="hot-list-article">
@@ -140,13 +140,33 @@
 <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
 <script>
 
+    let isAuto = true;
+    //平台、设备和操作系统
+    var system = {
+        win: false,
+        mac: false,
+        xll: false
+    };
+    //检测平台
+    var p = navigator.platform;
+    system.win = p.indexOf("Win") == 0;
+    system.mac = p.indexOf("Mac") == 0;
+    system.x11 = (p == "X11") || (p.indexOf("Linux") == 0);
+    //跳转语句，如果是手机访问就自动跳转到wap.baidu.com页面
+    if (system.win || system.mac || system.xll) {
+        //电脑端自动加载
+        isAuto = true;
+    } else {
+        //手机端手动加载
+        isAuto = false;
+    }
     /*加载文章*/
     layui.use('flow', function () {
         var $ = layui.jquery;
         var flow = layui.flow;
         flow.load({
             elem: '#LAY_bloglist',
-            isAuto: true,
+            isAuto: isAuto,
             mb: 1,
             end: '-----------我也是有底线的-----------',
             done: function (page, next) {
@@ -177,7 +197,6 @@
     window.onload = function () {
         NProgress.done();
     };
-
 
 
     layui.use('element', function () {
