@@ -198,7 +198,7 @@
                                         </div>
                                         <div class="comment-content">
                                                 <%--内容--%>
-                                                ${comment.comment.content}
+                                            <span style="white-space: pre-line;"> ${comment.comment.content}</span>
                                         </div>
                                         <p class="info info-footer">
                                                 <%--日期--%>
@@ -246,7 +246,7 @@
                                                         <span class="username"><i>${childComment.comment.parentName}：</i></span>
                                                     </div>
                                                         <%--回复内容--%>
-                                                    <span>${childComment.comment.content}</span>
+                                                    <span style="white-space: pre-line;"> ${childComment.comment.content}</span>
                                                 </div>
 
                                                 <p class="info">
