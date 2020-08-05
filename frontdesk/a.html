@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="renderer" content="webkit">
+    <meta name="viewport" content="width=device-width"/>
+    <meta name="author" content="www.yanshisan.cn"/>
+    <meta name="robots" content="all"/>
+    <title>关于</title>
+    <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="layui/css/layui.css"/>
+    <link rel="stylesheet" href="css/master.css"/>
+    <link rel="stylesheet" href="css/gloable.css"/>
+    <link rel="stylesheet" href="css/nprogress.css"/>
+    <link rel="stylesheet" href="css/about.css"/>
+    <script>
+        var _hmt = _hmt || [];
+        (function () {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?d37cd8cdbb97246df80b9f4762c17003";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+    <script language="javascript" type="text/javascript" src="/include/dedeajax2.js"></script>
+    <script language="javascript" type="text/javascript">
+
+        function CheckLogin() {
+            var taget_obj = document.getElementById('_userlogin');
+            myajax = new DedeAjax(taget_obj, false, false, '', '', '');
+            myajax.SendGet2("/member/ajax_loginsta.php");
+            DedeXHTTP = null;
+        }
+    </script>
+</head>
+<body>
+<div class="header">
+</div>
+<header class="gird-header">
+    <div class="header-fixed">
+        <div class="header-inner">
+            <a href="javascript:void(0)" class="header-logo" id="logo">Mr.liu</a>
+            <nav class="nav" id="nav">
+                <ul>
+                    <li><a href="http://www.lzqcode.com">首页</a></li>
+                    <li><a href="/Blog">博客</a></li>
+                    <li><a href="/Yuanma">源码</a></li>
+                    <li><a href="/Tool">工具</a></li>
+                    <li><a href="/message.html">留言</a></li>
+                    <li><a href="/Link">友链</a></li>
+                    <li><a href="/About">关于</a></li>
+                </ul>
+            </nav>
+            <div class="none"><span class="pull-right nav-search main-search" data-toggle="modal"
+                                    data-target=".nav-search-box"><i class="fa fa-search"></i></span></div>
+            <span id="_userlogin" class="pr">
+               <div class="blog-user">
+                    <button class="login-btn" id="login-btn">登录</button>
+                </div>
+                <!--<a href="/oauth/index_do.php?action=oauth&type=qq" class="blog-user">
+                      <i class="fa fa-qq"></i>
+                  </a>-->
+                 <script language="javascript" type="text/javascript">CheckLogin();</script>
+                 </span>
+            <a class="phone-menu">
+                <i></i>
+                <i></i>
+                <i></i>
+            </a>
+        </div>
+    </div>
+</header>
+<div class="modal fade nav-search-box in" id="search-box" style="display: none;">
+    <div class="modal-backdrop fade in"></div>
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header" style="padding: 5px 15px;">
+                <button type="button" class="close" data-dismiss="modal"
+                " style="margin-top: 10px;">
+                <span aria-hidden="true">×</span></button>
+                <h4 style="font-weight: 700;"><i class="fa fa-search"></i>搜索文章</h4>
+            </div>
+            <div class="modal-body">
+                <form action="/plus/search.php" method="post" class="form-horizontal searchForm" id="searchForm"
+                      name="formsearch">
+                    <input type="hidden" name="mid" value="1"/><input type="hidden" name="dopost" value="search"/>
+                    <input type="hidden" name="kwtype" value="0"/>
+                    <div class="input-group bottom-line">
+                        <input type="text" class="form-control br-none" name="q" value="" required="required"
+                               placeholder="输入搜索内容">
+                        <span class="input-group-btn">
+			  <button class="btn btn-default br-none nav-search-btn pointer" type="submit">
+			  <i class="fa fa-search"></i> 搜索</button>
+			  </span>
+                    </div>
+                    <div class="clear"></div>
+                    <ul class="list-unstyled list-inline search-hot">
+                        <li><strong style="position: relative;top: 2px;color: #999999;">热门搜索：</strong></li>
+                        <li><a href='/plus/search.php?keyword=%E5%93%8D%E5%BA%94%E5%BC%8F' class='pointer'
+                               rel='external nofollow'><span class='label'>响应式</span></a></li>
+                        <li><a href='/plus/search.php?keyword=%E5%8D%9A%E5%AE%A2' class='pointer'
+                               rel='external nofollow'><span class='label'>博客</span></a></li>
+                        <li><a href='/plus/search.php?keyword=web' class='pointer' rel='external nofollow'><span
+                                class='label'>web</span></a></li>
+                        <li><a href='/plus/search.php?keyword=%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF' class='pointer'
+                               rel='external nofollow'><span class='label'>学习路线</span></a></li>
+                        <li><a href='/plus/search.php?keyword=Java' class='pointer' rel='external nofollow'><span
+                                class='label'>Java</span></a></li>
+                        <li><a href='/plus/search.php?keyword=dedecms' class='pointer' rel='external nofollow'><span
+                                class='label'>dedecms</span></a></li>
+                    </ul>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="doc-container" id="doc-container">
+    <div class="about-banner" id="container">
+        <header class="l-top hasAnim arrow-holder">
+            <a data-path-hover="M31.3184948,33.1943359 C36.3357454,28.0664371 44.4728686,28.0690462 49.572124,33.2807584 C54.6360745,38.4563871 54.6061839,46.8782889 49.6566817,51.9369454 L31.318494,69.5197703 L49.6566817,89.71735 C54.6739322,94.8452488 54.6713794,103.161825 49.572124,108.373537 C44.5081735,113.549166 36.267997,113.518616 31.3184948,108.459959 L3.8112137,78.891075 C-1.25273677,73.7154463 -1.2880417,65.3601778 3.8112137,60.1484655 L31.3184948,33.1943359 Z">
+                <svg width="0" height="0">
+                    <path fill="#fff"
+                          d="M58.9103319,3.8342148C63.9275825,-1.29368407,72.0647057,-1.29107495,77.1639611,3.92063726C82.2279116,9.09626594,82.198021,17.5181678,77.2485188,22.5768242C77.2485188,22.5768242,31.318494,69.5197703,31.318494,69.5197703C31.318494,69.5197703,77.2485188,116.462716,77.2485188,116.462716C82.2657693,121.590615,82.2632165,129.907191,77.1639611,135.118903C72.1000106,140.294532,63.8598341,140.263982,58.9103319,135.205326C58.9103319,135.205326,3.8112137,78.891075,3.8112137,78.891075C-1.25273677,73.7154463,-1.2880417,65.3601778,3.8112137,60.1484655C3.8112137,60.1484655,58.9103319,3.8342148,58.9103319,3.8342148C58.9103319,3.8342148,58.9103319,3.8342148,58.9103319,3.8342148"></path>
+                </svg>
+            </a>
+            <a data-path-hover="M31.3184948,33.1943359 C36.3357454,28.0664371 44.4728686,28.0690462 49.572124,33.2807584 C54.6360745,38.4563871 54.6061839,46.8782889 49.6566817,51.9369454 L31.318494,69.5197703 L49.6566817,89.71735 C54.6739322,94.8452488 54.6713794,103.161825 49.572124,108.373537 C44.5081735,113.549166 36.267997,113.518616 31.3184948,108.459959 L3.8112137,78.891075 C-1.25273677,73.7154463 -1.2880417,65.3601778 3.8112137,60.1484655 L31.3184948,33.1943359 Z">
+                <svg width="0" height="0">
+                    <path fill="#fff"
+                          d="M58.9103319,3.8342148 C63.9275825,-1.29368407 72.0647057,-1.29107495 77.1639611,3.92063726 C82.2279116,9.09626594 82.198021,17.5181678 77.2485188,22.5768242 L31.318494,69.5197703 L77.2485188,116.462716 C82.2657693,121.590615 82.2632165,129.907191 77.1639611,135.118903 C72.1000106,140.294532 63.8598341,140.263982 58.9103319,135.205326 L3.8112137,78.891075 C-1.25273677,73.7154463 -1.2880417,65.3601778 3.8112137,60.1484655 L58.9103319,3.8342148 Z"></path>
+                </svg>
+            </a>
+        </header>
+        <div class="about-title">
+            <h1>关于我</h1>
+            <p>只要朝着一个方向努力，一切都会变得得心应手</p>
+        </div>
+    </div>
+    <div class="container-fixed">
+        <div class="container-inner">
+            <article>
+                <section>
+                    <h1>关于我</h1>
+                    <p>
+                        只要朝着一个方向努力，一切都会变得得心应手
+                    </p>
+                    <span>
+                    可以通过以下方式联系到我：
+                </span>
+                    <ul>
+
+                        <li>邮 箱 ：<a href="mailto:1435469178@qq.com">1435469178@qq.com</a></li>
+                        <li>码 云 ：<a href="https://gitee.com//" target="_blank">https://gitee.com//</a></li>
+
+                    </ul>
+
+                </section>
+                <section>
+                    <h1>关于本站</h1>
+                    <p>
+                        本站建于2020年5月，主要是个人爱好写着玩。
+                    </p>
+                    <span>
+                    本站结构：
+                </span>
+                    <ul>
+                        <li>前 端 ：<code>Layui</code></li>
+                        <li>后 端 ：<code>CMS</code></li>
+                    </ul>
+                    <p>
+                        本站采用腾讯云提供的服务器ESC和存储对象OSS。
+                    </p>
+                </section>
+                <section>
+                    <h1>关于版权</h1>
+                    <p>
+                        本站采用「 <a href="https://creativecommons.org/licenses/by-nc/4.0/deed.zh" target="_blank">署名-非商业性使用
+                        4.0 国际 (CC BY-NC 4.0)</a>」创作共享协议。
+                        只要在使用时注明出处，那么您可以可以对本站所有原创内容进行转载、节选、二次创作，但是您不得对其用于商业目的。
+                    </p>
+                </section>
+                <section>
+                    <h1>特别说明</h1>
+                    <ul>
+                        <li>本站文章仅代表个人观点，和任何组织或个人无关。</li>
+                        <li>本站前端开发代码没有考虑对IE浏览器的兼容。</li>
+                        <li>用户邮箱仅作回复消息用，不对外使用。</li>
+                    </ul>
+                    <br><br>
+                    <div>
+                        <img src="https://yssimage.oss-cn-hangzhou.aliyuncs.com/bg9.jpg"
+                             style="width:100%;height:320px;">
+                    </div>
+                </section>
+            </article>
+
+        </div>
+    </div>
+</div>
+<footer class="grid-footer">
+    <div class="footer-fixed">
+        <div class="copyright">
+            <div class="info">
+                <div class="contact">
+                    <a href="javascript:void(0)" class="github" target="_blank"><i class="fa fa-github"></i></a>
+                    <a href="https://wpa.qq.com/msgrd?v=3&uin=1435469178&site=qq&menu=yes" class="qq" target="_blank"
+                       title="1435469178"><i class="fa fa-qq"></i></a>
+                    <a href="https://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=gbiysbG0tbWyuMHw8K-i7uw"
+                       class="email" target="_blank" title="1435469178@qq.com"><i class="fa fa-envelope"></i></a>
+                    <a href="javascript:void(0)" class="weixin"><i class="fa fa-weixin"></i></a>
+                </div>
+                <p class="mt05">
+                    Copyright © 2019-2020 ZQ博客 版权所有 <a href="/" target="_blank">Power by ZQ博客</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+<script src="layui/layui.js"></script>
+<script src="js/yss/gloable.js"></script>
+<script src="js/plugins/nprogress.js"></script>
+<script>NProgress.start();</script>
+<script src="js/pagediary.js"></script>
+<script>NProgress.start();</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="js/plugins/blogbenoitboucart.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $(".nav-search-box ul li a span").addClass(function (index) {
+            return "hot" + index;
+        })
+    });
+</script>
+<script>
+    window.onload = function () {
+        NProgress.done();
+    };
+</script>
+</body>
+</html>
+

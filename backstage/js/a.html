@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="cupload.js"></script>
+</head>
+<body>
+<div id="cupload"></div>
+<script type="text/javascript">
+    var cuploadCreate = new Cupload({
+        ele: '#cupload-create',
+        num: 3,
+    });
+
+    var cuploadUpdate = new Cupload({
+        ele: '#cupload-update',
+        num: 3,
+        data: ['https://wssf.oss-cn-beijing.aliyuncs.com/cover/2020/07/18/3cf9c3d0-30e4-448e-9a75-025a2c1b3b3chead.jpg']
+    });
+</script>
+</body>
+</html>

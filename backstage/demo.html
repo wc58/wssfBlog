@@ -1,0 +1,257 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="renderer" content="webkit">
+    <meta name="viewport" content="width=device-width" />
+    <meta name="author" content="www.yanshisan.cn" />
+    <meta name="robots" content="all" />
+    <title>留言板_ZQ博客</title>
+    <link rel="stylesheet" href="/templets/static/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/templets/static/layui/css/layui.css" />
+    <link rel="stylesheet" href="/templets/static/css/master.css" />
+    <link rel="stylesheet" href="/templets/static/css/gloable.css" />
+    <link rel="stylesheet" href="/templets/static/css/nprogress.css" />
+    <link rel="stylesheet" href="/templets/static/css/message.css" />
+    <link rel="stylesheet" href="/templets/static/css/search.css" />
+    <script language="javascript" type="text/javascript" src="/include/dedeajax2.js"></script>
+    <script language="javascript" type="text/javascript">
+
+        function CheckLogin(){
+            var taget_obj = document.getElementById('_userlogin');
+            myajax = new DedeAjax(taget_obj,false,false,'','','');
+            myajax.SendGet2("/member/ajax_loginsta.php");
+            DedeXHTTP = null;
+        }
+
+    </script>
+</head>
+<body>
+<div class="header">
+</div>
+<header class="gird-header">
+    <div class="header-fixed">
+        <div class="header-inner">
+            <a href="javascript:void(0)" class="header-logo" id="logo">Mr.liu</a>
+            <nav class="nav" id="nav">
+                <ul>
+                    <li><a href="http://www.lzqcode.com">首页</a></li>
+                    <li><a href="/Blog">博客</a></li>
+                    <li><a href="/Yuanma">源码</a></li>
+                    <li><a href="/Tool">工具</a></li>
+                    <li><a href="/message.html">留言</a></li>
+                    <li><a href="/Link">友链</a></li>
+                    <li><a href="/About">关于</a></li>
+                </ul>
+            </nav>
+            <div class="none"><span class="pull-right nav-search main-search" data-toggle="modal" data-target=".nav-search-box"><i class="fa fa-search"></i></span></div>
+            <span id="_userlogin" class="pr">
+               <div class="blog-user">
+                    <button class="login-btn" id="login-btn">登录</button>
+                </div>
+                <!--<a href="/oauth/index_do.php?action=oauth&type=qq" class="blog-user">
+                      <i class="fa fa-qq"></i>
+                  </a>-->
+                 <script language="javascript" type="text/javascript">CheckLogin();</script>
+                 </span>
+            <a class="phone-menu">
+                <i></i>
+                <i></i>
+                <i></i>
+            </a>
+        </div>
+    </div>
+</header>
+<div class="modal fade nav-search-box in" id="search-box" style="display: none;">
+    <div class="modal-backdrop fade in"></div>
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header" style="padding: 5px 15px;">
+                <button type="button" class="close" data-dismiss="modal" " style="margin-top: 10px;">
+                <span aria-hidden="true">×</span></button>
+                <h4 style="font-weight: 700;"><i class="fa fa-search"></i>搜索文章</h4>
+            </div>
+            <div class="modal-body">
+                <form action="/plus/search.php" method="post" class="form-horizontal searchForm" id="searchForm" name="formsearch">
+                    <input type="hidden" name="mid" value="1" /><input type="hidden" name="dopost" value="search" />
+                    <input type="hidden" name="kwtype" value="0" />
+                    <div class="input-group bottom-line">
+                        <input type="text" class="form-control br-none" name="q" value="" required="required" placeholder="输入搜索内容">
+                        <span class="input-group-btn">
+			  <button class="btn btn-default br-none nav-search-btn pointer" type="submit">
+			  <i class="fa fa-search"></i> 搜索</button>
+			  </span>
+                    </div>
+                    <div class="clear"></div>
+                    <ul class="list-unstyled list-inline search-hot">
+                        <li><strong style="position: relative;top: 2px;color: #999999;">热门搜索：</strong></li>
+                        <li><a href='/plus/search.php?keyword=%E5%93%8D%E5%BA%94%E5%BC%8F' class='pointer' rel='external nofollow'><span class='label'>响应式</span></a></li><li><a href='/plus/search.php?keyword=%E5%8D%9A%E5%AE%A2' class='pointer' rel='external nofollow'><span class='label'>博客</span></a></li><li><a href='/plus/search.php?keyword=web' class='pointer' rel='external nofollow'><span class='label'>web</span></a></li><li><a href='/plus/search.php?keyword=%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF' class='pointer' rel='external nofollow'><span class='label'>学习路线</span></a></li><li><a href='/plus/search.php?keyword=Java' class='pointer' rel='external nofollow'><span class='label'>Java</span></a></li><li><a href='/plus/search.php?keyword=dedecms' class='pointer' rel='external nofollow'><span class='label'>dedecms</span></a></li>
+                    </ul>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="doc-container" id="doc-container">
+    <div class="container-fixed">
+        <div class="container-inner">
+            <section class="msg-remark">
+                <h1>留言板</h1>
+                <p>
+                    沟通交流，拉近你我！
+                </p>
+                <!-- //AJAX评论区 开始 -->
+                <link href="/plus/dedemao-comment/css.css" rel="stylesheet">
+                <div class="dedemao-comment">
+                    <div class="dedemao-comment-box">
+                        <!-- <img class="b-head-img" src="/plus/dedemao-comment/img/default_head_img.gif">-->
+                        <div class="b-box-textarea">
+                            <div class="b-box-textarea-body">
+                                <div class="b-box-content" contenteditable="true" onfocus="delete_hint(this)">说点什么吧</div>
+                                <ul class="b-emote-submit">
+                                    <li class="b-emote">
+                                        <a class="ds-toolbar-button ds-add-emote" title="插入表情" onclick="getTuzki(this)"></a>
+                                        <!--   <input class="b-email" onkeyup="getQQInfo(this)" type="text" name="email" data-type="电子邮箱" placeholder="你的电子邮箱" value="">-->
+                                        <div class="b-tuzki"></div>
+                                    </li>
+                                    <li class="b-submit-button">
+                                        <input type="button" value="留言"  aid="1" pid="0" onclick="comment(this)" style="background-color: #6bc30d;">
+                                    </li>
+                                    <li class="b-clear-float"></li>
+                                </ul>
+                            </div>
+
+                            <div class="error-tip" id="msgBox"></div>
+                            <div id="progressOuter" class="progress progress-striped active" style="display: none">
+                                <div id="progressBar" class="progress-bar progress-bar-success"  role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 0%">
+                                </div>
+                            </div>
+                            <div class="dedemao-img-list"></div>
+                            <div id="dedemao-upload-box" style="display: none"></div>
+                        </div>
+
+                        <div class="b-clear-float"></div>
+                    </div>
+                    <div class="dedemao-comment-title" style="border-bottom: 1px solid #6bc30d;">
+                        <ul class="row">
+                            <li class="" style="float: left;"><h5 class="custom-title">
+                                <i class="fa fa-comments-o fa-fw icon"></i>
+                                <span style="color: #cccccc"> | </span>
+                                <strong><span class="comment-count" style="color: #2C662D">0</span>&nbsp;留言</strong>
+                            </h5></li>
+                            <li class=" text-right" style="float: right;">
+                <span class="icon2">
+                    <input type="radio" name="commentorder" id="commentnew" checked="checked" value="DESC">
+                    <label for="commentnew">最新</label>
+                    <input type="radio" name="commentorder" id="commentlatest" value="ASC">
+                    <label for="commentlatest">最早</label>
+                </span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class=" b-user-comment">
+                        <div class="comment-load" style="display: none;"><img src="/plus/dedemao-comment/img/loader.gif" alt=""></div>
+                        <div class="row b-user b-parent comm_list">
+                            <ul class="list" id="ulcommentlist">
+                                <div class="empty-prompt-w">
+                                    <span class="prompt-null-w">还没有留言，快来抢沙发吧！</span>
+                                    <li><small><img src="/uploads/userup/57/myface.png"><a href="#">小刘</a> 评论 <a href="/plus/view.php?aid=1">留言</a></small>：哈哈哈nbsp; 有空常来img src=/plus/dedemao-comment/face/cywx.gif title=抽着</li><li><small><img src="http://qzapp.qlogo.cn/qzapp/101871412/2DFE668656EFC18FBFD56B8C85908A50/100"><a href="#">小刘</a> 评论 <a href="/plus/view.php?aid=1">留言</a></small>：img src=/plus/dedemao-comment/face/cy.gif title=龇牙</li><li><small><img src="http://qzapp.qlogo.cn/qzapp/101871412/2DFE668656EFC18FBFD56B8C85908A50/100"><a href="#">小刘</a> 评论 <a href="/plus/view.php?aid=1">留言</a></small>：大佬人超好，太感谢大佬了img src=http://www.lzqcode.com/plus/dedemao-c</li><li><small><img src="http://qzapp.qlogo.cn/qzapp/101871412/EE7AAE629D162B783C00149B4EDE3502/100"><a href="#">冰</a> 评论 <a href="/plus/view.php?aid=1">留言</a></small>：img src=/plus/dedemao-comment/face/gg2.gif title=搞怪</li><li><small><img src="http://qzapp.qlogo.cn/qzapp/101871412/EE7AAE629D162B783C00149B4EDE3502/100"><a href="#">冰</a> 评论 <a href="/plus/view.php?aid=1">留言</a></small>：哈哈哈哈 加油啊img src=/plus/dedemao-comment/face/ybjc.gif title=眼保健操</li><li><small><img src="/uploads/userup/57/myface.png"><a href="#">小刘</a> 评论 <a href="/plus/view.php?aid=1">留言</a></small>：网站刚刚建立，希望大家能够互相学习，互相帮助，申请友链可</li>
+                                </div>
+
+                            </ul>
+                        </div>
+                        <div class="row">
+                            <div class="">
+                                <div class="b-border"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="">
+                            <div class="b-border"></div>
+                        </div>
+                    </div>
+                    <div class="section-page-w"></div>
+                </div>
+
+                <script src="https://cdn.bootcss.com/jquery/2.1.0/jquery.min.js"></script>
+                <script>
+                    var jDedemao = jQuery.noConflict(true);
+                    jDedemao(function () {
+                        jDedemao(".comment-load").show();
+                        get_ajax_comment('1', 0, 10);
+                        getHeadPic();
+                    });
+                    jDedemao("input[name='commentorder']").change(function () {
+                        jDedemao(".comment-load").show();
+                        var orderWay = $(this).val();
+                        get_ajax_comment('1', 0, 10,orderWay,'refresh');
+                    });
+                    var showZan = '1';
+                    var comment_tips = '说点什么吧';
+                    var show_floor = '1';
+                    var showQQ = '1';
+                    var comment_ipaddr = '1';
+                    var PLUS_URL = "/plus";
+                    var visitor_fill = "电子邮箱";
+                    var is_login = 0;
+                    var comment_at = "1";
+                    var comment_basecolor = "#6bc30d";
+                </script>
+                <script src="/plus/dedemao-comment/comment.js?v=2.4"></script>
+
+                <script>
+                    var a = jDedemao.noConflict(true);
+                    //其它库的代码
+                    window.$ = window.jQuery = a;
+                </script>
+                <!-- //AJAX评论区 结束 -->
+            </section>
+
+
+        </div>
+    </div>
+</div>
+</div>
+<footer class="grid-footer">
+    <div class="footer-fixed">
+        <div class="copyright">
+            <div class="info">
+                <div class="contact">
+                    <a href="javascript:void(0)" class="github" target="_blank"><i class="fa fa-github"></i></a>
+                    <a href="https://wpa.qq.com/msgrd?v=3&uin=1435469178&site=qq&menu=yes" class="qq" target="_blank" title="1435469178"><i class="fa fa-qq"></i></a>
+                    <a href="https://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=gbiysbG0tbWyuMHw8K-i7uw" class="email" target="_blank" title="1435469178@qq.com"><i class="fa fa-envelope"></i></a>
+                    <a href="javascript:void(0)" class="weixin"><i class="fa fa-weixin"></i></a>
+                </div>
+                <p class="mt05">
+                    Copyright © 2019-2020 ZQ博客 版权所有 <a href="/" target="_blank">Power by ZQ博客</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+<script src="/templets/static/layui/layui.js"></script>
+<script src="/templets/static/js/yss/gloable.js"></script>
+<script src="/templets/static/js/plugins/nprogress.js"></script>
+<script>NProgress.start();</script>
+<script src="/templets/static/js/pagemessage.js"></script>
+<script src="/templets/static/js/logreg.js"></script>
+<script>NProgress.start();</script>
+<script>
+    window.onload = function () {
+        NProgress.done();
+    };
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript">
+    $(function(){
+        $(".nav-search-box ul li a span").addClass(function (index) {
+            return "hot"+index;
+        })
+    });
+</script>
+</body>
+</html>

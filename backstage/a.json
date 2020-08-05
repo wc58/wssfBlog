@@ -1,0 +1,42 @@
+{
+  "code": 200,
+  "content": {
+    "currentPage": 1,
+    "hasNext": true,
+    "hasPrev": false,
+    "pageSize": 3,
+    "records": [
+      {
+        "accountno": "009",
+        "id": "030AC067-8953-48A9-9A11-66E1D60500F5",
+        "idcard": "321654",
+        "name": "cbb",
+        "password": "123456",
+        "roleid": null,
+        "status": true
+      },
+      {
+        "accountno": "011",
+        "id": "031AC067-8953-48A9-9A11-66E1D60500F5",
+        "idcard": "362201199311295412",
+        "name": "gyw",
+        "password": "123456321",
+        "roleid": null,
+        "status": true
+      },
+      {
+        "accountno": "005",
+        "id": "032AC067-8953-48A9-9A11-66E1D60500F5",
+        "idcard": "362201199311295412",
+        "name": "大阳",
+        "password": "123456",
+        "roleid": null,
+        "status": true
+      }
+    ],
+    "totalPages": 5,
+    "totalRecords": 13
+  },
+  "message": null,
+  "success": true
+}

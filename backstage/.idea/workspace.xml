@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="17e64d2f-f9d2-4853-a264-274639af8ee7" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+        <option value="HTML File" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectId" id="1eQg3C8xNG7Wjqbm5WT5cCfi908" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+    <option name="sortByType" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="E:/IdeaCode/projects/guli-web" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\博客\后台" />
+      <recent name="E:\博客\后台\js" />
+      <recent name="E:\博客\后台\lib\dist" />
+      <recent name="E:\博客\后台\lib" />
+      <recent name="E:\博客\后台\css" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="E:\博客\后台\js" />
+      <recent name="E:\博客\后台" />
+    </key>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="17e64d2f-f9d2-4853-a264-274639af8ee7" name="Default Changelist" comment="" />
+      <created>1594259028246</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1594259028246</updated>
+      <workItem from="1594259030509" duration="3388000" />
+      <workItem from="1594887240956" duration="11639000" />
+      <workItem from="1594944753194" duration="8840000" />
+      <workItem from="1594971605246" duration="1414000" />
+      <workItem from="1594974231324" duration="8122000" />
+      <workItem from="1595034078291" duration="5726000" />
+      <workItem from="1595161632885" duration="750000" />
+      <workItem from="1595207630547" duration="15926000" />
+      <workItem from="1595378325708" duration="3085000" />
+      <workItem from="1595551441285" duration="598000" />
+      <workItem from="1595631645787" duration="3135000" />
+      <workItem from="1596084176196" duration="61000" />
+      <workItem from="1596106136069" duration="10000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="516" y="235" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1595211412306">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state x="516" y="235" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1536.864@0.0.1536.864" timestamp="1595211412306" />
+    <state x="549" y="188" key="FileChooserDialogImpl" timestamp="1596106144579">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state x="549" y="188" key="FileChooserDialogImpl/0.0.1536.864@0.0.1536.864" timestamp="1596106144579" />
+    <state x="447" y="165" width="782" height="600" key="find.popup" timestamp="1594977142088">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state x="447" y="165" width="782" height="600" key="find.popup/0.0.1536.864@0.0.1536.864" timestamp="1594977142088" />
+    <state x="431" y="181" width="672" height="678" key="search.everywhere.popup" timestamp="1595224795505">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state x="431" y="181" width="672" height="678" key="search.everywhere.popup/0.0.1536.864@0.0.1536.864" timestamp="1595224795505" />
+  </component>
+</project>
