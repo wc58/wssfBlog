@@ -3,8 +3,10 @@ package com.chao.wssf.web.controller;
 import com.chao.wssf.entity.Article;
 import com.chao.wssf.entity.Label;
 import com.chao.wssf.entity.Other;
+import com.chao.wssf.entity.User;
 import com.chao.wssf.pojo.FullComment;
 import com.chao.wssf.properties.WssfProperties;
+import com.chao.wssf.query.UserQuery;
 import com.chao.wssf.service.*;
 import com.chao.wssf.util.ArticleTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpSession;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -38,6 +41,9 @@ public class ArticleController {
 
     @Autowired
     private ICommentService commentService;
+
+    @Autowired
+    private IUserService userService;
 
     @Autowired
     private WssfProperties wssfProperties;
@@ -101,23 +107,30 @@ public class ArticleController {
      * @return
      */
     @RequestMapping("list")
-    public String listPage(Integer sortId, String condition, Model model) {
+    public String listPage(Integer sortId, String condition, Model model, HttpSession session) {
         //防止数据误读
         articleCache.clearSortArticle();
         isSort = false;
         articleCache.clearConditionArticle();
         isCondition = false;
-
-        if (condition != null && !condition.equals("")) { //条件查询
+        if (condition != null && !condition.equals("")) {
+            //条件查询
             articleService.conditionArticle(condition);
             isCondition = true;
         } else {
-            if (sortId != null) {//分类查询
+            if (sortId != null) {
+                //分类查询
                 articleService.sortArticle(sortId);
                 isSort = true;
             }
         }
-
+        User user = (User) session.getAttribute("user");
+        //如果用户登录，则更新数据
+        if (user != null && !user.getThirdId().equals("8E1544B0D015EC98612B39DD5D5B90B0"))
+            userService.updateUserByThirdId(user);
+        //最近访问的用户
+        List<User> users = userService.getUsers();
+        model.addAttribute("users", users);
         //侧边栏热门文章
         List<Article> hotArticles = articleService.getHotArticle();
         model.addAttribute("hotArticles", hotArticles);

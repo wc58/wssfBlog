@@ -9,8 +9,6 @@ import java.util.List;
 
 public interface IUserService {
 
-    User checkUser(String thirdId, String email);
-
     void addUser(User user);
 
     int getAllUserSize();
@@ -19,11 +17,15 @@ public interface IUserService {
 
     List<User> getUserByUsername(String title);
 
-    Page getUsers(UserQuery userQuery);
+    Page<User> getUsers(UserQuery userQuery);
+
+    List<User> getUsers();
 
     void updateUserById(Integer id, String name, String icon, String thirdId, String email, String banned);
 
     void deleteUserById(Integer id);
 
     User getUserByThirdId(String openID);
+
+    void updateUserByThirdId(User user);
 }

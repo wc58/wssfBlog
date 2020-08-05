@@ -124,6 +124,18 @@
                         </ul>
                     </div>
                 </div>
+                <div class="other-item">
+                    <h5 class="other-item-title">最近访客</h5>
+                    <div class="inner">
+                        <dl class="vistor">
+                            <c:forEach items="${users}" var="user">
+                                <dd><a href="javasript:;"><img
+                                        src="${user.icon}"><cite>${user.name}</cite></a>
+                                </dd>
+                            </c:forEach>
+                        </dl>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

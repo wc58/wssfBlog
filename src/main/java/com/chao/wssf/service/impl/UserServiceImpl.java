@@ -23,13 +23,6 @@ public class UserServiceImpl implements IUserService {
     @Autowired
     private UserMapper userMapper;
 
-    @Override
-    public User checkUser(String thirdId, String email) {
-        QueryWrapper<User> userQueryWrapper = new QueryWrapper<>();
-        userQueryWrapper.eq("third_id", thirdId).eq("email", email);
-        return userMapper.selectOne(userQueryWrapper);
-    }
-
     public void addUser(User user) {
         Date date = new Date();
         user.setBanned("0");
@@ -75,7 +68,7 @@ public class UserServiceImpl implements IUserService {
      * 查询所有用户信息
      */
     @Override
-    public Page getUsers(UserQuery userQuery) {
+    public Page<User> getUsers(UserQuery userQuery) {
         QueryWrapper<User> linkQueryWrapper = new QueryWrapper<>();
         String username = userQuery.getUsername();
         Date startTime = userQuery.getStartTime();
@@ -92,6 +85,12 @@ public class UserServiceImpl implements IUserService {
 
         Page<User> linkPage = new Page<>(userQuery.getPage(), userQuery.getLimit());
         return userMapper.selectPage(linkPage, linkQueryWrapper);
+    }
+
+    @Override
+    public List<User> getUsers() {
+        Page<User> userPage = new Page<>(1, 12);
+        return userMapper.selectPage(userPage, new QueryWrapper<User>().orderByDesc("update_time")).getRecords();
     }
 
     @Override
@@ -124,6 +123,13 @@ public class UserServiceImpl implements IUserService {
     @Override
     public User getUserByThirdId(String openID) {
         return userMapper.selectOne(new QueryWrapper<User>().eq("third_id", openID));
+    }
+
+    @Override
+    public void updateUserByThirdId(User user) {
+
+        user.setUpdateTime(new Date());
+        userMapper.update(user, new QueryWrapper<User>().eq("third_id", user.getThirdId()));
     }
 
 

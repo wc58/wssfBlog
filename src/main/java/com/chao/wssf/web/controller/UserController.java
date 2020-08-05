@@ -9,7 +9,6 @@ import com.qq.connect.QQConnectException;
 import com.qq.connect.api.OpenID;
 import com.qq.connect.api.qzone.UserInfo;
 import com.qq.connect.javabeans.AccessToken;
-import com.qq.connect.javabeans.Avatar;
 import com.qq.connect.javabeans.qzone.UserInfoBean;
 import com.qq.connect.oauth.Oauth;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -84,32 +83,53 @@ public class UserController {
                 UserInfo qzoneUserInfo = new UserInfo(accessToken, openID);
                 UserInfoBean userInfoBean = qzoneUserInfo.getUserInfo();
                 if (userInfoBean.getRet() == 0) {
-                    //用户信息
-                    User user = new User();
-                    user.setName(userInfoBean.getNickname());
-                    Avatar avatar = userInfoBean.getAvatar();
-                    String avatarURL50 = avatar.getAvatarURL50();
-                    user.setIcon(avatarURL50);
-                    user.setThirdId(openID);
-                    User thirdIdUser = userService.getUserByThirdId(openID);
-                    //第二次登录则不需要保存数据库
-                    if (thirdIdUser == null) {
-                        userService.addUser(user);
-                    } else {
-                        user = thirdIdUser;
-                    }
-                    Link link = linkService.getLinkByUserId(user.getId());
-                    if (link != null) {
-                        session.setAttribute("isApply", "1");
-                    }
-                    session.setAttribute("user", user);
-                    session.setMaxInactiveInterval(60 * 60 * 24 * 7);
+                    //QQ返回的用户昵称
+                    String nickname = userInfoBean.getNickname();
+                    //头像
+                    String icon = userInfoBean.getAvatar().getAvatarURL50();
+                    //封装用户信息
+                    packageUserInfo(openID, nickname, icon, session);
                 }
             }
         } catch (QQConnectException e) {
             e.printStackTrace();
         }
         return "redirect:" + session.getAttribute("url");
+    }
+
+
+    /**
+     * 把用户信息封装到数据库中
+     *
+     * @param thirdId
+     * @param nickname
+     * @param icon
+     * @param session
+     */
+    private void packageUserInfo(String thirdId, String nickname, String icon, HttpSession session) {
+        User user = new User();
+        user.setThirdId(thirdId);
+        user.setName(nickname);
+        user.setIcon(icon);
+        User daoUser = userService.getUserByThirdId(thirdId);
+        //说明是第一次登陆
+        if (daoUser == null) {
+            this.userService.addUser(user);
+        } else if (user.getThirdId().equals("8E1544B0D015EC98612B39DD5D5B90B0")) {
+            user = daoUser;
+        } else {
+            user.setId(daoUser.getId());
+            this.userService.updateUserByThirdId(user);
+        }
+
+        Link link = linkService.getLinkByUserId(user.getId());
+        //判断是否申请过友链
+        if (link != null) {
+            session.setAttribute("isApply", "1");
+        }
+        //保存到session中
+        session.setAttribute("user", user);
+        session.setMaxInactiveInterval(60 * 60 * 24 * 7);
     }
 
     /**
@@ -122,7 +142,7 @@ public class UserController {
     @ResponseBody
     public R logout(HttpSession session) {
         try {
-            session.removeAttribute("user");
+            session.invalidate();
         } catch (Exception e) {
             e.printStackTrace();
             return R.ERROR();
