@@ -50,7 +50,7 @@ public class FileUploadController {
                 String filename = "diary" + "/" + new DateTime().toString("yyyy/MM/dd") + "/" + UUID.randomUUID().toString() + file.getOriginalFilename();//设置日期格式
                 InputStream inputStream = file.getInputStream();
                 oss.putObject(bucketName, filename, inputStream);
-                String filePath = "http://chao58.top:666/" + filename;
+                String filePath = "https://static.chao58.top/" + filename;
                 paths.add(filePath);
             }
         } catch (IOException e) {
@@ -78,7 +78,7 @@ public class FileUploadController {
         try {
             InputStream inputStream = file.getInputStream();
             oss.putObject(bucketName, filename, inputStream);
-            return R.OK().data("imageUrl", "http://chao58.top:666/" + filename);
+            return R.OK().data("imageUrl", "https://static.chao58.top/" + filename);
         } catch (IOException e) {
             e.printStackTrace();
             return R.ERROR();
@@ -109,7 +109,7 @@ public class FileUploadController {
                 oss.putObject(bucketName, filename, f);
 
                 //http://chao58.top:66/cover/2020/07/26/fb2d99a9-3008-439f-b7c3-0cc1e20070d5abstract-blackboard-bulb-chalk-355948.jpg
-                String filePath = "http://chao58.top:666/" + filename;
+                String filePath = "https://static.chao58.top/" + filename;
                 paths.add(filePath);
                 f.delete();
             }
@@ -156,7 +156,7 @@ public class FileUploadController {
     public R delCover(@RequestParam String filePath) {
         try {
             String bucketName = ossProperties.getBucketName();
-            filePath = filePath.replace("http://chao58.top:666/", "");
+            filePath = filePath.replace("https://static.chao58.top/", "");
             OSS oss = getOss();
             oss.deleteObject(bucketName, filePath);
         } catch (OSSException e) {
