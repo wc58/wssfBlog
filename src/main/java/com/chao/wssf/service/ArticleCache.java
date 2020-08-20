@@ -144,7 +144,7 @@ public class ArticleCache implements InitializingBean {
      * @return
      */
     public Article getArticleById(Integer id) {
-        for (Article a : topAndArticles) {
+        for (Article a : allArticles) {
             if (a.getId().equals(id))
                 return a;
         }

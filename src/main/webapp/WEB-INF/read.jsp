@@ -147,7 +147,7 @@
                                 </p>
                                 <p class="f-toe">
                                     本文网址：
-                                    <a href="#">http://chao58.top/blog/read/${article.id}</a>
+                                    <a href="#">https://chao58.top/blog/read/${article.id}</a>
                                 </p>
                             </div>
                             <div id="aplayer" style="margin:5px 0"></div>
